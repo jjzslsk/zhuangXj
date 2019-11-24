@@ -79,7 +79,7 @@ App({
   },
 
   onShow(options) {
-    // Do something when show.
+  // Do something when show.
     if (this.globalData.userId != undefined && this.globalData.userId != null && this.globalData.userId != '') {
       this.startConnectSocket();
     }
