@@ -38,7 +38,7 @@ App({
     //检测新版本
     var updateManager = wx.getUpdateManager()
     updateManager.onCheckForUpdate(function(res) {
-      // 请求完新版本信息的回调
+    // 请求完新版本信息的回调
     })
 
     updateManager.onUpdateReady(function() {
