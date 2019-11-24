@@ -38,7 +38,7 @@ App({
     //检测新版本
     var updateManager = wx.getUpdateManager()
     updateManager.onCheckForUpdate(function(res) {
-    // 请求完新版本信息的回调
+      // 请求完新版本信息的回调
     })
 
     updateManager.onUpdateReady(function() {
@@ -79,7 +79,7 @@ App({
   },
 
   onShow(options) {
-  // Do something when show.
+    // Do something when show.
     if (this.globalData.userId != undefined && this.globalData.userId != null && this.globalData.userId != '') {
       this.startConnectSocket();
     }
