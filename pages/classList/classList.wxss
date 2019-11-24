@@ -1,0 +1,144 @@
+/* pages/classList/classList.wxss */
+
+.body-bg {
+  background-color: #f5f5f5;
+  width: 100%;
+  height: 100vh;
+}
+
+.page_row {
+  background-color: #fff;
+  /* padding: 10rpx 10% 20rpx 10%; */
+  height: 36px;
+  line-height: 36px;
+  max-height: 36px;
+  /* padding-top: 4px;
+  padding-bottom: 4px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1rpx solid #ddd;
+}
+
+.search {
+  background-color: #f5f5f5;
+  border-radius: 10rpx;
+  width: 96%;
+  /* margin-right: 10rpx; */
+  height: 29px;
+  line-height: 29px;
+  max-height: 29px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.search input {
+  height: 60rpx;
+  border-radius: 5px;
+  margin-left: 5px;
+}
+
+.searchcion {
+  /* margin: 10rpx 10rpx 10rpx 10rpx; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 5px;
+}
+
+.list-area {
+  height: calc(100% - 37px);
+}
+
+.list-area .class-left {
+  width: 30%;
+  height: 100%;
+  background-color: #fff;
+  /* border-right: 1rpx solid #eee; */
+  text-align: center;
+}
+
+.list-area .class-left .scroll-left {
+  height: 100%;
+}
+
+.list-area .class-left .scroll-left .list-item-l {
+  line-height: 40px;
+  /* border-bottom: 1rpx solid #fff; */
+}
+
+.list-area .class-left .scroll-left .sel-item-l-bg {
+  background-color: #fff;
+}
+
+.list-area .class-left .scroll-left .nor-item-l-bg {
+  background-color: #f5f5f5;
+}
+
+.list-area .class-left .scroll-left .sel-item-l-bg .sel-line {
+  width: 5px;
+  height: 20px;
+  background-color: #259b24;
+  position: absolute;
+  margin-top: 10px;
+  left: 0;
+}
+
+.list-area .class-right {
+  width: 70%;
+  padding-left: 10px;
+  height: 100%;
+  background-color: #fff;
+}
+
+.list-area .class-right .scroll-right {
+  height: 100%;
+}
+
+.list-area .class-right .scroll-right .grid-item {
+  text-align: center;
+  padding: 8px 5px;
+}
+
+.list-area .class-right .scroll-right .grid-item .grid-icon image {
+  width: 70%;
+  height: 50px;
+}
+
+.list-area .class-right .scroll-right .grid-item .grid-text {
+  max-width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  font-size: 0.8em;
+  color: #6c6c6c;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.footer-hint view{
+   background: #FFFFFF;
+}
+
+.iSpin {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:rgba(102, 102, 102, 0.267);
+  z-index: 1000;
+}
+
+.iSpin image{
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  position: relative;
+  top:30%;
+  left:34%;
+}

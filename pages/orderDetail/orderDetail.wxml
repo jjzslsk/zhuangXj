@@ -1,0 +1,136 @@
+<!--pages/orderDetail/orderDetail.wxml-->
+<modal show="{{showModal}}" height='65%' bindcancel="modalCancel" bindconfirm='modalConfirm'>
+  <view class="page">
+    <view class="page__hd">
+      <text class="page__desc">请选择取消订单的理由</text>
+    </view>
+    <view class="page__bd">
+      <view class="section section_gap">
+        <radio-group class="radio-group" bindchange="radioChange">
+          <radio class="radio" wx:for-items="{{items}}" wx:key="name" value="{{item.value}}" checked="{{item.checked}}">
+            <text>{{item.value}}</text>
+          </radio>
+        </radio-group>
+      </view>
+    </view>
+  </view>
+</modal>
+
+<view class='body-bg'>
+  <scroll-view scroll-y class='scroll-area'>
+    <view class="head-area">
+      <view class='order-state' wx:if="{{dataInfo.orderStatus==0 || dataInfo.orderStatus=='0'}}">买家待付款</view>
+      <view class='order-state' wx:elif="{{dataInfo.orderStatus==1 || dataInfo.orderStatus=='1'}}">卖家待发货</view>
+      <view class='order-state' wx:elif="{{dataInfo.orderStatus==3 || dataInfo.orderStatus=='3'}}">卖家已发货</view>
+      <view class='order-state' wx:elif="{{dataInfo.orderStatus==4 || dataInfo.orderStatus=='4'}}">买家待评价</view>
+      <view class='order-state' wx:elif="{{dataInfo.orderStatus==5 || dataInfo.orderStatus=='5'}}">买家已评价</view>
+      <view class='order-state' wx:elif="{{dataInfo.orderStatus==6 || dataInfo.orderStatus=='6'}}">订单已取消</view>
+      <view class='order-state' wx:elif="{{dataInfo.orderStatus==7 || dataInfo.orderStatus=='7'}}">退货完成</view>
+      <view class='order-state' wx:elif="{{dataInfo.orderStatus==8 || dataInfo.orderStatus=='8'}}">申请退货</view>
+      <view class='order-state' wx:elif="{{dataInfo.orderStatus==9 || dataInfo.orderStatus=='9'}}">退货后发货</view>
+      <view class='order-state' wx:elif="{{dataInfo.orderStatus==10 || dataInfo.orderStatus=='10'}}">同意退货</view>
+      <view class='order-state' wx:elif="{dataInfo.{orderStatus==11 || dataInfo.orderStatus=='11'}}">拒绝退货</view>
+      <!-- <view class="timing-conf" wx:if="{{dataInfo.orderStatus==3 || dataInfo.orderStatus=='3'}}">还剩1天23时自动确认</view> -->
+      <view class="courier" wx:if="{{dataInfo.orderStatus!=0 && dataInfo.orderStatus!='0' && dataInfo.orderStatus!=1 && dataInfo.orderStatus!='1' && dataInfo.orderStatus!=6 && dataInfo.orderStatus!='6'}}"> {{dataInfo.goodsChannel}}</view>
+    </view>
+    <view class="logistics-info">
+      <view class="item-row border-b" bindtap='checkLogistics' data-logstid="{{dataInfo.goodsNo}}" data-unitcode="{{dataInfo.goodsCode}}" data-unitname="{{dataInfo.goodsChannel}}" wx:if="{{logisticsInfo && dataInfo.orderStatus!=0 && dataInfo.orderStatus!='0' && dataInfo.orderStatus!=1 && dataInfo.orderStatus!='1' && dataInfo.orderStatus!=6 && dataInfo.orderStatus!='6'}}">
+        <view class="icon-logo">
+          <image src="/images/orderTypeIcon/wait_issue.png" lazy-load="true" mode="widthFix" />
+        </view>
+        <view class="item-info-click">
+          <view class="title">{{logisticsInfo.context}}</view>
+          <view class="sub-title">{{logisticsInfo.ftime}}</view>
+        </view>
+        <view class="arrow-r">
+          <i-icon type="enter" size="20" />
+        </view>
+      </view>
+      <view class="item-row">
+        <view class="icon-logo">
+          <i-icon type="coordinates" size="20" />
+        </view>
+        <view class="item-info">
+          <view class="title">
+            <text decode="true">{{dataInfo.clientName}}&nbsp;&nbsp;{{dataInfo.clientPhone}}</text>
+          </view>
+          <view class="sub-title">地址：{{dataInfo.clientAddress}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="goods-info">
+      <view class="shop-name" bindtap="goShopTap" data-id="{{dataInfo.shopId}}">
+        <i-icon type="shop_fill" size="22" color='green' />
+        <text>{{dataInfo.shopName}}</text>
+        <i-icon type="enter" size="16" />
+      </view>
+      <!-- 商品列表 -->
+      <view class='goods-list'>
+        <view class='goods-item' wx:for="{{dataInfo.orderItem}}" wx:for-item="goodsItem" wx:for-index="index" wx:key="goodskey" hover-class="item-click-sel-bg" bindtap='goodsItemTap' data-id="{{goodsItem.shopItemId}}">
+          <view class='goods-img'>
+            <image wx:if="{{goodsItem.imgUrl!=''}}" lazy-load="true" mode="widthFix" src='{{goodsItem.imgUrl}}' />
+            <image wx:else lazy-load="true" mode="widthFix" src='/images/placeholder.png' />
+          </view>
+          <view class='goods-content'>
+            <view class='goods-name'>
+              <text>{{goodsItem.itemName}}</text>
+              <text class='spec-name' wx:if="{{goodsItem.shopItemSpecAttr.length>0}}">({{goodsItem.shopItemSpecAttr}})</text>
+              <view class='distribution' wx-if="{{goodsItem.deliveryMode.length>0}}">配送方式:{{goodsItem.deliveryMode}}</view>
+            </view>
+            <view class='price-num'>
+              <view class='price'>¥{{goodsItem.itemPrice}}</view>
+              <view>X{{goodsItem.itemNumber}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="remark" wx:if="{{dataInfo.memo!=undefined}}">备注:{{dataInfo.memo}}</view>
+    </view>
+    <!-- 订单信息 -->
+    <view class="order-info">
+      <view class='order-info-title'>
+        <i-icon type="activity" size="20" />
+        <text>订单信息</text>
+      </view>
+      <view class='order-info-item'>
+        <view class='order-info-item-title'>订单编号:</view> 
+        <view class='order-info-item-content'>{{dataInfo.orderNo}}</view>
+      </view>
+      <view class='order-info-item' wx:if="{{dataInfo.goodsNo!=undefined}}">
+        <view class='order-info-item-title'>物流单号:</view>
+        <view class='order-info-item-content'>{{dataInfo.goodsNo}}</view>
+      </view>
+      <view class='order-info-item'>
+        <view class='order-info-item-title'>创建时间:</view>
+        <view class='order-info-item-content'>{{dataInfo.createDate}}</view>
+      </view>
+      <view class='order-info-item' wx:if="{{dataInfo.orderStatus!=0 && dataInfo.orderStatus!='0' && dataInfo.orderStatus!=6 && dataInfo.orderStatus!='6'}}">
+        <view class='order-info-item-title'>付款时间:</view>
+        <view class='order-info-item-content'>{{dataInfo.thireCallDate}}</view>
+      </view>
+      <view class='order-info-item' wx:if="{{dataInfo.goodSendDate!=undefined}}">
+        <view class='order-info-item-title'>发货时间:</view>
+        <view class='order-info-item-content'>{{dataInfo.goodSendDate}}</view>
+      </view>
+      <view class='order-info-item' wx:if="{{dataInfo.orderStatus==4 || dataInfo.orderStatus=='4' || dataInfo.orderStatus==5 || dataInfo.orderStatus=='5'}}">
+        <view class='order-info-item-title'>成交时间:</view>
+        <view class='order-info-item-content'>{{dataInfo.endTransactionDate}}</view>
+      </view>
+    </view>
+  </scroll-view>
+  <view class="footer-btns">
+    <view class="btn-item" bindtap="chatTap" hover-class="item-click-sel-bg">聊一聊</view>
+    <view class="btn-item" bindtap="cancelOrder" hover-class="item-click-sel-bg" data-id="{{dataInfo.orderNo}}" wx:if="{{dataInfo.orderStatus==0 || dataInfo.orderStatus=='0'}}">取消订单</view>
+    <view class="btn-item" bindtap="payNow" hover-class="item-click-sel-bg" data-id="{{dataInfo.orderId}}" data-no="{{dataInfo.orderNo}}" data-name="{{dataInfo.itemName}}" data-amount="{{dataInfo.salesAmount}}" wx:if="{{dataInfo.orderStatus==0 || dataInfo.orderStatus=='0'}}">立即付款</view>
+    <view class="btn-item" bindtap='remindDelivery' hover-class="item-click-sel-bg" data-id="{{dataInfo.orderNo}}" wx:if="{{dataInfo.orderStatus==1 || dataInfo.orderStatus=='1'}}">提醒发货</view>
+    <view class="btn-item" bindtap='checkLogistics' hover-class="item-click-sel-bg" data-logstid="{{dataInfo.goodsNo}}" data-unitcode="{{dataInfo.goodsCode}}" data-unitname="{{dataInfo.goodsChannel}}" wx:if="{{dataInfo.orderStatus!=0 && dataInfo.orderStatus!='0' && dataInfo.orderStatus!=1 && dataInfo.orderStatus!='1' && dataInfo.orderStatus!=6 && dataInfo.orderStatus!='6'}}">查看物流</view>
+    <view class="btn-item" bindtap='confirmGoods' hover-class="item-click-sel-bg" data-id="{{dataInfo.orderNo}}" wx:if="{{dataInfo.orderStatus==3 || dataInfo.orderStatus=='3'}}">确认收货</view>
+    <view class="btn-item" bindtap='orderEva' hover-class="item-click-sel-bg" data-orderid="{{dataInfo.orderNo}}" data-goodslist="{{dataInfo.orderItem}}" wx:if="{{dataInfo.orderStatus==4 || dataInfo.orderStatus=='4'}}">评价</view>
+    <view class="btn-item" bindtap='afterSalesTap' hover-class="item-click-sel-bg" data-id="{{dataInfo.orderId}}" data-no="{{dataInfo.orderNo}}" data-shopname="{{dataInfo.shopName}}" data-shopCartFlag="{{dataInfo.shopCartFlag}}" data-goodslist="{{dataInfo.orderItem}}" wx:if="{{dataInfo.orderStatus==1 || dataInfo.orderStatus=='1' || dataInfo.orderStatus==3 || dataInfo.orderStatus=='3' || dataInfo.orderStatus==4 || dataInfo.orderStatus=='4' || dataInfo.orderStatus==5 || dataInfo.orderStatus=='5'}}">申请售后</view>
+    <view class="btn-item" bindtap='afterSalesTap' hover-class="item-click-sel-bg" data-id="{{dataInfo.orderId}}" data-no="{{dataInfo.orderNo}}" data-shopname="{{dataInfo.shopName}}" data-shopCartFlag="{{dataInfo.shopCartFlag}}" data-goodslist="{{dataInfo.orderItem}}" wx:if="{{dataInfo.orderStatus==7 || dataInfo.orderStatus=='7' || dataInfo.orderStatus==8 || dataInfo.orderStatus=='8' || dataInfo.orderStatus==9 || dataInfo.orderStatus=='9' || dataInfo.orderStatus==10 || dataInfo.orderStatus=='10' || dataInfo.orderStatus==11 || dataInfo.orderStatus=='11'}}">查看售后</view>
+  </view>
+</view>
+<!-- 选择支付方式payDialog-->
+<payDialog id='payDialog'></payDialog>
+<!-- 短信验证弹框 -->
+<smsCheckDialog id='smsCheckDialog'></smsCheckDialog>

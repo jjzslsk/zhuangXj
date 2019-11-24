@@ -1,0 +1,13 @@
+{
+  "navigationBarTitleText": "店铺详情",
+  "usingComponents": {
+    "i-tabs": "/dist/tabs/index",
+    "i-tab": "/dist/tab/index",
+    "i-cell-group": "/dist/cell-group/index",
+    "i-cell": "/dist/cell/index",
+    "i-icon": "/dist/icon/index",
+    "i-rate": "/dist/rate/index",
+    "i-row": "/dist/row/index",
+    "x-scroll-view": "/xing-components/x-scroll-view"
+  }
+}

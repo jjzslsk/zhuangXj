@@ -1,0 +1,50 @@
+/* pages/balance/balance.wxss */
+.body-bg {
+  background-color: #FFFFFF;
+  width: 100%;
+  height: 100vh;
+}
+
+.balance-area{
+  margin-top: 30%;
+  text-align: center;
+}
+
+.balance-area .balance-title{
+  color: #999999;
+}
+
+.balance-area .balance{
+  color: #000000;
+  margin-top: 20px;
+}
+
+.balance-area .balance .balance-unit{
+  font-size: 1.5em;
+}
+
+.balance-area .balance .balance-num{
+  font-size: 2em;
+  margin-left: 5px;
+}
+
+.top-up{
+  margin: 30px 20% 0 20%;
+  width: 60%;
+  background-color: #259b24;
+  color: #FFFFFF;
+  text-align: center;
+  padding: 8px 10px;
+  border-radius: 20px;
+}
+
+.withdrawal{
+  margin: 30px 20%;
+  width: 60%;
+  background-color: #FFFFFF;
+  border: 1rpx solid #259b24;
+  color: #259b24;
+  text-align: center;
+  padding: 8px 10px;
+  border-radius: 20px;
+}

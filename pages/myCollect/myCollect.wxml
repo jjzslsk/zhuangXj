@@ -1,0 +1,92 @@
+<!--pages/myCollect/myCollect.wxml-->
+<!-- <view class='tab-head'>
+  <i-tabs current="{{ currentTab }}" color="#259b24" bindchange="handleChange">
+    <i-tab key="0" title="商品"></i-tab>
+    <i-tab key="1" title="商铺"></i-tab>
+  </i-tabs>
+</view> -->
+<view class="swiper-tab">
+  <view class="swiper-tab-item {{currentTab==0?'active':''}}" data-current="0" bindtap="clickTab">商品
+    <text wx:if="{{goodsCollectList.length>0}}">({{goodsCollectList.length}})</text>
+  </view>
+  <view class="swiper-tab-item {{currentTab==1?'active':''}}" data-current="1" bindtap="clickTab">商铺
+    <text wx:if="{{shopCollectList.length>0}}">({{shopCollectList.length}})</text>
+  </view>
+</view>
+
+<swiper current="{{currentTab}}" duration="300" bindchange="swiperTab">
+  <!-- 商品 -->
+  <swiper-item>
+    <x-scroll-view scroll-y class='scroll-area' refreshing="{{refreshingGoods}}" nomore="{{nomoreGoods}}" bindpulldownrefresh="goodsOnPullRefresh" bindloadmore="goodsOnLoadmore">
+      <view wx:if="{{goodsCollectList.length>0}}">
+        <!-- 列表 -->
+        <view class='list-item' wx:for="{{goodsCollectList}}" wx:for-item="goodsItem" wx:for-index="index" wx:key="goods+index">
+          <view class='horizontal goods-area' bindtap='goodsItemtap' hover-class="item-click-sel-bg" data-id="{{goodsItem.SHOP_ITEM_ID}}">
+            <view class='icon'>
+              <image wx:if="{{goodsItem.imgUrl!='' && goodsItem.imgUrl!=undefined}}" lazy-load="true" mode="widthFix" src='{{goodsItem.imgUrl}}' />
+              <image wx:else lazy-load="true" mode="widthFix" src='/images/placeholder.png' />
+            </view>
+            <view class='content'>
+              <view>{{goodsItem.ITEM_NAME}}</view>
+              <view class='content-item-mt'>
+                <text class='new-price'>¥{{goodsItem.ITEM_PRICE}}</text>
+                <!-- <text class='old-price'> ¥{{regoodsItemnItem.ITEM_PRICE}} </text> -->
+              </view>
+              <!-- <view class='evaluate-area content-item-mt'>
+                <view>
+                  <text>{{goodsItem.eva_num}}条评价</text>
+                  <text class='good-eva'>{{goodsItem.good_eva_rate}}好评</text>
+                </view>
+                <view>{{goodsItem.distance}}</view>
+              </view>
+              <view class='shop-name-area'>
+                <text>{{goodsItem.shopName}}</text>
+                <text class='shop-type' wx:if="{{goodsItem.shopTypeName.length>0}}">({{goodsItem.shopTypeName}})</text>
+              </view> -->
+            </view>
+          </view>
+        </view>
+      </view>
+      <view wx:else class="not-data-area">
+        <view><i-icon type="service" size="81"/></view>
+        <view>暂无收藏商品</view>
+      </view>
+    </x-scroll-view>
+  </swiper-item>
+  <!-- 商铺 -->
+  <swiper-item>
+    <x-scroll-view scroll-y class='scroll-area' refreshing="{{refreshingShop}}" nomore="{{nomoreShop}}" bindpulldownrefresh="shopOnPullRefresh" bindloadmore="shopOnLoadmore">
+      <!-- 列表 -->
+      <view wx:if="{{shopCollectList.length>0}}">
+        <view class='list-item' wx:for="{{shopCollectList}}" wx:for-item="shopItem" wx:for-index="index" wx:key="shop+index">
+          <view class='horizontal shop-area' bindtap='shopItemtap' hover-class="item-click-sel-bg" data-id="{{shopItem.SHOP_ID}}">
+            <view class='icon'>
+              <image wx:if="{{shopItem.imgUrl!='' && shopItem.imgUrl!=undefined}}" lazy-load="true" mode="widthFix" src='{{shopItem.imgUrl}}' />
+              <image wx:else lazy-load="true" mode="widthFix" src='/images/placeholder.png' />
+            </view>
+            <view class='content'>
+              <view>{{shopItem.SHOP_NAME}}</view>
+              <!-- 店铺评分 -->
+              <view class='level'>
+                <view class='shop-level' wx:if="{{shopItem.START_LEVEL_NAME=='红心'}}">
+                  <image src='/images/shop/xin1.png' wx:key="{{red+STAR_LEVEL}}" wx:for="{{shopItem.STAR_LEVEL}}"></image>
+                </view>
+                <view class='shop-level' wx:elif="{{shopItem.START_LEVEL_NAME=='蓝钻'}}">
+                  <image src='/images/shop/zuan1.png' wx:key="{{blue+STAR_LEVEL}}" wx:for="{{shopItem.STAR_LEVEL}}"></image>
+                </view>
+                <view class='shop-level' wx:elif="{{shopItem.START_LEVEL_NAME=='皇冠'}}">
+                  <image src='/images/shop/guan1.png' wx:key="{{yellow+STAR_LEVEL}}" wx:for="{{shopItem.STAR_LEVEL}}"></image>
+                </view>
+              </view>
+              <view class="shop-notice" wx:if="{{shopItem.SHOP_IDEA!=undefined && shopItem.SHOP_IDEA!=null && shopItem.SHOP_IDEA!=''}}">公告:{{shopItem.SHOP_IDEA}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view wx:else class="not-data-area">
+        <view><i-icon type="shop_fill" size="81"/></view>
+        <view>暂无收藏商铺</view>
+      </view>
+    </x-scroll-view>
+  </swiper-item>
+</swiper>

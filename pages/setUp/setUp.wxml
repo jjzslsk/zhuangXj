@@ -1,0 +1,48 @@
+<!--pages/setUp/setUp.wxml-->
+<view class='body-bg'>
+    <scroll-view scroll-y class='scroll-area'>
+      <!-- <view class='list-item' >
+        <view class='item' bindtap='resetPwdTap'  hover-class="item-click-sel-bg">
+          <view>重置密码</view>
+          <view><i-icon type="enter" size="20" color="#AAAAAA" /></view>
+        </view>
+      </view> -->
+      
+      <view class='list-item' >
+        <view class='item' bindtap='upPhoneTap' data-action="mobile"  hover-class="item-click-sel-bg">
+          <view>修改手机号</view>
+          <view><i-icon type="enter" size="20" color="#AAAAAA" /></view>
+        </view>
+      </view>
+      <!-- <view class='list-item list-item-mt' >
+        <view class='item' bindtap='complaintAdviceTap'  hover-class="item-click-sel-bg">
+          <view>投诉建议</view>
+          <view><i-icon type="enter" size="20" color="#AAAAAA" /></view>
+        </view>
+      </view> -->
+      <!-- <view class='list-item' >
+        <view class='item' bindtap='helpCenterTap'  hover-class="item-click-sel-bg">
+          <view>帮助中心</view>
+          <view><i-icon type="enter" size="20" color="#AAAAAA" /></view>
+        </view>
+      </view> -->
+      <!-- <view class='list-item' >
+        <view class='item' bindtap='questionTap'  hover-class="item-click-sel-bg">
+          <view>问题解答</view>
+          <view><i-icon type="enter" size="20" color="#AAAAAA" /></view>
+        </view>
+      </view> -->
+      <view class='list-item' >
+        <view class='item' bindtap='aboutZxjTap'  hover-class="item-click-sel-bg">
+          <view>关于装小匠</view>
+          <view><i-icon type="enter" size="20" color="#AAAAAA" /></view>
+        </view>
+      </view>
+<!-- 
+      <view class='out-login'>
+       <view class='out-login-item' bindtap='outLoginTap'  hover-class="item-click-sel-bg">退出登录</view>
+      </view> -->
+      
+
+    </scroll-view>
+</view>

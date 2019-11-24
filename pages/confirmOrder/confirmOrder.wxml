@@ -1,0 +1,66 @@
+<!--pages/confirmOrder/confirmOrder.wxml-->
+<view class='body-bg'>
+  <scroll-view scroll-y class='scroll-area'>
+    <!-- 收货地址 -->
+    <view class='address' bindtap='chooseAddressTab' hover-class="item-click-sel-bg">
+      <view>
+        <i-icon type="coordinates_fill" size="35" color="#000000" />
+      </view>
+      <view class='address-content'>
+        <view class='user-phone'>
+          <view class='take-user'>收货人:{{addressInfo.takeName}}</view>
+          <view class='take-phone'>{{addressInfo.takePhone}}</view>
+        </view>
+        <view>收货地址:{{addressInfo.address}}</view>
+      </view>
+      <view>
+        <i-icon type="enter" size="35" color="#AAAAAA" />
+      </view>
+    </view>
+
+    <!-- 确认商品的列表 -->
+    <view class='goods-list'>
+      <view wx:for="{{goodsList}}" wx:for-item="goodsItem" wx:key="goodsId">
+        <view class="shop-item"><i-icon type="shop_fill" size="22" color='green'/>{{goodsItem.shopName}}</view>
+        <view class='goods-item'>
+          <view class='goods-img'>
+            <image wx:if="{{goodsItem.imgUrl!='' && goodsItem.imgUrl!=null && goodsItem.imgUrl!=undefined}}" lazy-load="true" mode="widthFix" src='{{goodsItem.imgUrl}}' />
+            <image wx:else lazy-load="true" mode="widthFix" src='/images/placeholder.png' />
+          </view>
+          <view class='goods-content'>
+            <view class='goods-name'>
+              <text>{{goodsItem.itemName}}</text>
+              <text class='spec-name' wx:if="{{goodsItem.shopItemSpecAttr.length>0}}">({{goodsItem.shopItemSpecAttr}})</text>
+              <view class='distribution' wx-if="{{goodsItem.deliveryMode.length>0}}">
+                <text>配送方式:{{goodsItem.deliveryMode}}</text>
+                <text>({{goodsItem.postageType}}</text>
+                <text wx:if="{{goodsItem.postageAmnt!=undefined && goodsItem.postageAmnt!=null && goodsItem.postageAmnt!='' && goodsItem.postageType!='包邮'}}">:¥{{goodsItem.postageAmnt}}</text>
+                <text>)</text>
+              </view>
+            </view>
+
+            <view class='price-num'>
+              <view class='price'>¥{{goodsItem.price}}<text class='old-price'>(¥{{goodsItem.oldprice}})</text></view>
+              <view>X{{goodsItem.buyNum}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!--备注-->
+    <view class="remark">
+      <input  bindinput="bindRemarkInput" value='{{remark}}' placeholder="请输入备注(最多500字)" maxlength='500'/>
+    </view>
+  </scroll-view>
+
+  <view class='footer'>
+    <view class='total-money-item'>
+      <text>合计金额:</text>
+      <text class='total-money'>{{totalMoney}}元</text>
+    </view>
+    <view class='submit-order' bindtap='submitOrder' hover-class="item-click-sel-bg">提交订单</view>
+  </view>
+</view>
+
+<!-- 选择支付方式payDialog-->
+<payDialog id='payDialog'></payDialog>

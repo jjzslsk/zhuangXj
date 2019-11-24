@@ -1,0 +1,14 @@
+<!--pages/selBigImg/selBigImg.wxml-->
+
+<swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" current='{{currentPage}}' bindchange='swiperChange' style='height: 100vh;'>
+  <block wx:for="{{imgList}}" wx:for-item="imgItem" wx:for-index="index" wx:key="index">
+    <swiper-item>
+      <view class='image-item'>
+        <image wx:if="{{imgItem!=''}}" lazy-load="true" mode="widthFix" src='{{imgItem}}' />
+        <image wx:else lazy-load="true" mode="widthFix" src='/images/placeholder.png' />
+      </view>
+    </swiper-item>
+  </block>
+</swiper>
+
+<view class='cat-num'>{{currentPage+1}}/{{imgList.length}}</view>

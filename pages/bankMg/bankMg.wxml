@@ -1,0 +1,22 @@
+<!--pages/bankMg/bankMg.wxml-->
+<wxs module="common" src="../../utils/common.wxs"></wxs>
+<view class='body-bg'>
+  <view class='add-btn' bindtap='goAddBack'>新增</view>
+  <scroll-view scroll-y class="scroll-area">
+    <view class='bank-item' wx:for="{{bankList}}" wx:for-item="bankItem" wx:for-index="bankIndex" wx:key="bankIndex" style="background-color:{{bankItem.bgColor}}">
+          <view class='bank-info'>
+            <view class='logo'> 
+                <view class='logo-bg'>
+                  <image wx:if="{{bankItem.bankLogo!=undefined && bankItem.bankLogo!=null && bankItem.bankLogo!=''}}" lazy-load="true" mode="scaleToFill" src='{{bankItem.bankLogo}}' />
+                  <text wx:else>其他</text>
+                </view>
+            </view>
+            <view class='info-content'>
+              <view class='bank-name'>{{bankItem.bankName}}</view>
+              <view class='bank-type'>{{bankItem.bankType}}</view>
+              <view class='bank-num'>{{common.hideBankNum(bankItem.bankNum)}}</view>
+            </view>
+          </view>
+    </view>
+  </scroll-view>
+</view>

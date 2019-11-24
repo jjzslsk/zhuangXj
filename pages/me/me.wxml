@@ -1,0 +1,109 @@
+<!--pages/me/me.wxml-->
+<view class='body-bg'>
+  <view class='horizontal avatar-area'>
+    <view class='icon' bindtap=''>
+      <image wx:if="{{userInfo==null || userInfo==''}}" lazy-load="true" mode="scaleToFill" src='/images/avatar.png' />
+      <image bindtap='' wx:else lazy-load="true" mode="scaleToFill" src='{{userInfo.avatarUrl}}' />
+    </view>
+    <view class='content' bindtap='loginTap'>
+      <view class='user-set'>
+        <view wx:if="{{userInfo==null || userInfo==''}}">请点击登录</view>
+        <view wx:else>{{userInfo.nickName}}</view>
+      </view>
+      <view class='content-item-mt' bindtap='withdrawTopUpTap'>
+        <text class='my-money-title'>我的余额:</text>
+        <text class='momey-num' bindtap=''>¥{{balance}}<text class='wd-top-up'>（提现）</text></text>
+      </view>
+    </view>
+    <view class='set-up' bindtap='setUpTap'>
+      <i-icon type="setup_fill" size="28" color='#666666' />
+      <text class='set-up-title'>设置</text>
+    </view>
+  </view>
+  <!-- 收藏、足迹 -->
+  <view class='collect-footprint'>
+    <view class='cf-item' bindtap='goMyCollectList'  data-action="0" hover-class="item-click-sel-bg">
+      <view class='cf-num'>{{goodsCollectCount}}</view>
+      <view class='cf-title'>商品收藏</view>
+    </view>
+    <view class='cf-item' bindtap='goMyCollectList' data-action="1" hover-class="item-click-sel-bg">
+      <view class='cf-num'>{{shopCollectCount}}</view>
+      <view class='cf-title'>店铺收藏</view>
+    </view>
+    <!-- <view class='cf-item' bindtap="goTrack">
+      <view class='cf-num'>{{footprintCount}}</view>
+      <view class='cf-title'>足迹</view>
+    </view> -->
+  </view>
+
+  <!-- 订单状态区域 -->
+  <view class='my-order-area'>
+    <view class="title-item" bindtap="selOrderAllTap" hover-class="item-click-sel-bg">
+      <view class="title">我的订单</view>
+      <view class="sel-all">查看全部
+        <i-icon type="enter" />
+      </view>
+    </view>
+    <!-- <view class='horizontal'>
+      <view class='order-type-item' wx:for="{{orderTypeList}}" wx:for-item="orderTypeItem" wx:key="id" bindtap="orderTypeTab" data-id="{{orderTypeItem.id}}" data-current="{{orderTypeItem.position}}" hover-class="item-click-sel-bg">
+        <view class='icon'>
+          <view class='order-tip' wx:if="{{orderTip[orderTypeItem.id]!=undefined && orderTip[orderTypeItem.id]!=0 && orderTip[orderTypeItem.id]!=null && orderTip[orderTypeItem.id]!=''}}">{{orderTip[orderTypeItem.id]}}</view>
+          <image lazy-load="true" mode="widthFix" src='{{orderTypeItem.icon}}' />
+        </view>
+        <view>{{orderTypeItem.name}}</view>
+      </view>
+    </view> -->
+    <view class="my-order-tap">
+    <i-row>
+      <i-col span="6" i-class="col-class" wx:for="{{orderTypeList}}" wx:for-item="orderTypeItem" wx:key="typeKey">
+        <view class='grid-item' bindtap="orderTypeTab" data-id="{{orderTypeItem.id}}" data-current="{{orderTypeItem.position}}" hover-class="item-click-sel-bg">
+          <view>
+            <view class='grid-icon'>
+              <view class='order-tip' wx:if="{{orderTip[orderTypeItem.id]!=undefined && orderTip[orderTypeItem.id]!=0 && orderTip[orderTypeItem.id]!=null && orderTip[orderTypeItem.id]!=''}}">{{orderTip[orderTypeItem.id]}}</view>
+              <image src="{{orderTypeItem.icon}}" lazy-load="true" mode="widthFix" />
+            </view>
+            <view class='grid-text'>{{orderTypeItem.name}}</view>
+          </view>
+        </view>
+      </i-col>
+    </i-row>
+    </view>
+  </view>
+
+  <view class='items' style='margin-top:1rem;'>
+    <view class='item-title'>基本信息</view>
+    <i-row>
+      <i-col span="6" i-class="col-class" wx:for="{{baseInfoList}}" wx:for-item="baseInfoItem" wx:for-index="baseInfoIndex" wx:key="baseInfoIndex">
+        <view class='grid-item' bindtap="baseInfoTap" data-action="{{baseInfoItem.id}}" hover-class="item-click-sel-bg">
+          <view>
+            <view class='grid-icon'>
+              <image src="{{baseInfoItem.icon}}" lazy-load="true" mode="widthFix" />
+            </view>
+            <view class='grid-text'>{{baseInfoItem.name}}</view>
+          </view>
+        </view>
+      </i-col>
+    </i-row>
+  </view>
+  <view class='items' style='margin-top:1rem;'>
+    <view class='item-title'>增值服务</view>
+    <i-row>
+      <i-col span="6" i-class="col-class" wx:for="{{valAddSerList}}" wx:for-item="valAddSerItem" wx:for-index="valAddSerIndex" wx:key="valAddSerItem">
+        <view class='grid-item' bindtap="valAddSerTap" data-id="{{valAddSerItem.id}}" hover-class="item-click-sel-bg">
+          <button wx:if="{{valAddSerItem.id=='chatSer'}}" plain='true' open-type="contact">
+            <view class='grid-icon'>
+              <image src="{{valAddSerItem.icon}}" lazy-load="true" mode="widthFix" />
+            </view>
+            <view class='grid-text'>{{valAddSerItem.name}}</view> 
+          </button>
+          <view wx:else>
+            <view class='grid-icon'>
+              <image src="{{valAddSerItem.icon}}" lazy-load="true" mode="widthFix" />
+            </view>
+            <view class='grid-text'>{{valAddSerItem.name}}</view>
+          </view>
+        </view>
+      </i-col>
+    </i-row>
+  </view>
+</view>

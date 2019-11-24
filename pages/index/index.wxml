@@ -1,0 +1,138 @@
+<!--index.wxml-->
+<wxs module="common" src="../../utils/common.wxs"></wxs>
+<view class='body-bg'>
+  <!-- 搜索区域 -->
+  <view class='page_row'>
+    <view class='logo'>
+      <image lazy-load="true" mode="widthFix" bindtap="openFindWorker" src='/images/icon/APP_logo2.png' />
+    </view>
+    <view class="search" bindtap="searchTab" style='width:calc(80% - {{locationWidth}})'>
+      <icon class="searchcion" size='18' type='search'></icon>
+      <input class="" disabled placeholder="请输入商品或店铺" />
+    </view>
+    <view id='location' class='location-area' bindtap="chooseLocationTap" hover-class="item-click-sel-bg">
+      <i-icon type="coordinates_fill" size="20" color="#6c6c6c" />
+      <text>{{locationAddressName}}</text>
+    </view>
+  </view>
+  <x-scroll-view scroll-y class='scroll-area' refreshing="{{refreshing}}" nomore="{{nomore}}" bindpulldownrefresh="myOnPullRefresh" bindloadmore="myOnLoadmore" scrollTop="{{scrollTop}}">
+    <!-- 轮播区域 -->
+    <view class='class-swiper-area'>
+      <swiper indicator-dots="true" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+        <block wx:for="{{imgUrls}}" wx:for-index="index" wx:key="apIndex">
+          <swiper-item>
+            <image src="{{item.pic}}" class="slide-image" lazy-load="true" width="100vw" height="150" bindtap='carouselTab' data-id="{{item.id}}" data-type="{{item.type}}" data-weburl="{{item.url}}" />
+          </swiper-item>
+        </block>
+      </swiper>
+      <!-- 类别入口 -->
+      <swiper indicator-dots="{{classList.length>1}}" autoplay="false" duration="500" class='type-swiper-item'>
+        <block wx:for="{{classList}}" wx:for-item="classItemList" wx:for-index="index" wx:key="cwpIndex">
+          <swiper-item>
+            <view>
+              <i-row>
+                <i-col span="6" i-class="col-class" wx:for="{{classItemList}}" wx:for-item="classItem" wx:for-index="index" wx:key="claIndex">
+                  <view class='grid-item' bindtap="classTab" hover-class="item-click-sel-bg" data-id="{{classItem.itemClassId}}" data-allno="{{classItem.classAllNo}}">
+                    <view class='grid-icon'>
+                      <image wx:if="{{classItem.classIcon!='' && classItem.classIcon!=undefined}}" src="{{classItem.classIcon}}" lazy-load="true" mode="widthFix" />
+                      <image wx:else src="/images/placeholder.png" lazy-load="true" mode="widthFix" />
+                    </view>
+                    <view class='grid-text'>{{classItem.className}}</view>
+                  </view>
+                </i-col>
+              </i-row>
+            </view>
+          </swiper-item>
+        </block>
+      </swiper>
+
+
+      <!-- <i-row>
+        <i-col span="6" i-class="col-class" wx:for="{{classList}}" wx:for-item="classItem" wx:for-index="index" wx:key="{{index}}">
+          <view class='grid-item' bindtap="classTab" hover-class="item-click-sel-bg" data-id="{{classItem.itemClassId}}" data-allno="{{classItem.classAllNo}}">
+            <view class='grid-icon'>
+              <image wx:if="{{classItem.classIcon!='' && classItem.classIcon!=undefined}}" src="{{classItem.classIcon}}" lazy-load="true" mode="widthFix" />
+              <image wx:else src="/images/placeholder.png" lazy-load="true" mode="widthFix" />
+            </view>
+            <view class='grid-text'>{{classItem.className}}</view>
+          </view>
+        </i-col>
+      </i-row> -->
+    </view>
+    <!-- 文字广告轮播 -->
+    <view class='view_notice_contain'>
+      <i-icon type="systemprompt" size='20' color='#259b24' />
+      <swiper class="swiper_container" vertical="true" autoplay="true" circular="true" interval="5000">
+        <block wx:for="{{noticeList}}" wx:for-item="noticeItem" wx:for-index="noticeIndex" wx:key="noticeIndex">
+          <swiper-item bindtap='noticelTab' data-id="{{noticeItem.articleId}}" data-type="{{noticeItem.activeType}}" data-weburl="{{noticeItem.activeHrefUrl}}">
+            <view class="swiper_item">{{noticeItem.articleTitle}}</view>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+    <view class="today-traffic">
+      <text class="traffic-title">今日访问量：</text>
+      <text class="traffic-num">{{todayTrafficNum}}</text>
+    </view>
+    <!-- 活动 -->
+    <view class='activity-area01' id='activity_area' style='height:{{activityHeigth}};max-height:{{activityHeigth}}'>
+      <image class='activity-item01' src="{{activityList[0].pic}}" lazy-load="true" mode="aspectFit" bindtap="activityTab" data-id="{{activityList[0].id}}" data-type="{{activityList[0].type}}" data-weburl="{{activityList[0].url}}" />
+      <view class='activity-item-right'>
+        <image class='activity-item02' src="{{activityList[1].pic}}" lazy-load="true" mode="aspectFit" bindtap="activityTab" data-id="{{activityList[1].id}}" data-type="{{activityList[1].type}}" data-weburl="{{activityList[1].url}}" />
+        <view class='activity-item-right-bottom'>
+          <image class='activity-item03' src="{{activityList[2].pic}}" lazy-load="true" mode="aspectFit" bindtap="activityTab" data-id="{{activityList[2].id}}" data-type="{{activityList[2].type}}" data-weburl="{{activityList[2].url}}" />
+          <image class='activity-item04' src="{{activityList[3].pic}}" lazy-load="true" mode="aspectFit" bindtap="activityTab" data-id="{{activityList[3].id}}" data-type="{{activityList[3].type}}" data-weburl="{{activityList[3].url}}" />
+        </view>
+      </view>
+    </view>
+    <!-- 广告 -->
+    <view class='advert-area' id='advert_area'>
+      <!-- <image src="{{advertImg}}" lazy-load="true" width="100vw" style='height:{{advertHeigth}};max-height:{{advertHeigth}}' /> -->
+      <image src="{{advertImg}}" lazy-load="true" width="100vw" style='height:50px;max-height:50px' bindtap="advertTap" />
+    </view>
+    <!-- 推荐商品 -->
+    <view class='recommended-area'>
+      <view class='title'>
+        <i-divider content="商品推荐" size="16"></i-divider>
+      </view>
+      <!-- 列表 -->
+      <view class='list-item' wx:for="{{remList}}" wx:for-item="renItem" wx:key="id">
+        <view wx:if="{{index == currentIndex ? true : false}}" data-index="{{index}}" bindtap='shadeClick' data-id="{{renItem.shopItemId}}" class="shade" hover-class="none" hover-stop-propagation="false">
+          <i-button bind:click="butClick" data-id="{{renItem.shopItemId}}" data-shopName="{{renItem.shopName}}" type="success" shape="circle" size="small">进店</i-button>
+        </view>
+        <view bindtap="renListItemTab" hover-class="item-click-sel-bg" data-id="{{renItem.shopItemId}}">
+          <view class='horizontal'>
+            <view class='icon'>
+              <image wx:if="{{renItem.itemSpec[0][0].imgUrl!='' && renItem.itemSpec[0][0].imgUrl!=undefined}}" lazy-load="true" mode="widthFix" src='{{renItem.itemSpec[0][0].imgUrl}}' />
+              <image wx:else lazy-load="true" mode="widthFix" src='/images/placeholder.png' />
+            </view>
+            <view class='content'>
+              <view>{{renItem.itemName}}</view>
+              <view class='content-item-mt'>
+                <text class='new-price'>¥{{renItem.itemSalePrice}}</text>
+                <text wx:if="{{renItem.itemPrice == renItem.itemSalePrice ? false : true}}" class='old-price'> ¥{{renItem.itemPrice}} </text>
+              </view>
+              <view class='evaluate-area content-item-mt'>
+                <view>
+                  <text>{{renItem.commentTotal}}条评价</text>
+                  <text class='good-eva'>{{renItem.favourableRate}}好评</text>
+                  <text class='good-eva' wx:if="{{renItem.unrealNum!=''&& renItem.unrealNum!= undefined && renItem.unrealNum!=null}}">{{renItem.unrealNum}}销量</text>
+                  <text class='good-eva' wx:elif="{{renItem.salesVolume=='' || renItem.salesVolume== undefined || renItem.salesVolume==null}}">0销量</text>
+                  <text class='good-eva' wx:else>{{renItem.salesVolume}}销量</text>
+                </view>
+              </view>
+              <view class='shop-name-area'>
+                <text>{{renItem.shopName}}</text>
+                <text class='shop-type' wx:if="{{renItem.shopTypeName.length>0}}">({{renItem.shopTypeName}})</text>
+                <text class='shop-distance' wx:if="{{renItem.distance!=undefined}}">{{common.distanceUnitCvs(renItem.distance)}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view bindtap="shadeIcon" data-index="{{index}}" class="shop-list-icom">
+          <i-icon type="more" size='20' color='#cecece' />
+        </view>
+      </view>
+    </view>
+  </x-scroll-view>
+</view>

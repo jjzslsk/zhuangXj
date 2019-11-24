@@ -1,0 +1,141 @@
+/* pages/evaluate/evaluate.wxss */
+
+.body-bg {
+  /* background-color: #f5f5f5; */
+  width: 100%;
+  height: 100vhimportant;
+}
+
+.scroll-area {
+  height: calc(100% - 37px);
+}
+
+.goods-item{
+  /* margin-bottom: 10px; */
+}
+
+.submit-btn {
+  background-color: #259b24;
+  color: #fff;
+  height: 37px;
+  line-height: 37px;
+  max-height: 37px;
+  text-align: right;
+  padding: 0 10px;
+}
+
+.goods-info {
+  display: flex;
+  padding: 8px 10px;
+  background-color: #fff;
+}
+
+.goods-info .goods-img {
+  width: 20%;
+}
+
+.goods-info .spec-name {
+  font-size: 0.8em;
+  color: #6c6c6c;
+}
+
+.goods-info .distribution {
+  color: #cecece;
+  font-size: 0.9em;
+}
+
+.goods-info .goods-img image {
+  width: 80%;
+  height: 30px;
+}
+
+.eva-rate {
+  /* margin-top: 10px; */
+  border-top: 1rpx solid #DDDDDD;
+  padding: 8px 10px;
+  background-color: #fff;
+}
+
+.eva-rate .eva-item {
+  display: flex;
+  align-items: center;
+  padding: 5px 0;
+}
+
+.eva-rate .eva-item .title {
+  margin-right: 10px;
+}
+
+.describe-eva {
+  /* margin-top: 10px; */
+  border-top: 1rpx solid #DDDDDD;
+  padding: 8px 10px;
+  background-color: #fff;
+}
+
+.describe-eva .describe {
+  padding: 8px 10px;
+  background-color: #f3f3f3;
+}
+
+.describe-eva .describe textarea {
+  width:auto;
+}
+
+.describe-eva .add-img-btn {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1rpx solid #aaa;
+  border-style: dashed;
+}
+
+.describe-eva .add-img-btn image {
+  height: 80px;
+}
+
+.describe-eva .att-img {
+  margin-top: 10px;
+}
+
+.describe-eva .att-img .img-item {
+  width: 90%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.describe-eva .att-img .img-item image {
+  height: 80px;
+}
+
+.describe-eva .att-img .img-item .del-att-img {
+  position: absolute;
+  width: 1.5rem;
+  max-width: 1.5rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  max-height: 1.5rem;
+  text-align: center;
+  border-radius: 50%;
+  background-color: red;
+  color: #fff;
+  font-weight: bold;
+}
+.describe-eva .foot-but {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-top: 8px;
+}
+.describe-eva .foot-but .submit {
+  background: #259b24;
+  color: #fff;
+  height: 2.4rem;
+  line-height: 2.4rem;
+  width: 10rem;
+  border-radius: 2px;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}

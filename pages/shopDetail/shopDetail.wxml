@@ -1,0 +1,272 @@
+<!--pages/goodsList/goodsList.wxml-->
+<view class='body-bg'>
+  <!-- 搜索区域 -->
+  
+  <view class='header-info'>
+    <image class='header-bkg' mode="widthFix" src='/images/shop/topbj.jpg'></image>
+    <view class='header-content'>
+      <view class='search-area'>
+        <view class="search">
+          <icon class="searchcion" size='20' type='search'></icon>
+          <view class='hint' bindtap='searchTab'>请输入商品或店铺</view>
+        </view>
+        <image class='like-icon' mode="widthFix" src='/images/shop/star_red.png' bindtap='likeShop' wx:if="{{isCollect}}"></image>
+        <image class='like-icon' mode="widthFix" src='/images/shop/star_gray.png' bindtap='likeShop' wx:else></image>
+      </view>
+      <view class='shop-header'>
+        <view class='aui-flex-col aui-flex-middle'>
+          <view class='aui-flex-item-2'>
+            <image class='shop-avatar' mode="widthFix" src='{{shopLogo}}' wx:if="{{shopLogo}}"></image>
+            <image class='shop-avatar' mode="widthFix" src='/images/placeholder.jpg' wx:else></image>
+          </view>
+          <view class='aui-flex-item-10'>
+            <view class='name-item'>
+              <view class='name'>{{shopInfo.shopName}}<text class='shop-type'>（{{shopInfo.shopTypeName}}）</text></view>
+              <view class='level' wx:if="{{shopInfo.startLevelName=='红心'}}">
+                <image src='/images/shop/xin1.png' wx:key="{{starLevel}}" wx:for="{{shopInfo.starLevel}}"></image>
+              </view>
+              <view class='level' wx:if="{{shopInfo.startLevelName=='蓝钻'}}">
+                <image src='/images/shop/zuan1.png' wx:key="{{starLevel}}" wx:for="{{shopInfo.starLevel}}"></image>
+              </view>
+              <view class='level' wx:if="{{shopInfo.startLevelName=='皇冠'}}">
+                <image src='/images/shop/guan1.png' wx:key="{{starLevel}}" wx:for="{{shopInfo.starLevel}}"></image>
+              </view>
+            </view>
+            <view class='post' bindtap='showShopMap'>
+              <image mode="widthFix" src='/images/shop/add_icon.png'></image>
+              <text>{{shopInfo.shopAddress}}</text>
+            </view>
+          </view>
+        </view>
+        <view class='tips'>公告：{{shopInfo.shopIdea}}</view>
+        <view class='pic-order' bindtap='picOrderTap'>
+          <image src="{{shopInfo.photoOrderFlag=='1' ? '/images/shop/camera.png':'/images/shop/camera_gray.png'}}"></image>
+          <view class="{{shopInfo.photoOrderFlag=='1' ? '':'cl-tips'}}">拍照下单</view>
+        </view>
+        <!-- <view class='discount'>
+          <view class='discount-item'>新客立减10元</view>
+          <view class='discount-item'>满10减3</view>
+          <view class='discount-item'>满50减10</view>
+        </view> -->
+      </view>
+    </view>
+  </view>
+  <view class='tab-head'>
+    <i-tabs i-class="tabs" current="{{ current }}" color="#259b24" bindchange="handleChange">
+      <i-tab i-class="tab-item" key="tab1" title="商品"></i-tab>
+      <i-tab i-class="tab-item" key="tab2" title="评价"></i-tab>
+      <i-tab i-class="tab-item" key="tab3" title="商家"></i-tab>
+      <i-tab i-class="tab-item" key="tab4" title="配送说明"></i-tab>
+      <i-tab i-class="tab-item" key="tab5" title="售后说明"></i-tab>
+    </i-tabs>
+    <!-- <text class='cmt-count'>({{shopInfo.commentTotal}})</text> -->
+    
+    <!-- <text class='distance'>距离:{{distance}}km</text> -->
+  </view>
+
+  <scroll-view scroll-y class='scroll-area evaluate' wx:if="{{current=='tab2'}}" refreshing="{{refreshing}}" nomore="{{nomore}}" bindpulldownrefresh="evaPullRefresh" bindloadmore="evaLoadmore"  bindscroll="myOnScroll">
+    <!-- 评论列表 -->
+          <view class='list-item list-item-box' wx:for="{{goodsEvaList}}" wx:for-item="goodsEvaItem" wx:for-index="evaIndex" wx:key="a+evaIndex">
+      <view class='head-info'>
+        <view class='user-ava'>
+        <image wx:if="{{goodsEvaItem.AVATAR1!='' && goodsEvaItem.AVATAR1!=undefined}}" lazy-load="true" mode="scaleToFill" src='{{goodsEvaItem.AVATAR1}}' />
+          <image wx:else lazy-load="true" mode="scaleToFill" src='/images/avatar_h.png' />
+        </view>
+
+        <view class='name-eva'>
+          <view class='name-time'>
+            <view class='s-item' wx:if="{{goodsEvaItem.CLIENT_ACCOUNT1 != null}}">{{goodsEvaItem.CLIENT_ACCOUNT1}}</view>
+            <view class='time'>{{goodsEvaItem.COMMENT_DATE1}}</view>
+          </view>
+          <view>
+            <i-rate disabled="true" size="20" value="{{goodsEvaItem.n1StarLevel}}"></i-rate>
+          </view>
+        </view>
+      </view>
+      <view class='eva-content' wx:if="{{goodsEvaItem.COMMENT_NOTES1 != null}}">{{goodsEvaItem.COMMENT_NOTES1}}</view>
+      <view class='eva-att-img'>
+        <i-row>
+          <i-col span="6" i-class="col-class" wx:for="{{goodsEvaItem.attImgList}}" wx:for-item="attImgItem" wx:for-index="attImgIndex" wx:key="c+attImgIndex">
+            <view class='eva-img-item' bindtap='selAttImgTab' data-evaindex="{{evaIndex}}" data-attimgindex="{{attImgIndex}}">
+              <image lazy-load="true" mode="widthFix" src="{{attImgItem}}" style='height:{{attHeight}};max-height:{{attHeight}}' />
+            </view>
+          </i-col>
+        </i-row>
+      </view>
+    </view>
+  </scroll-view>  
+  <scroll-view scroll-y class='scroll-area evaluate' wx:if="{{current=='tab3'}}"> 
+
+    <view class='shop-intro'>
+      <view class='shop-info-item' bindtap='showShopMap'>
+        <view class='icon'>
+          <image mode="widthFix" src='/images/shop/add_icon.png'></image>
+        </view>
+        <view class='title'>{{shopInfo.shopAddress}}</view>
+      </view>
+      <view class='shop-info-item'>
+        <view class='icon'>
+          <image mode="widthFix" src='/images/shop/serve_icon.png'></image>
+        </view>
+        <view class='title'>配送服务：由装小匠跑腿 提供配送服务</view>
+      </view>     
+      <view class='shop-info-item margin-b-10'>
+        <view class='icon'>
+          <image mode="widthFix" src='/images/shop/add_icon.png'></image>
+        </view>
+        <view class='title'>距离您所在位置：{{distance}}km</view>
+      </view>
+      <view class='shop-info-item'>
+        <view class='icon'>
+          <image mode="widthFix" src='/images/shop/busines_icon.png'></image>
+        </view>
+        <view class='title'>营业执照</view>
+      </view> 
+      <view class="aui-flex-col aui-flex-middle license margin-b-10">
+        <view class="aui-flex-item-6 padded-5" wx:for="{{certImgs}}" wx:for-item="img">
+          <image class="license-img" mode="aspectFit" src="{{img}}" data-i="{{index}}" data-type="cert" bindtap="previewImage"></image>
+        </view>
+      </view>
+            <view class='shop-info-item'>
+        <view class='icon'>
+          <image mode="widthFix" src='/images/shop/busines_icon.png'></image>
+        </view>
+        <view class='title'>商家资质</view>
+      </view> 
+      <view class="aui-flex-col aui-flex-middle license margin-b-10">
+        <view class="aui-flex-item-6 padded-5" wx:for="{{qualiImgs}}" wx:for-item="img">
+          <image class="license-img" mode="aspectFit" src="{{img}}" data-i="{{index}}" data-type="quali" bindtap="previewImage"></image>
+        </view>
+      </view>
+      <view class='shop-info-item'>
+        <view class='icon'>
+          <image mode="widthFix" src='/images/shop/busines_icon.png'></image>
+        </view>
+        <view class='title'>经营场所</view>
+      </view>    
+      <view class="aui-flex-col aui-flex-middle license margin-b-10">
+        <view class="aui-flex-item-6 padded-5" wx:for="{{placeImgs}}" wx:for-item="img">
+          <image class="license-img" mode="aspectFit" src="{{img}}" data-i="{{index}}" data-type="place" bindtap="previewImage"></image>
+        </view>
+      </view> 
+      <!-- <view class='shop-info-item margin-b-10'>
+        <view class='icon'>
+          <image mode="widthFix" src='/images/worker/time_icon.png'></image>
+        </view>
+        <view class='title'>配送时间：00:00 - 23:00</view>
+      </view>
+      <view class='shop-info-item'>
+        <view class='icon'>
+          <image mode="widthFix" src='/images/worker/news12_icon.png'></image>
+        </view>
+        <view class='title'>欢迎来到新梦点，新梦点是一家时尚开关领导品牌</view>
+        <view class='icon-arrow'>
+          <image  src='/images/worker/aleft_icon.png'></image>
+        </view>
+      </view>
+      <view class='shop-info-item margin-b-10'>
+        <view class='icon'>
+          <image mode="widthFix" src='/images/worker/tick_icon.png'></image>
+        </view>
+        <view class='title'>商家服务</view>
+      </view>
+      <view class='shop-info-item'>
+        <view class='icon'>
+          <image mode="widthFix" src='/images/worker/minus_icon.png'></image>
+        </view>
+        <view class='title'>满10减3；满50减10；满100减25</view>
+      </view>
+      <view class='shop-info-item'>
+        <view class='icon'>
+          <image mode="widthFix" src='/images/worker/break_icon.png'></image>
+        </view>
+        <view class='title'>折扣商品4.5折起</view>
+      </view>
+      <view class='shop-info-item margin-b-10'>
+        <view class='icon'>
+          <image mode="widthFix" src='/images/worker/news_icon.png'></image>
+        </view>
+        <view class='title'>新用户立减12元</view>
+      </view> -->
+    </view>
+  </scroll-view>  
+  
+  <scroll-view scroll-y class='scroll-area evaluate' wx:if="{{current=='tab4'}}"> 
+    <view class="info-title">{{deliveryInfo.articleTitle}}</view>
+    <view class="info-content">{{deliveryInfo.articleDescribe}}</view>
+    <view class="info-content"><rich-text nodes="{{deliveryInfo.articleNotes}}"></rich-text></view>
+  </scroll-view>  
+
+  <scroll-view scroll-y class='scroll-area evaluate' wx:if="{{current=='tab5'}}"> 
+    <view class="info-title">{{saleInfo.articleTitle}}</view>
+    <view class="info-content">{{saleInfo.articleDescribe}}</view>
+    <view class="info-content"><rich-text nodes="{{saleInfo.articleNotes}}"></rich-text></view>
+  </scroll-view>  
+
+  <view class='list-area horizontal' wx:if="{{current=='tab1'}}">
+    <view class='classify-list'>
+      <scroll-view scroll-y class='scroll-area'>
+        <view class='' wx:for="{{classifyList}}" wx:for-item="classify" bindtap="firstClassTab" data-id="{{classify.itemClassId}}" data-no="{{classify.classAllNo}}" data-name="{{classify.className}}" wx:for-index="classindex" wx:key="classindex">
+          <view class="classify-item-choose" wx:if="{{classify.itemClassId==curFirstClass.itemClassId}}">
+            <view class='classify-item-act'>
+              <label class='sel-line'></label>
+              {{classify.className}}
+            </view>
+          </view>
+          <view wx:else class='classify-item'>
+            {{classify.className}}
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+    <view class='goods-list'>
+      <view class='goods-filter'>
+        <!-- <view class='goods-filter-item filter-item-act' bindtap='filterGoods'>按价格</view>
+        <view class='goods-filter-item' bindtap='filterGoods'>按销量</view> -->
+        <i-tabs i-class="bg-body" current="{{ currentFilter }}" color="#259b24" bindchange="handleFilterChange">     
+          <i-tab key="tab1" title="按销量"></i-tab>
+          <image class='sort-icon' mode="widthFix" src='/images/shop/sort_down.png' wx:if="{{sortName=='UNREAL_NUM' && sortType=='DESC'}}"></image>
+          <image class='sort-icon' mode="widthFix" src='/images/shop/sort_up.png' wx:if="{{sortName=='UNREAL_NUM' && sortType=='ASC'}}"></image>
+          <image class='sort-icon' mode="widthFix" src='/images/shop/sort_gray.png' wx:if="{{sortName!='UNREAL_NUM'}}"></image>
+          <i-tab key="tab2" title="按价格"></i-tab>
+          <image class='sort-icon2' mode="widthFix" src='/images/shop/sort_down.png' wx:if="{{sortName=='ITEM_PRICE' && sortType=='DESC'}}"></image>
+          <image class='sort-icon2' mode="widthFix" src='/images/shop/sort_up.png' wx:if="{{sortName=='ITEM_PRICE' && sortType=='ASC'}}"></image>
+          <image class='sort-icon2' mode="widthFix" src='/images/shop/sort_gray.png' wx:if="{{sortName!='ITEM_PRICE'}}"></image>
+        </i-tabs>
+        
+        
+      </view>
+      <x-scroll-view scroll-y class='goods-scroll-area' refreshing="{{refreshing}}" nomore="{{nomore}}"  bindpulldownrefresh="myOnPullRefresh" bindloadmore="myOnLoadmore" bindscroll="myOnScroll"  scroll-top="{{scrollTop}}">  
+        <!-- 列表 -->
+        <view class='list-item' wx:for="{{remList}}" wx:for-item="renItem" wx:for-index="index" wx:key="index">
+          <view class='horizontal' bindtap='itemtap' hover-class="item-click-sel-bg" data-id="{{renItem.shopItemId}}">
+            <view class='icon'>
+              <image wx:if="{{renItem.itemSpec[0][0].imgUrl!='' && renItem.itemSpec[0][0].imgUrl!=undefined}}" lazy-load="true" mode="widthFix" src='{{renItem.itemSpec[0][0].imgUrl}}' />
+              <image wx:else lazy-load="true" mode="widthFix" src='/images/placeholder.png' />
+            </view>
+            <view class='content'>
+              <view class='list-itemName'>{{renItem.itemName}}</view>
+              <view class='content-item-mt'>
+                <text class='new-price'>¥{{renItem.itemPrice}}</text>
+                <text class='old-price'> ¥{{renItem.itemPrice}} </text>
+              </view>
+              <view class='evaluate-area content-item-mt'>
+                <view>
+                  <text>{{renItem.commentTotal}}条评价</text>
+                  <!-- <text class='good-eva'>{{renItem.favourableRate}}好评</text> -->
+                  <text class='good-eva' wx:if="{{renItem.unrealNum!=undefined}}">{{renItem.unrealNum}}销量</text>
+                  <text class='good-eva'wx:else>{{renItem.salesVolume}}销量</text>
+                </view>
+                <!-- <view>{{renItem.distance}}</view> -->
+              </view>
+              <view class='shop-name-area'>
+                <text>{{renItem.shopName}}</text>
+                <text class='shop-type' wx:if="{{renItem.shopTypeName.length>0}}">({{renItem.shopTypeName}})</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </x-scroll-view>
+    </view>
+  </view>
+</view>

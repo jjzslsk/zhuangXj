@@ -1,0 +1,33 @@
+<!--pages/returnGoodsList/returnGoodsList.wxml-->
+<view class='body-bg'>
+  <scroll-view scroll-y class='scroll-area'>
+    <view class='goods-list' wx:for="{{orderInfo.orderItem}}" wx:for-item="goodsItem" wx:for-index="index" wx:key="orderNo">
+      <!-- <view class='goods-item' wx:for="{{orderItem}}" wx:for-item="goodsItem" wx:for-index="index" wx:key="orderNo+index" hover-class="item-click-sel-bg" bindtap='goodsItemTap' data-id="{{goodsItem.shopItemId}}"> -->
+      <view class="card-title-item">
+        <view class="cart-title"><i-icon type="shop_fill" size="22" color='green' />{{orderInfo.shopName}}</view> 
+        <view class="cart-state">{{goodsItem.cartStatusName}}</view>
+      </view>
+      <view class='goods-item'>
+        <view class='goods-img'>
+          <image wx:if="{{goodsItem.imgUrl!=''}}" lazy-load="true" mode="widthFix" src='{{goodsItem.imgUrl}}' />
+          <image wx:else lazy-load="true" mode="widthFix" src='/images/placeholder.png' />
+        </view>
+        <view class='goods-content'>
+          <view class='goods-name'>
+            <text>{{goodsItem.itemName}}</text>
+            <text class='spec-name' wx:if="{{goodsItem.shopItemSpecAttr.length>0}}">({{goodsItem.shopItemSpecAttr}})</text>
+            <view class='distribution' wx-if="{{goodsItem.deliveryMode.length>0}}">配送方式:{{goodsItem.deliveryMode}}</view>
+          </view>
+          <view class='price-num'>
+            <view class='price'>¥{{goodsItem.itemPrice}}</view>
+            <view>X{{goodsItem.itemNumber}}</view>
+          </view>
+        </view>
+      </view>
+      <view class='order-footer' wx:if="{{goodsItem.cartStatus!=0}}">
+        <view wx:if="{{goodsItem.cartStatus==1}}" class='btn-item remind-delivery' catchtap='afterSalesTap' hover-class="item-click-sel-bg" data-id="{{orderInfo.orderId}}" data-no="{{orderInfo.orderNo}}" data-goodsinfo="{{goodsItem}}" data-shopcartflag="{{orderInfo.shopCartFlag}}">申请售后</view>
+        <view wx:else class='btn-item remind-delivery' catchtap='afterSalesTap' hover-class="item-click-sel-bg" data-id="{{orderInfo.orderId}}" data-no="{{orderInfo.orderNo}}" data-goodsinfo="{{goodsItem}}" data-shopcartflag="{{orderInfo.shopCartFlag}}">查看售后</view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

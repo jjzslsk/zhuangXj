@@ -1,0 +1,74 @@
+<!-- pages/search/search.wxml -->
+<wxs module="common" src="../../utils/common.wxs"></wxs>
+<view class='body-bg'>
+  <!-- 搜索区域 -->
+  <view class='page_row'>
+    <view class="search">
+      <icon class="searchcion" size='20' type='search'></icon>
+      <icon wx:if="{{searchKey.length>0}}" bindtap='clearCancel' class="clearCancel" size='20' type='clear'></icon>
+      <input placeholder="请输入商品或店铺" focus="{{searchFocus}}" bindinput="searchKeyInput" bindfocus='searchInputFocus' bindblur='searchBlurFocus' value="{{searchKey}}" type="text" confirm-type="search" bindconfirm="searchFirm" />
+    </view>
+    <text class='search-btn' bindtap='searchTab'>搜索</text>
+  </view>
+  <view class='tab-head' wx:if="{{action==0}}">
+    <i-tabs class='searchTab' current="{{ current }}" color="#259b24" bindchange="handleChange">
+      <i-tab key="tab1" title="综合"></i-tab>
+      <i-tab key="tab2" title="商品"></i-tab>
+      <i-tab key="tab3" title="店铺"></i-tab>
+    </i-tabs>
+  </view>
+  <!-- 历史记录 -->
+  <scroll-view scroll-y class='scroll-area' wx:if="{{searchKey.length==0}}">
+    <view wx:if="" style="margin:3rem auto 0 auto;">
+      <image lazy-load="true" style="height:10rem;width:10rem;" mode="widthFix" src='/images/orderTypeIcon/nullImg.png' />
+    </view>
+     <!-- 综合历史搜索记录 -->
+    <view class='record-area' wx:if="{{current=='tab1'}}">
+      <view class='record-title'>综合历史搜索记录<text wx:if="{{recordGoodsShopList.length>0}}" bindtap='clearRecordTap'>清除</text></view>
+      <view class="record-wrap" hover-class="none" hover-stop-propagation="false">
+        <view class='record-list' wx:for="{{recordGoodsShopList}}" wx:for-item="recordGoodsShopItem" wx:for-index="index" wx:key="sg+index" bindtap='recordItemTap' hover-class="item-click-sel-bg" data-key="{{recordGoodsShopItem}}">
+          {{recordGoodsShopItem}}
+        </view>
+      </view>
+      <!-- <view class='record-box'>
+        <view class='record-clear' wx:if="{{recordGoodsList.length>0}}" bindtap='clearRecordTap' hover-class="item-click-sel-bg">
+          清空搜索记录
+        </view>
+      </view> -->
+    </view>
+    <!-- 商品历史搜索记录 -->
+    <view class='record-area' wx:elif="{{current=='tab2'}}">
+      <view class='record-title'>商品历史搜索记录<text wx:if="{{recordGoodsList.length>0}}" bindtap='clearRecordTap'>清除</text></view>
+      <view class="record-wrap" hover-class="none" hover-stop-propagation="false">
+        <view class='record-list' wx:for="{{recordGoodsList}}" wx:for-item="recordGoodsItem" wx:for-index="index" wx:key="g+index" bindtap='recordItemTap' hover-class="item-click-sel-bg" data-key="{{recordGoodsItem}}">
+          {{recordGoodsItem}}
+        </view>
+      </view>
+      <!-- <view class='record-box'>
+        <view class='record-clear' wx:if="{{recordGoodsList.length>0}}" bindtap='clearRecordTap' hover-class="item-click-sel-bg">
+          清空搜索记录
+        </view>
+      </view> -->
+    </view>
+    <!-- 店铺历史搜索记录 -->
+    <view class='record-area' wx:else>
+      <view class='record-title'>店铺历史搜索记录<text wx:if="{{recordShopList.length>0}}" bindtap='clearRecordTap'>清除</text></view>
+      <view class="record-wrap" hover-class="none" hover-stop-propagation="false">
+      <view class='record-list' wx:for="{{recordShopList}}" wx:for-item="recordShopItem" wx:for-index="shopindex" wx:key="s+shopindex" bindtap='recordItemTap' hover-class="item-click-sel-bg" data-key="{{recordShopItem}}">
+        {{recordShopItem}}
+      </view>
+      </view>
+      <!-- <view class='record-box'>
+        <view class='record-clear' wx:if="{{recordShopList.length>0}}" bindtap='clearRecordTap' hover-class="item-click-sel-bg">
+          清空搜索记录
+        </view>
+      </view> -->
+    </view>
+  </scroll-view>
+
+  <!--模糊匹配搜索key列表 -->
+  <scroll-view scroll-y class='scroll-area' wx:else>
+    <view class="search-key-item" wx:for="{{searchKeyList}}" wx:for-item="searchKeyItem" wx:for-index="searchKeyIndex" wx:key="{{sk+searchKeyIndex}}" bindtap='searchKeyItemTap' hover-class="item-click-sel-bg" data-key="{{searchKeyItem.itemName}}"><text wx:for="{{searchKeyItem.itemName}}" wx:for-item="keyItem" wx:for-index="keyIndex" wx:key="{{searchKeyIndex+key+keyIndex}}" class="{{common.strContainsIsCharacter(searchKey,keyItem) ? 'search-key-single':''}}">{{keyItem}}</text></view>
+  </scroll-view>
+
+</view>

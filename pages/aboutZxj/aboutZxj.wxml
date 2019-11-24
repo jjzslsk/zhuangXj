@@ -1,0 +1,14 @@
+<!--pages/aboutZxj/aboutZxj.wxml-->
+<import src="../../utils/wxParse/wxParse.wxml" />
+<view class='body-bg'>
+  <scroll-view scroll-y class='scroll-area'>
+    <!-- <view class='logo'>
+      <image lazy-load="true" mode="widthFix" src='/images/icon/App_logo.png' />
+    </view> -->
+    <view class='content'>
+      <text> \t \t </text>
+      <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+    </view>
+    
+  </scroll-view>
+</view>

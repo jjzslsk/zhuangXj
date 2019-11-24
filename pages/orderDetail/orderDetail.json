@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "订单详情",
+  "usingComponents": {
+    "i-divider": "/dist/divider/index",
+    "i-icon": "/dist/icon/index",
+    "payDialog": "/components/payDialog/payDialog",
+    "modal": "/components/modal/modal",
+    "smsCheckDialog": "/components/smsCheckDialog/smsCheckDialog"
+    }
+}

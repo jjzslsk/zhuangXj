@@ -1,0 +1,18 @@
+<!--pages/checkLogistics/checkLogistics.wxml-->
+<view class='body-bg '>
+  <view class='logistics-title'><text>{{logisticsNameOrderNum}}</text></view>
+  <scroll-view scroll-y class='scroll-area'>
+    <view class='logistics-area-bg'>
+      <i-steps current="{{verticalCurrent}}" direction="vertical">
+        <i-step icon="right" wx:for="{{logisticsInfo.data}}" wx:for-item="logisticeItem" wx:key="logisticskey">
+          <view slot="title" >
+            {{logisticeItem.ftime}}
+          </view>
+          <view slot="content">
+            {{logisticeItem.context}}
+          </view>
+        </i-step>
+      </i-steps>
+    </view>
+  </scroll-view>
+</view>

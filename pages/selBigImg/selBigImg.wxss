@@ -1,0 +1,19 @@
+/* pages/selBigImg/selBigImg.wxss */
+
+.image-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.image-item image {
+  width: 100%;
+}
+
+.cat-num {
+  position: absolute;
+  color: #000;
+  left: 10px;
+  bottom: 10px;
+}

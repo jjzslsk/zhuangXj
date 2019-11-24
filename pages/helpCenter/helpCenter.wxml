@@ -1,0 +1,8 @@
+<!--pages/helpCenter/helpCenter.wxml-->
+<view class='body-bg'>
+  <scroll-view scroll-y class='scroll-area'>
+    <view class='help-content'>
+      <text>{{helpContent}}</text><text bindtap='callPhone' data-phone="{{phone}}" hover-class="item-click-sel-bg">{{phone}}</text>
+    </view>
+  </scroll-view>
+</view>

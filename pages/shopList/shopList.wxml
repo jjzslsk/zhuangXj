@@ -1,0 +1,57 @@
+<!--pages/goodsList/goodsList.wxml-->
+<view class='body-bg'>
+  <!-- 搜索区域 -->
+  <view class='search-area'>
+    <view class="search">
+      <icon class="searchcion" size='20' type='search'></icon>
+      <view wx:if="{{searchKey=='' || searchKey== undefined || searchKey==null}}" class='hint hint-color' bindtap='searchTab'>请输入商品或店铺</view>
+      <view class='hint' bindtap='searchTab'>{{searchKey}}</view>
+    </view>
+  </view>
+
+  <view class='tab-head'>
+    <i-tabs current="{{ current }}" color="#259b24" bindchange="handleChange">
+      <i-tab key="tab1" title="综合排序"></i-tab>
+      <i-tab key="tab2" title="按距离"></i-tab>
+      <i-tab key="tab3" title="按销量"></i-tab>
+      <i-tab key="tab4" title="按好评"></i-tab>
+    </i-tabs>
+  </view>
+
+  <scroll-view scroll-y class='scroll-area'>
+    <view class='list-item' data-id="{{shop.shopId}}" bindtap='openShopDetail' wx:for="{{shopList}}" wx:for-item="shop" wx:for-index="shopindex" wx:key="shopindex" wx:if="{{shopList.length>0}}">
+      <view class='horizontal'>
+        <view class='icon'>
+          <image class="shop-avatar" src='{{shop.shopLogo}}' wx:if='{{shop.shopLogo}}'/>
+          <image class="shop-avatar" src='/images/placeholder.png' wx:else/>
+        </view>
+        <view class='content'>
+          <view class='shop-name'>{{shop.shopName}}</view>
+          <view class='shop-info content-item-mt'>
+              <view>5.0</view>
+              <view class='open-btn'>进店</view>
+          </view>
+        </view>
+      </view>
+      <view class='product-list'>
+        <view class='product-item'  wx:for="{{shop.shopItem}}" wx:for-item="sItem"  wx:for-index="sItemindex" wx:key="sItemindex">
+        <image wx:if="{{sItem.itemSpec[0][0].imgUrl!='' && sItem.itemSpec[0][0].imgUrl!=undefined}}" lazy-load="true" mode="scaleToFill" src='{{sItem.itemSpec[0][0].imgUrl}}' />
+          <image wx:else lazy-load="true" mode="widthFix" src='/images/placeholder.png' />
+          <view class='product-price'>￥{{sItem.itemPrice}}</view>
+        </view>
+        <!-- <view class='product-item'>
+          <image mode="widthFix" src='/images/placeholder.png' />
+          <view class='product-price'>￥36.00</view>
+        </view>
+        <view class='product-item'>
+          <image mode="widthFix" src='/images/placeholder.png' />
+          <view class='product-price'>￥36.00</view>
+        </view>         -->
+      </view>
+    </view>
+    <view class="no-data" wx:if="{{shopList.length==0}}">
+      暂无数据
+    </view>
+  </scroll-view>
+</view>
+

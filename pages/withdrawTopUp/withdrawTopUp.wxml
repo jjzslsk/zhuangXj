@@ -1,0 +1,41 @@
+<!--pages/reflectTopUp/reflectTopUp.wxml-->
+<view class='body-bg'>
+  <view class='choose-item'>
+    <view class='item-content' hover-class="item-click-sel-bg">
+      <text class='title'>{{typeText}}:</text>
+      <view class='content please-sel' wx:if="{{backName==undefined || backName==null ||backName==''}}" bindtap='chooseBankType'>请选{{typeText}}</view>
+      <view class='content' wx:else bindtap='chooseBankType'>{{backName}}</view>
+      <!-- <view class='icon'>
+        <i-icon type="enter" size='20' color='#000000' />
+      </view> -->
+    </view>
+  </view>
+  <view class='amount-area'>
+    <view class='amount-title'>{{amountText}}(单笔金额最低:¥{{singleMinAmount}},最高:¥{{singleMaxAmount}})</view>
+    <view class='amount-item'><view class='amount-unit'>¥</view><view class='amount'><input type='digit' maxlength="12" value="{{amount}}" placeholder="" bindinput="moneyInput" /></view></view>
+  </view>
+  <view class='amount-hint'>{{promptText}}{{balance}}</view>
+  <view class='agreement'><image class='agreed-icon' wx:if="{{isAgreed}}" lazy-load="true" mode="widthFix" src='/images/icon/radio_sel.png' bindtap='agreedTap' />
+      <image class='agreed-icon' wx:else lazy-load="true" mode="widthFix" src='/images/icon/radio_nor.png' bindtap='agreedTap' /><text class='agreed-text' bindtap='agreedTap'>同意</text><text bindtap='payAgreementTap' class='pay-text'>《支付协议》</text></view>  
+  <view class='submit-info' hover-class='submit-btn-sel-bg' bindtap='submitInfo'>{{submitText}}</view>
+
+</view>
+
+
+
+<view class="verify-code-dialog" wx:if="{{showCodeDialog}}">
+  <view class='dialog-area'>
+    <view class="dialog-title">请输入验证码</view>
+    <view class="dialog-phone">{{phone}}</view>
+    <view class='dialog-input-arae'>
+      <view class="dialog-input">
+        <input bindinput="bindSmsCodeInput" value="{{smsCode}}"  type='number' maxlength='4' placeholder='请输入验证码'></input>
+      </view>
+       <view class="{{disabledSmsCode ? 'code-item-dis':'code-item'}}" bindtap="getSmsCodeTap">{{smsCodeHint}}</view>
+    </view>
+    <view class="dialog-btn-area" >
+      <view class='cancel-item' bindtap="closelCodeDialog">取消</view>
+      <view class="ok-item" bindtap="sumbitCodeDialog">确定</view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,45 @@
+<!--pages/shopPicOrder/shopPicOrder.wxml-->
+<view class='body'>
+  <scroll-view scroll-y class='scroll-area'>
+    <view wx:if="{{step=='1' || step=='2'}}">
+      <view class='tips1'>您可以拍照或从手机上传照片</view>
+      <view class='tips2'>客服将在10分钟内(9:00 - 18:00)联系您</view>
+      <view class='img-info'>
+        <image class='tips-image' src='/images/shop/pic-order-list.png' mode='aspectFit' wx:if="{{step=='1'}}"></image>
+        <view class='aui-flex-col aui-flex-middle picked-img-info' wx:elif="{{step=='2'}}">
+
+          <view class='aui-flex-item-3 picked-img-item' wx:key="" wx:for-item="pi" wx:for="{{pickedImgs}}">
+            <view class='img-delete' data-index="{{index}}" bindtap='deleteImg'>×</view>
+            <image class='picked-img' mode="aspectFit" src='{{pi}}' data-i="{{index}}"  bindtap='previewImage'></image>   
+          </view>
+          <view class='aui-flex-item-3 picked-img-item' wx:if="{{pickedImgs.length<12}}">
+            <view class='pick-img-btn' bindtap='chooseImage'>
+              <view class='font-size-big'>+</view>
+              <view class='picked-img-count'>({{pickedImgs.length}}/12)</view>
+            </view>
+          </view>
+          
+        </view>
+      </view>
+      <view class='aui-flex-col aui-flex-middle owner-info' wx:if="{{step=='2'}}">
+        <view class='aui-flex-item-12 ads'>
+          <view class='aui-flex-item-6 ads-title'>收货地址：</view>
+          <view class='aui-flex-item-6 ads-edit' bindtap="chooseAddressTab">选择 ></view>
+        </view>
+        <view class='aui-flex-item-3 owner-info-title'>收货人：</view>
+        <view class='aui-flex-item-9 owner-info-content'>{{addressInfo.takeName}}</view>
+        <view class='aui-flex-item-3 owner-info-title'>联系方式：</view>
+        <view class='aui-flex-item-9 owner-info-content'>{{addressInfo.takePhone}}</view>
+        <view class='aui-flex-item-3 owner-info-title'>收货地址：</view>
+        <view class='aui-flex-item-9 owner-info-content'>{{addressInfo.address}}</view>
+      </view>
+      <view class='commit-btn' data-step="1" bindtap='setStep' wx:if="{{step=='1'}}">选择图片</view>
+      <view class='commit-btn' data-step="2" bindtap='setStep' wx:elif="{{step=='2'}}">提交</view>
+    </view>
+    <view wx:else>
+      <view class='success'>提交成功！</view>
+      <view class='tips1'>客服会尽快给您推广或核实订单</view>
+      <view class='tips1'>请您留意订单状态并保持注意接听电话</view>
+    </view>
+  </scroll-view>  
+</view>

@@ -1,0 +1,133 @@
+/* pages/search/search.wxss */
+.body-bg {
+  background-color: #f5f5f5;
+  width: 100%;
+  height: 100vh;
+}
+
+.scroll-area{
+   height: calc(100% - 80px);
+}
+
+.page_row {
+  padding: 3rpx 10px;
+  background-color: #259b24;
+  display: flex;
+  height: 37px;
+  line-height: 37px;
+  max-height: 37px;
+}
+
+.search {
+  background-color: #fff;
+  border-radius: 10rpx;
+  width: 85%;
+  height: 29px;
+  line-height: 29px;
+  max-height: 29px;
+  margin-top: 4px;
+  position: relative;
+}
+
+.search input {
+  margin-left: 35px;
+  height: 100%;
+  width: 74%;
+}
+
+.clearCancel {
+  margin: 5px 0 0 5px;
+  position: absolute;
+  right: 5px;
+  z-index: 3;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+}
+
+.searchcion {
+  margin: 5px 0 0 5px;
+  position: absolute;
+  left: 0;
+  z-index: 2;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+}
+
+.search-btn{
+  width: 15%;
+  color: #FFFFFF;
+  text-align: center;
+}
+
+.record-area .record-title{
+  padding: 10px 10px;
+  color: #666666;
+  position: relative;
+}
+
+.record-area .record-title text{
+  color: #259b24;
+  position: absolute;
+  right: 10px;
+}
+
+.record-area .record-list{
+  background-color:#eee;
+  padding: 8px 10px;
+  border-radius: 4px;
+  margin: 4px;
+  color: #666;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 8rem;
+  font-size: 14px;
+}
+
+.record-area .record-clear{
+  color: #fff;
+  text-align: center;
+  padding: 4px 10px;
+  background:#999;
+  width:50%;
+  border-radius:12px;
+}
+
+.tab-head{
+  border-bottom: 1rpx solid #DDDDDD;
+  border-top: 1rpx solid #DDDDDD;
+}
+
+i-tab {
+  width: 100%;
+  height: 100%;
+}
+i-badge {
+  width: 100%;
+  height: 100%;
+}
+
+.record-box {
+  margin:1rem auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.record-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1rem;
+}
+
+.search-key-item{
+  padding: 10px;
+  border-bottom: 1px solid #DDDDDD;
+}
+
+.search-key-single{
+  color:#999999;
+}
+

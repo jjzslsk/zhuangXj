@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "余额提现/充值",
+  "usingComponents": {
+    "i-icon": "/dist/icon/index"
+  }
+}

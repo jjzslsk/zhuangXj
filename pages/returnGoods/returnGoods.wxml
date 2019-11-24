@@ -1,0 +1,99 @@
+<!--pages/returnGoods/returnGoods.wxml-->
+<view class='body-bg'>
+  <scroll-view scroll-y class='scroll-area'>
+    <view class="goods-info-item">
+      <view class="goods-img">
+        <image wx:if="{{goodsInfo.imgUrl!=''}}" lazy-load="true" mode="widthFix" src='{{goodsInfo.imgUrl}}' />
+        <image wx:else lazy-load="true" mode="widthFix" src='/images/placeholder.png' />
+      </view>
+      <view class="goods-info">
+        <view class="goods-name">{{goodsInfo.itemName}}</view>
+        <view class="goods-describe">{{goodsInfo.shopItemSpecAttr}}</view>
+        <view class="goods-price-num">
+          <view class="goods-price">¥{{goodsInfo.itemPrice}}</view>
+          <view class="goods-num">X{{goodsInfo.itemNumber}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="state-reason">
+      <view class="return-state">
+        <view class="return-state-title">商品状态:</view>
+        <view class="return-state-radio pro-state">{{cartStatusName}}</view>
+      </view>
+      <!-- <view class="return-state">
+          <view class="return-state-title">商品状态:</view>
+          <view class="return-state-radio">
+            <view class="radio-item" bindtap="radioItemTap" data-id="0">
+              <image wx:if="{{isGetGoods}}" lazy-load="true" mode="widthFix" src='/images/icon/radio_sel.png' />
+              <image wx:else lazy-load="true" mode="widthFix" src='/images/icon/radio_nor.png' />
+              已收到货 
+            </view>
+            <view class="radio-item" bindtap="radioItemTap" data-id="1">
+              <image wx:if="{{!isGetGoods}}" lazy-load="true" mode="widthFix" src='/images/icon/radio_sel.png' />
+              <image wx:else lazy-load="true" mode="widthFix" src='/images/icon/radio_nor.png' />
+              未收到货 
+            </view>
+          </view>
+        </view> -->
+      <view class="return-reason-title">退款原因</view>
+      <view class="return-reason-input">
+        <textarea maxlength="500" placeholder="请输入内容" bindinput="returnReasonInput" value='{{returnReason}}' disabled="{{isReadReturnReason}}" />
+      </view>
+      <view class="return-amount-item">
+        <text>退款金额:</text>
+        <text class="return-amount">¥{{returnAmount}}</text>
+      </view>
+    </view>
+    <view class="img-area">
+      <view class="img-area-title">上传凭证({{imgList.length}}/{{maxImg}})</view>
+      <view class="img-list">
+        <i-row>
+          <i-col span="8" i-class="col-class" wx:for="{{imgList}}" wx:for-item="imgItem" wx:for-index="imgIndex" wx:key="imgIndex">
+            <view class="img-item">
+              <image wx:if="{{imgItem!=''}}" lazy-load="true" mode="scaleToFill" src='{{imgItem}}' bindtap="selAttImgTab" data-attimgindex="imgIndex" />
+              <image wx:else lazy-load="true" mode="scaleToFill" src='/images/placeholder.png' bindtap="selAttImgTab" data-attimgindex="imgIndex" />
+              <i-icon wx:if="{{cartStatus==1}}" type="offline" size="30" color="red" bindtap="delImgTap" data-position="{{imgIndex}}" />
+            </view>
+          </i-col>
+          <i-col span="8" i-class="col-class" wx:if="{{imgList.length<maxImg && cartStatus==1}}">
+            <view class="img-item" bindtap="chooseAttImage">
+              <image lazy-load="true" mode="scaleToFill" src='/images/icon/add_att.png' />
+            </view>
+          </i-col>
+        </i-row>
+      </view>
+    </view>
+    <view class="logistics-item" wx:if="{{cartStatus!=0 &&cartStatus!='0' && cartStatus!=1 && cartStatus!='1' && cartStatus!=2 && cartStatus!='2' && cartStatus!=5 && cartStatus!='5'}}">
+      <view class="logistics-title">物流单号:</view>
+      <view class="logistics-input">
+        <input placeholder="请输入物流单号" bindinput="logisticsInput" value='{{logisticsNum}}' disabled="{{isReadLogistics}}" />
+      </view>
+    </view>
+    <view class="logistics-name-item" wx:if="{{cartStatus!=0 &&cartStatus!='0' && cartStatus!=1 && cartStatus!='1' && cartStatus!=2 && cartStatus!='2' && cartStatus!=5 && cartStatus!='5'}}" bindtap="chooseLogisticsTap">
+      <view class="logistics-title">物流名称:</view>
+      <view class="logistics-name" wx:if="{{logisticsName!=undefined && logisticsName.length>0}}">{{logisticsName}}</view>
+      <view class="logistics-name logistics-phd" wx:else>请选择</view>
+      <view class="logistics-icon">
+        <i-icon type="enter" />
+      </view>
+    </view>
+    <view class="pro-info">
+      <view class="pro-info-item" wx:if="{{goodsInfo.backReasonDate!=undefined && goodsInfo.backReasonDate!=null}}">
+        <view class="title">退货时间</view>
+        <view class="content">{{goodsInfo.backReasonDate}}</view>
+      </view>
+      <view class="pro-info-item" wx:if="{{goodsInfo.backReasonRefuse!=undefined && goodsInfo.backReasonRefuse!=null}}">
+        <view class="title">拒绝理由</view>
+        <view class="content">{{goodsInfo.backReasonRefuse}}</view>
+      </view>
+      <view class="pro-info-item" wx:if="{{goodsInfo.backReasonRefuseDate!=undefined && goodsInfo.backReasonRefuseDate!=null}}">
+        <view class="title">拒绝日期</view>
+        <view class="content">{{goodsInfo.backReasonRefuseDate}}</view>
+      </view>
+    </view>
+    <view class="phd-item"></view>
+  </scroll-view>
+  <view class="footer-btns" bindtap="submitApply" wx:if="{{cartStatus==1}}">提交申请</view>
+  <view class="footer-btns" bindtap="submitLogistics" wx:if="{{cartStatus==3}}">提交物流单号</view>
+</view>

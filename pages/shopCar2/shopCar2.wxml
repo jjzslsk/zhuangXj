@@ -1,0 +1,74 @@
+<!--pages/shopCar/shopCar.wxml-->
+<view class='body-bg'>
+  <view class='edit-btn'>
+    <view class='edit-txt' bindtap="editTap">
+      <text wx:if="{{submitIsDel}}">完成</text>
+      <text wx:else>编辑</text>
+    </view>
+  </view>
+  <x-scroll-view scroll-y class='scroll-area' refreshing="{{refreshing}}" nomore="{{nomore}}" bindpulldownrefresh="myOnPullRefresh" bindloadmore="myOnLoadmore" bindscroll="myOnScroll">
+    <!-- list item -->
+    <view class='horizontal shop-car-item' wx:for="{{goodsList}}" wx:for-index="index" wx:for-item="goodsItem" wx:key="shopIndex">
+      <view class='radio' bindtap="radioTap" data-position="{{index}}" data-id="{{goodsItem.id}}">
+        <image wx:if="{{goodsItem.isChecked}}" lazy-load="true" src='/images/icon/radio_sel.png' />
+        <image wx:else lazy-load="true" src='/images/icon/radio_nor.png' />
+      </view>
+      <view class='icon' bindtap='itemtap' hover-class="item-click-sel-bg" data-id="{{goodsItem.shopItemId}}">
+        <image wx:if="{{goodsItem.imgUrl!='' && goodsItem.imgUrl!=undefined}}" lazy-load="true" mode="widthFix" src='{{goodsItem.imgUrl}}' />
+        <image wx:else lazy-load="true" mode="widthFix" src='/images/placeholder.png' />
+      </view>
+      <view class='content'>
+        <view class='goods-title' bindtap='itemtap' hover-class="item-click-sel-bg" data-id="{{goodsItem.shopItemId}}">
+          <view class="shop-name" bindtap="goShopTap" data-id="{{dataInfo.shopId}}">
+            <i-icon type="shop_fill" size="22" color='green' />
+            <text>{{goodsItem.shopName}}</text>
+          </view>
+          <text>{{goodsItem.itemName}}</text>
+          <text class='spec-name' wx:if="{{goodsItem.shopItemSpecAttr.length>0}}">({{goodsItem.shopItemSpecAttr}})</text>
+          <view class='distribution' wx-if="{{goodsItem.deliveryMode.length>0}}">
+            <text>配送方式:{{goodsItem.deliveryMode}}</text>
+            <text>({{goodsItem.postageType}}</text>
+            <text wx:if="{{goodsItem.postageAmnt!=undefined && goodsItem.postageAmnt!=null && goodsItem.postageAmnt!=''  && goodsItem.postageType!='包邮'}}">:¥{{goodsItem.postageAmnt}}</text>
+            <text>)</text>
+          </view>
+        </view>
+        <view class='price-num horizontal'>
+          <view class='unit-price' bindtap='itemtap' hover-class="item-click-sel-bg" data-id="{{goodsItem.shopItemId}}">¥{{goodsItem.itemSalePrice}}<text class='old-price' wx:if="{{goodsItem.itemSalePrice == goodsItem.itemPrice ? false : true}}">(¥{{goodsItem.itemPrice}})</text></view>
+          <view class='buy-num horizontal'>
+            <view class='num-btn' bindtap="delNumTap" data-position="{{index}}" data-id="{{goodsItem.id}}">-</view>
+            <view><input type="number" value='{{goodsItem.itemNumber}}' data-position="{{index}}" data-id="{{goodsItem.id}}" bindinput="bindKeyInput"/></view>            
+            <view class='num-btn' bindtap="appNumTap" data-position="{{index}}" data-id="{{goodsItem.id}}">+</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{nullImg}}" style="margin:3rem auto 0 auto;text-align: center;">
+      <image lazy-load="true" style="height:10rem;width:10rem;" mode="widthFix" src='/images/orderTypeIcon/nullImg.png' />
+    </view>
+        <!-- <view wx:if="{{nullImg}}" class="carNull">
+      <text>购物车是空的~</text>
+    </view> -->
+    <view wx:if="{{nullImg}}" class="nullBut">
+      <view bindtap="nullBut" class="button">逛一逛</view>
+    </view>
+  </x-scroll-view>
+  <view class='footer' wx:if="{{footerBox}}">
+    <view class='radio-all-btn' bindtap="radioAllTap">
+      <view class='radio-all'>
+        <image wx:if="{{isRadioAll}}" lazy-load="true" src='/images/icon/radio_sel.png' />
+        <image wx:else lazy-load="true" src='/images/icon/radio_nor.png' />
+      </view>
+      <text>全选</text>
+    </view>
+    <view class='cal-price-item' wx:if="{{!submitIsDel}}">合计:
+      <text class='cal-price'>¥{{totalPrice}}</text>
+    </view>
+    <view class='settle-price-but'>
+      <text class="settle-price-collect" wx:if="{{submitIsDel}}" bindtap='goodsCollect'>移入收藏</text>
+      </view>
+    <view class="settle-price {{thisIsChecked ? 'settle-priceRed':''}}" bindtap="submitTap">
+      <text wx:if="{{submitIsDel}}">删除({{isGoodsNumber}})</text>
+      <text wx:else>去结算({{isGoodsNumber}})</text>
+    </view>
+  </view>
+</view>

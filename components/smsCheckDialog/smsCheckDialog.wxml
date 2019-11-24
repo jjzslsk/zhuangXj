@@ -1,0 +1,15 @@
+<!--components/smsCheckDialog/smsCheckDialog.wxml-->
+<i-modal title="" visible="{{ showSmsDialog }}" bind:ok="handleOkCd" bind:cancel="handleCloseCd">
+  <view>{{scdTitle}}</view>
+  <view wx:if="{{smsCheckPhone.length>0}}">{{smsCheckPhone}}</view>
+  <view wx:else style='color:red'>获取不到手机号</view>
+  <view class='scd-input-item'>
+    <view class='input-area'>
+      <input bindinput="bindSmsCodeInputCd" value="{{smsCheckCode}}" type='number' maxlength='4' placeholder="请输入验证码" />
+    </view>
+    <!-- <view class='get-sms-code' bindtap='getSmsCodeTap'> -->
+    <view class="{{disabledSmsCheckCode ? 'scd-dget-sms-code-null':'get-sms-code'}}" bindtap='getSmsCodeTapCd'>
+      <text class="{{disabledSmsCheckCode ? 'disabled-sms-code':''}}">{{smsCheckCodeHint}}</text>
+    </view>
+  </view>
+</i-modal>

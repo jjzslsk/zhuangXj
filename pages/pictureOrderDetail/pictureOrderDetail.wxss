@@ -1,0 +1,339 @@
+/* pages/pictureOrderDetail/pictureOrderDetail.wxss */
+.body-bg {
+  background-color: #f5f5f5;
+  width: 100%;
+  height: 100vh;
+}
+
+.scroll-area {
+  height:calc(100% - 45px);
+}
+
+.address-area{
+  background-color: #FFFFFF;
+  padding: 8px 10px;
+  border-radius: 8px;
+  display: flex;
+  font-size: 0.7rem;
+  border:1px solid #DDDDDD;
+  box-shadow:1px 1px 2px #DDDDDD;
+  margin: 10px 0;
+}
+
+.address-area .assress-icon{
+  width: 40px;
+}
+
+.address-area .address-info{
+  width: calc(100% - 40px);
+}
+
+.address-area .address-info .name-phone{
+  display: flex;
+}
+
+.address-area .address-info .name-phone .recipient-name{
+  width: 50%; 
+  padding-right: 5px;
+}
+
+.address-area .address-info .name-phone .recipient-phone{
+  width: 50%;
+}
+
+.address-area .address-info .recipient-address{
+  margin-top: 5px;
+}
+
+.order-info-area{
+  background-color: #FFFFFF;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 0.6rem;
+  border:1px solid #DDDDDD;
+  box-shadow:1px 1px 2px #DDDDDD;
+  margin-bottom: 10px;
+  color:#999999;
+}
+
+.order-info-area .order-info-item{
+  display: flex;
+}
+
+.order-info-area .order-info-item.info-item-mt{
+  margin-top: 8px;
+}
+
+.order-info-area .order-info-item .info-item-l{
+  width: 50%;
+  padding-right: 3px;
+}
+
+.order-info-area .order-info-item .info-item-l.info-title{
+  color:#000000;
+}
+
+.order-info-area .order-info-item .info-item-r{
+  width: 50%;
+  padding-left: 3px;
+}
+
+.order-img-area{
+  background-color: #FFFFFF;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 0.6rem;
+  border:1px solid #DDDDDD;
+  box-shadow:1px 1px 2px #DDDDDD;
+  margin-bottom: 10px;
+}
+
+.order-img-area .order-img-title{
+  color:#000000;
+}
+
+.order-img-area .order-img-list{
+  margin-top: 8px;
+}
+
+.order-img-item{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+  width: 90%;
+  height: 0px;
+  padding-bottom: 90%;
+  margin: 0 5%;
+  position: relative;
+}
+
+.order-img-item image{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.goods-list{
+  background-color: #FFFFFF;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  border:1px solid #DDDDDD;
+  box-shadow:1px 1px 2px #DDDDDD;
+  margin-bottom: 10px;
+}
+
+.goods-list .shop-name-area{
+  display: flex;
+  border-bottom: 1px solid #DDDDDD;
+  padding: 8px 0;
+}
+
+.goods-list .shop-name-area .shop-icon{
+  width: 25px;
+}
+
+.goods-list .shop-name-area .shop-name{
+  width: calc(100% - 25px);
+}
+
+.goods-list .goods-item{
+  display: flex;
+  font-size: 0.6rem;
+  padding: 8px 0;
+  border-bottom: 1px solid #DDDDDD;
+  align-items: center;
+  color:#999999;
+}
+
+.goods-list .goods-item .serial-number{
+  width: 1.5rem;
+  max-width: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.goods-list .goods-item .serial-number text{
+  width:1rem;
+  height: 1rem;
+  border: 1px solid #999999;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.goods-list .goods-item .goods-img-title{
+  width: calc(20% - 1.5rem);
+  max-width: calc(20% - 1.5rem);
+}
+
+.goods-list .goods-item .goods-img{
+  width: calc(20% - 1.5rem);
+  max-width: calc(20% - 1.5rem);
+  height: 0px;
+  padding-bottom: calc(20% - 1.5rem);
+  position: relative;
+}
+
+.goods-list .goods-item .goods-img image{
+  width: 90%;
+  height: 90%;
+  position: absolute;
+  background-color: #DDDDDD;
+}
+
+.goods-list .goods-item .goods-name{
+  width: 20%;
+  max-width: 20%;
+  padding-right: 2px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; 
+}
+
+.goods-list .goods-item .goods-spec{
+  width: 20%;
+  max-width: 20%;
+  padding-right: 2px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; 
+}
+
+.goods-list .goods-item .buy-number-item{
+  width: 25%;
+  max-width: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.goods-list .goods-item .buy-number-item .buy-del{
+  width: 1rem;
+  height: 1rem;
+  text-align: center;
+  background-color: #f7f7f7;
+  border: 1px solid #DDDDDD;
+  color: #000000;
+  
+}
+
+.goods-list .goods-item .buy-number-item .buy-number{
+  padding: 0 5px;
+}
+
+.goods-list .goods-item .buy-number-item .buy-add{
+  width: 1rem;
+  height: 1rem;
+  text-align: center;
+  background-color: #f7f7f7;
+  border: 1px solid #DDDDDD;
+  color: #000000;
+}
+
+.goods-list .goods-item .price{
+  width:15%;
+  max-width: 15%;
+  padding-left: 2px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; 
+}
+
+.goods-list .remark{
+  font-size: 0.6rem;
+  padding: 8px 0;
+  border-bottom: 1px solid #DDDDDD;
+  color:#999999;
+  display: flex;
+  align-items: center;
+}
+
+.goods-list .remark .remark-title{
+  width: 3em;
+}
+
+.goods-list .remark .remark-edit{
+  width: calc(100% - 3em);
+}
+
+.goods-list .total-item{
+  padding: 8px 0;
+  text-align: right;
+  color: #ff6968;
+}
+
+.goods-list .total-item .total-number{
+  margin-right: 20px;
+}
+
+.footer-btns{
+  height: 45px;
+  display: flex;
+  align-items: center;
+  background-color: #FFFFFF;
+  border-top: 1px solid #DDDDDD;
+  font-size: 0.7rem;
+}
+
+.footer-btns .chat-btn{
+  width: 33.33%;
+  text-align: left;
+}
+
+.footer-btns .chat-btn.wait-fp{
+  width:50%;
+  text-align: center;
+}
+
+.footer-btns .chat-btn text{
+  border: 1px solid #000000;
+  color: #000000;
+  border-radius: 20px;
+  width: 6em;
+  height: 30px;
+  padding: 5px 1rem;
+  margin-left: 20px;
+}
+
+.footer-btns .cancel-order{
+  width: 33.33%;
+  text-align: center;
+}
+
+.footer-btns .cancel-order.wait-fp{
+  width:50%;
+  text-align: center;
+}
+
+.footer-btns .cancel-order text{
+  border: 1px solid #000000;
+  color: #000000;
+  border-radius: 20px;
+  width: 6em;
+  height: 30px;
+  padding: 5px 1rem;
+}
+
+.footer-btns .payment{
+  width: 33.33%;
+  text-align: right;
+}
+
+.footer-btns .payment text{
+  background-color: #12cd7c;
+  color: #FFFFFF;
+  border-radius: 20px;
+  width: 6em;
+  height: 30px;
+  padding: 5px 1rem;
+  margin-right: 20px;
+}
+
+.not-data{
+  text-align: center;
+  margin: 20px 30px;
+  color: #DDDDDD;
+}

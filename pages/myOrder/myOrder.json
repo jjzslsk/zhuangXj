@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "我的订单",
+  "usingComponents": {
+    "i-divider": "/dist/divider/index",
+    "i-icon": "/dist/icon/index",
+    "x-scroll-view": "/xing-components/x-scroll-view",
+    "payDialog": "/components/payDialog/payDialog",
+    "modal": "/components/modal/modal",
+    "smsCheckDialog": "/components/smsCheckDialog/smsCheckDialog"
+  }
+}

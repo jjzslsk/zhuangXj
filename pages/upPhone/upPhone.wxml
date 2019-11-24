@@ -1,0 +1,52 @@
+<!--pages/upPhone/upPhone.wxml-->
+<view class='body-bg'>
+  <scroll-view scroll-y class='scroll-area'>
+
+    <view wx:if="{{!isNext}}">
+      <view class='input-item'>
+        <view class='title'>当前手机号:</view>
+        <view class='input-area'>
+          <input bindinput="bindPhoneInputCur" value="{{phoneCur}}" type='number' maxlength='11' placeholder="请输入当前手机号" auto-focus/>
+        </view>
+      </view>
+      <view class='input-sms-code'>
+        <view class='title'>验证码:</view>
+        <view class='input-sms-code'>
+          <input bindinput="bindSmsCodeInputCur" value="{{smsCodeCur}}" type='number' maxlength='6' placeholder="请输入验证码" />
+        </view>
+        <view class='get-sms-code' bindtap='getSmsCodeTapCur'>
+          <text class="{{disabledSmsCodeCur ? 'disabled-sms-code':''}}">{{smsCodeHintCur}}</text>
+        </view>
+      </view>
+
+      <view class='submit-area'>
+        <view class='submit-btn' bindtap='nextTap' hover-class="submit-btn-sel-bg">下一步</view>
+      </view>
+    </view>
+
+
+    <view wx:else>
+      <view class='input-item'>
+        <view class='title'>新手机号码:</view>
+        <view class='input-area'>
+          <input bindinput="bindPhoneInputNext" value="{{phoneNext}}" type='number' maxlength='11' placeholder="请输入新手机号码" auto-focus/>
+        </view>
+      </view>
+      <view class='input-sms-code'>
+        <view class='title'>验证码:</view>
+        <view class='input-sms-code'>
+          <input bindinput="bindSmsCodeInputNext" value="{{smsCodeNext}}" type='number' maxlength='6' placeholder="请输入验证码" />
+        </view>
+        <view class='get-sms-code' bindtap='getSmsCodeTapNext'>
+          <text class="{{disabledSmsCodeNext ? 'disabled-sms-code':''}}">{{smsCodeHintNext}}</text>
+        </view>
+      </view>
+
+      <view class='submit-area'>
+        <view class='submit-btn' bindtap='submitTap' hover-class="submit-btn-sel-bg">提交</view>
+      </view>
+    </view>
+  </scroll-view>
+  
+  <!-- <web-view src="www.baidu.com"></web-view> -->
+</view>

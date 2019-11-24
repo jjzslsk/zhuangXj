@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "拍照订单",
+  "usingComponents": {
+    "x-scroll-view": "/xing-components/x-scroll-view"
+  }
+}

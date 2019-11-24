@@ -1,0 +1,18 @@
+<!--pages/addBank/addBank.wxml-->
+<view class='body-bg'>
+  <i-input value="{{cardholder}}" bind:change="bindInputCardholder" title="持卡人:" type="text" maxlength="10" autofocus placeholder="请输入持卡人" />
+  <view class='choose-item'>
+    <view class='item-content' hover-class="item-click-sel-bg">
+      <text class='title'>银行类型:</text>
+      <view class='content please-sel' wx:if="{{backTypeName==undefined || backTypeName==null ||backTypeName==''}}" bindtap='chooseBankType'>请选择银行类型</view>
+      <view class='content' wx:else bindtap='chooseBankType'>{{backTypeName}}</view>
+      <view class='icon'>
+          <i-icon type="enter" size='20' color='#000000' />
+      </view>
+    </view>
+  </view>
+  <i-input value="{{carNum}}" bind:change="bindInputCarNum" title="卡号:" type="number" maxlength="19" placeholder="" />
+
+  <view class='submit-info' hover-class='submit-btn-sel-bg' bindtap='submitInfo'>确定添加</view>
+
+ </view>

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "确认订单",
+  "usingComponents": {
+    "i-icon": "/dist/icon/index",
+    "payDialog": "/components/payDialog/payDialog"
+  }
+}

@@ -1,0 +1,20 @@
+<!-- pages/complaintAdvice/complaintAdvice.wxml -->
+<view class='body-bg'>
+  <scroll-view scroll-y class='scroll-area'>
+    <view class="com-top" hover-class="none" hover-stop-propagation="false">
+      <view class="title" hover-class="none" hover-stop-propagation="false">
+        <i-icon type="right" />
+        <text class="content" selectable="false" space="false" decode="false">评论成功</text>
+      </view>
+      <view class="warp" hover-class="none" hover-stop-propagation="false">
+        <text class="content-txt" selectable="false" space="false" decode="false">
+          坚持写真是、内容丰富的评价，人气值涨得快哦！
+        </text>
+      </view>
+      <view class="warp-but"  style="flex-direction:row;" hover-class="none" hover-stop-propagation="false">
+        <i-button bind:click="handleClickHome" type="success" shape="circle" size="small">返回首页</i-button>
+        <!-- <i-button bind:click="selEvaAllTap" type="success" shape="circle" size="small">查看评论</i-button> -->
+      </view>
+    </view>
+  </scroll-view>
+</view>

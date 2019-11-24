@@ -1,0 +1,4 @@
+/* pages/activityWeb/activityWeb.wxss */
+.activity-body image{
+    width:100%;
+}

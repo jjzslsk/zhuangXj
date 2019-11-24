@@ -1,0 +1,69 @@
+<!--pages/evaluate/evaluate.wxml-->
+<view class='body-bg'>
+  <!-- <view class='submit-btn' bindtap='submitBtn'>提交</view> -->
+  <scroll-view scroll-y class="scroll-area">
+    <view class='goods-item' wx:for="{{goodsList}}" wx:for-item="goodsItem" wx:for-index="goodsindex" wx:key="goodsindex">
+      <!-- 商品信息 -->
+      <view class='goods-info'>
+        <view class='goods-img'>
+          <image wx:if="{{goodsItem.imgUrl!='' && goodsItem.imgUrl!=null && goodsItem.imgUrl!=undefined}}" lazy-load="true" mode="widthFix" src='{{goodsItem.imgUrl}}' />
+          <image wx:else lazy-load="true" mode="widthFix" src='/images/placeholder.png' />
+        </view>
+        <view>
+          <view>
+            <text>{{goodsItem.itemName}}</text>
+            <text class='spec-name' wx:if="{{goodsItem.shopItemSpecAttr.length>0}}">({{goodsItem.shopItemSpecAttr}})</text>
+          </view>
+          <view class='distribution' wx-if="{{goodsItem.deliveryMode.length>0}}">配送方式:{{goodsItem.deliveryMode}}</view>
+        </view>
+      </view>
+      <!-- 评分 -->
+      <view class='eva-rate'>
+        <view class='eva-item'>
+          <view class='title'>商品评分</view>
+          <view>
+            <i-rate bind:change="onChangeGoodsEva" value="{{goodsItem.goodsEvaIndex}}" size="32" data-position="{{goodsindex}}"></i-rate>
+          </view>
+        </view>
+        <view class='eva-item'>
+          <view class='title'>服务态度</view>
+          <view>
+            <i-rate bind:change="onChangeServiceEva" value="{{goodsItem.serviceEvaIndex}}" size="32" data-position="{{goodsindex}}"></i-rate>
+          </view>
+        </view>
+        <view class='eva-item'>
+          <view class='title'>物流服务</view>
+          <view>
+            <i-rate bind:change="onChangeFlowEva" value="{{goodsItem.flowEvaIndex}}" size="32" data-position="{{goodsindex}}"></i-rate>
+          </view>
+        </view>
+      </view>
+      <!-- 评价描述 -->
+      <view class='describe-eva'>
+        <!-- 描述 -->
+        <view class='describe'>
+          <textarea show-confirm-bar='{{confirm}}'  bindinput="bindDescribeEveInput" data-position="{{goodsindex}}" value='{{goodsItem.describeEve}}' placeholder="请输入评价描述(最多500字)" maxlength='500' /> 
+        </view>
+        <view class='foot-but'>
+          <view class='submit' bindtap='submitBtn'>提交</view>
+        </view>
+        <!-- 附件图片 -->
+        <!-- <view class='att-img'>
+          <i-row>
+            <i-col span="6" i-class="col-class" wx:for="{{goodsItem.attImgList}}" wx:for-item="attImgItem" wx:for-index="index" wx:key="{{index}}">
+              <view class='img-item'>
+                <image lazy-load="true" mode="scaleToFill" src="{{attImgItem}}" />
+                <view class='del-att-img' bindtap='delAttImgTap' data-position="{{goodsindex}}" data-index="{{index}}">-</view>
+              </view>
+            </i-col>
+            <i-col wx:if="{{goodsItem.attImgList.length<maxAttCount}}" span="6" i-class="col-class">
+              <view id='add_img' class='add-img-btn' bindtap='chooseAttImage' data-position="{{goodsindex}}">
+                <image lazy-load="true" mode="scaleToFill" src='/images/icon/camera_icon.png' />
+              </view>
+            </i-col>
+          </i-row>
+        </view> -->
+      </view>
+    </view>
+  </scroll-view>
+</view>

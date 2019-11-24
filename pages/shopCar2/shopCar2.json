@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "购物车",
+  "usingComponents": {
+    "x-scroll-view": "/xing-components/x-scroll-view",
+    "i-icon": "/dist/icon/index"
+  }
+}

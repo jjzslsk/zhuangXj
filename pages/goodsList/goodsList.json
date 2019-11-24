@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "商品列表",
+  "usingComponents": {
+    "i-tabs": "/dist/tabs/index",
+    "i-tab": "/dist/tab/index",
+    "x-scroll-view": "/xing-components/x-scroll-view",
+    "i-spin": "/dist/spin/index",
+    "i-icon": "/dist/icon/index"
+  }
+}

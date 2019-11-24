@@ -1,0 +1,226 @@
+/* pages/goodsShopList/goodsShopList.wxss */
+
+.body-bg {
+  background-color: #f5f5f5;
+  width: 100%;
+  height: 100vh;
+}
+
+.search-area {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 39px;
+  line-height: 39px;
+  max-height: 39px;
+  padding: 0 10px;
+}
+
+.search-area .search {
+  background-color: #fff;
+  border-radius: 10rpx;
+  /* width: calc(100% - 37px); */
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  max-height: 30px;
+}
+
+.search-area .search .hint {
+  margin-left: 35px;
+  height: 100%;
+  font-size: 0.9em;
+}
+
+.search-area .search .hint-color {
+  color: #ddd;
+}
+
+.search-area .search input {
+  margin-left: 35px;
+  height: 100%;
+}
+
+.search-area .searchcion {
+  margin: 5px 0 0 5px;
+  position: absolute;
+  left: 10px;
+  z-index: 2;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+}
+
+.tab-head {
+  border-bottom: 1rpx solid #ddd;
+}
+
+.tab-head .sort-icon{width:12px;position: absolute;z-index: 999;left: 35%;margin-top: 2px;height: 10px;}
+.tab-head .sort-icon2{width:12px;position: absolute;z-index: 999;left: 80%;margin-top: 2px;margin-left: 10px;}
+
+.scroll-area {
+  height: calc(100% - 82px);
+}
+/* 商品item样式 start*/
+.goods-item {
+  padding: 8px 0;
+  border-bottom: 1rpx solid #ddd;
+  background-color: #fff;
+}
+
+.goods-item .goods-item-row .icon {
+  width: 30%;
+  display: flex;
+  justify-content: center;
+}
+
+.goods-item .goods-item-row .icon image {
+  width: 80%;
+  height: 80px;
+}
+
+.goods-item .goods-item-row .content {
+  width: 70%;
+}
+
+.goods-item .goods-item-row .content .goods-itemName {
+  font-size: 14px;
+}
+
+.goods-item .goods-item-row .content .content-item-mt {
+  margin-top: 8px;
+}
+
+.goods-item .goods-item-row .content .content-item-mt .new-price {
+  color: #e91717;
+}
+
+.goods-item .goods-item-row .content .content-item-mt .old-price {
+  color: #cecece;
+  text-decoration: line-through;
+  font-size: 0.8em;
+  margin-left: 20px;
+}
+
+.goods-item .goods-item-row .content .evaluate-area {
+  color: #cecece;
+  font-size: 0.8em;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 10px;
+}
+
+.goods-item .goods-item-row .content .evaluate-area .good-eva {
+  margin-left: 10px;
+}
+
+.goods-item .goods-item-row .content .shop-name-area{
+  color: #cecece;
+  font-size: 0.8em;
+}
+
+.goods-item .goods-item-row .content .shop-name-area .shop-type{
+  color: red;
+  font-size: 0.7em;
+  margin-left: 5px;
+}
+
+.goods-item .goods-item-row .content .shop-name-area .distance {
+  margin-left: 4px;
+}
+/* 商品item样式 end*/
+
+/* 店铺item样式 start*/
+.shop-item{
+  padding: 8px 10px;
+  border-bottom: 1rpx solid #ddd;
+  background-color: #fff;
+}
+
+.shop-item .shop-head{
+  display: flex;
+  width: 100%;
+  /* align-items: center; */
+}
+
+.shop-item .shop-head .shop-logo{
+  width: 20vw;
+  display: flex;
+  justify-content: center;
+}
+
+.shop-item .shop-head .shop-logo image{
+  width: 16vw;
+  height: 16vw;
+  border-radius: 50%;
+}
+
+.shop-item .shop-head .shop-name{
+  width: calc(100% - 20vw - 2em - 16px);
+}
+
+.shop-item .shop-head .shop-name .shop-score{
+  margin-top: 5px;
+  /* color:#cecece;
+  font-size: 0.8em; */
+  display: flex;
+  align-items: center;
+}
+
+.shop-item .shop-head .shop-name .shop-score .shop-level{
+  display: flex;
+  align-items: center;
+} 
+
+.shop-item .shop-head .shop-name .shop-score .shop-level image{
+  width:15px;
+  height:15px;
+}
+
+.shop-item .shop-head .goto-shop{
+  width: calc(2em + 16px);
+}
+
+.shop-item .shop-head .goto-shop text{
+  background-color: #259b24;
+  color:#FFFFFF;
+  padding: 3px 8px;
+  border-radius: 5px;
+}
+
+.shop-item .shop-goods-list{
+  margin-top: 8px;
+  padding: 8px 10px;
+  display: flex;
+  /* justify-content: space-between; */
+}
+
+.shop-item .shop-goods-list .shop-goods-item{
+  width: 33%;
+  position: relative;
+}
+
+.shop-item .shop-goods-list .shop-goods-item .shop-goods-item-img{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.shop-item .shop-goods-list .shop-goods-item .shop-goods-item-img image{
+  width: 80%;
+  height: 80px;
+}
+
+.shop-item .shop-goods-list .shop-goods-item .shop-goods-item-price{
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  background: rgba(0,0,0,0.4);
+  font-size: 0.6em;
+  color:#FFFFFF;
+  padding: 5px 10px;
+  border-radius: 8px;
+}
+
+/* 店铺item样式 end*/
+

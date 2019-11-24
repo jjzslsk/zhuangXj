@@ -1,0 +1,4 @@
+/* pages/licenseImg/licenseImg.wxss */
+.img-list{padding: 0 15px;box-sizing:border-box;width: 100%;height: 100vh;}
+.img-item{width:100%;margin: 10px 0;box-sizing:border-box;}
+.scroll-area{height: 100%;}

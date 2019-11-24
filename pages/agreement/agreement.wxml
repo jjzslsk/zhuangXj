@@ -1,0 +1,11 @@
+<!--pages/agreement/agreement.wxml-->
+<import src="../../utils/wxParse/wxParse.wxml" />
+<view class='body'>
+  <scroll-view scroll-y class='scroll-area'>
+    <view class="agreement-item">
+      <view class="agreement">
+        <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+      </view>
+    </view>
+  </scroll-view>
+</view>

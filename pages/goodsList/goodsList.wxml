@@ -1,0 +1,72 @@
+<!--pages/goodsList/goodsList.wxml-->
+<wxs module="common" src="../../utils/common.wxs"></wxs>
+<view class='body-bg'>
+  <!-- 搜索区域 -->
+  <view class='search-area'>
+    <view class="search">
+      <icon class="searchcion" size='20' type='search'></icon>
+      <view wx:if="{{searchKey=='' || searchKey== undefined || searchKey==null}}" class='hint hint-color' bindtap='searchTab'>请输入商品或店铺</view>
+      <view class='hint' bindtap='searchTab'>{{searchKey}}</view>
+    </view>
+  </view>
+  <view class='tab-head'>
+    <i-tabs current="{{ current }}" color="#259b24" bindchange="handleChange">
+
+      <i-tab key="tab1" title="综合排序"></i-tab>
+          <image wx:if="{{sortName=='LAST_EDIT_DATE' && sortType=='DESC'}}" class='sort-icon' lazy-load='true' style='left:23%;' mode="widthFix" src='/images/shop/sort_down.png'></image>
+          <image wx:if="{{sortName=='LAST_EDIT_DATE' && sortType=='ASC'}}" class='sort-icon' lazy-load='true' style='left:23%;' mode="widthFix" src='/images/shop/sort_up.png'></image>
+          <image wx:if="{{sortName!='LAST_EDIT_DATE'}}" class='sort-icon' lazy-load='true' style='left:23%;' mode="widthFix" src='/images/shop/sort_gray.png'></image>
+      
+      <i-tab key="tab2" title="按距离"></i-tab>
+          <image wx:if="{{sortName=='DISTANCE' && sortType=='DESC'}}" class='sort-icon' lazy-load='true' style='left:47%;' mode="widthFix" src='/images/shop/sort_down.png'></image>
+          <image wx:if="{{sortName=='DISTANCE' && sortType=='ASC'}}" class='sort-icon' lazy-load='true' style='left:47%;' mode="widthFix" src='/images/shop/sort_up.png'></image>
+          <image wx:if="{{sortName!='DISTANCE'}}" class='sort-icon' lazy-load='true' style='left:47%;' mode="widthFix" src='/images/shop/sort_gray.png'></image>
+
+      <i-tab key="tab3" title="按销量"></i-tab>
+          <image wx:if="{{sortName=='UNREAL_NUM' && sortType=='DESC'}}" class='sort-icon' lazy-load='true' style='left:71%;' mode="widthFix" src='/images/shop/sort_down.png'></image>
+          <image wx:if="{{sortName=='UNREAL_NUM' && sortType=='ASC'}}" class='sort-icon' lazy-load='true' style='left:71%;' mode="widthFix" src='/images/shop/sort_up.png'></image>
+          <image wx:if="{{sortName!='UNREAL_NUM'}}" class='sort-icon' lazy-load='true' style='left:71%;' mode="widthFix" src='/images/shop/sort_gray.png'></image>
+
+      <i-tab key="tab4" title="按价格"></i-tab>
+          <image wx:if="{{sortName=='ITEM_PRICE' && sortType=='DESC'}}" class='sort-icon' lazy-load='true' style='left:95%;' mode="widthFix" src='/images/shop/sort_down.png'></image>
+          <image wx:if="{{sortName=='ITEM_PRICE' && sortType=='ASC'}}" class='sort-icon' lazy-load='true' style='left:95%;' mode="widthFix" src='/images/shop/sort_up.png'></image>
+          <image wx:if="{{sortName!='ITEM_PRICE'}}" class='sort-icon' lazy-load='true' style='left:95%;' mode="widthFix" src='/images/shop/sort_gray.png'></image>
+          
+    </i-tabs>
+  </view>
+  <x-scroll-view scroll-y class='scroll-area' refreshing="{{refreshing}}" nomore="{{nomore}}" bindpulldownrefresh="myOnPullRefresh" bindloadmore="myOnLoadmore" bindscroll="myOnScroll">
+    <!-- 列表 -->
+    <view class='list-item' wx:for="{{remList}}" wx:for-item="renItem" wx:for-index="index" wx:key="index">
+      <view class='horizontal' bindtap='itemtap' hover-class="item-click-sel-bg" data-id="{{renItem.shopItemId}}">
+        <view class='icon'>
+          <image wx:if="{{renItem.itemSpec[0][0].imgUrl!='' && renItem.itemSpec[0][0].imgUrl!=undefined}}" lazy-load="true" mode="widthFix" src='{{renItem.itemSpec[0][0].imgUrl}}' />
+          <image wx:else lazy-load="true" mode="widthFix" src='/images/placeholder.png' />
+        </view>
+        <view class='content'>
+          <view class='list-itemName'>{{renItem.itemName}}</view>
+          <view class='content-item-mt'>
+            <text class='new-price'>¥{{renItem.itemSalePrice}}</text>
+            <text class='old-price'> ¥{{renItem.itemPrice}} </text>
+          </view>
+          <view class='evaluate-area content-item-mt'>
+            <view>
+              <text>{{renItem.commentTotal}}条评价</text>
+              <text class='good-eva'>{{renItem.favourableRate}}好评</text>
+              <text class='good-eva' wx:if="{{renItem.unrealNum!=''&& renItem.unrealNum!= undefined && renItem.unrealNum!=null}}">{{renItem.unrealNum}}销量</text>
+              <text class='good-eva' wx:elif="{{renItem.salesVolume=='' || renItem.salesVolume== undefined || renItem.salesVolume==null}}">0销量</text>
+              <text class='good-eva' wx:else>{{renItem.salesVolume}}销量</text>
+            </view>
+          </view>
+          <view class='shop-name-area'>
+            <text>{{renItem.shopName}}</text>
+            <text class='shop-type' wx:if="{{renItem.shopTypeName.length>0}}">({{renItem.shopTypeName}})</text>
+            <text class='distance'>{{common.distanceUnitCvs(renItem.distance)}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{nullImg}}" style="margin:3rem auto 0 auto;text-align: center;">
+      <image lazy-load="true" style="height:10rem;width:10rem;" mode="widthFix" src='/images/orderTypeIcon/nullImg.png' />
+    </view>
+  </x-scroll-view>
+</view>

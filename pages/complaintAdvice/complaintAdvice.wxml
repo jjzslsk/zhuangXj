@@ -1,0 +1,12 @@
+<!--pages/suggest/suggest.wxml-->
+<view class='body'>
+  <textarea value='{{content}}' class='suggest' bindinput="onInputChange" placeholder='请输入...'></textarea>
+  <view class='commit-btn' bindtap='commitSuggest'>提交</view>
+    <view class='tips'>
+    <view>您可以通过留言方式留下意见与建议</view>
+    <view>也可以通过以下方式：</view>
+    <view>免费服务热线：400-8798-980</view>
+    <view>QQ专线：2809712409</view>
+    <view>邮箱：2809712409@qq.com</view>
+  </view>
+</view>

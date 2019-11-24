@@ -1,0 +1,47 @@
+<!--pages/classList/classList.wxml-->
+<view class='body-bg'>
+  <!-- 搜索区域 -->
+  <view class='page_row' bindtap="searchTab">
+    <view class="search">
+      <icon class="searchcion" size='20' type='search'></icon>
+      <input class="" disabled placeholder="请输入商品或店铺" />
+    </view>
+  </view>
+  <!-- 列表区域 -->
+  <view class='list-area horizontal'>
+    <!-- 左边类别列表 -->
+    <view class='class-left'>
+      <scroll-view scroll-y class='scroll-left'>
+        <view class='list-item-l' wx:for="{{firstClassList}}" wx:for-item="leftItem" wx:key="itemClassId" bindtap="firstClassTab" data-id="{{leftItem.itemClassId}}" data-name="{{leftItem.className}}">
+          <view class='sel-item-l-bg' wx:if="{{leftItem.itemClassId==curFirstClass.itemClassId}}">
+            <label class='sel-line'></label>
+            {{leftItem.className}}
+          </view>
+          <view class='nor-item-l-bg' wx:else>
+            <label class='sel-line'></label>
+            {{leftItem.className}}
+          </view>
+        </view>
+        <i-divider i-class="footer-hint">{{footerHintLeft}}</i-divider>
+      </scroll-view>
+    </view>
+    <!-- 右边类别列表 -->
+    <view class='class-right'>
+      <scroll-view scroll-y class='scroll-right'>
+        <!-- 类别入口 -->
+        <i-row>
+          <i-col span="8" i-class="col-class" wx:for="{{secondClassList}}" wx:for-item="secondItem" wx:key="itemClassId">
+            <view class='grid-item' bindtap="secondClassTab" hover-class="item-click-sel-bg" data-id="{{secondItem.itemClassId}}" data-allno="{{secondItem.classAllNo}}" data-name="{{secondItem.className}}">
+              <view class='grid-icon'>
+                <image wx:if="{{secondItem.classIcon!='' && secondItem.classIcon!=undefined}}" src="{{secondItem.classIcon}}" lazy-load="true" mode="widthFix" />
+                <image wx:else src="/images/placeholder.png" lazy-load="true" mode="widthFix" />
+              </view>
+              <view class='grid-text'>{{secondItem.className}}</view>
+            </view>
+          </i-col>
+        </i-row>
+        <i-divider i-class="footer-hint">{{footerHintRight}}</i-divider>
+      </scroll-view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "商品评价列表",
+  "usingComponents": {
+    "i-icon": "/dist/icon/index",
+    "i-rate": "/dist/rate/index",
+    "i-row": "/dist/row/index",
+    "i-col": "/dist/col/index",
+    "x-scroll-view": "/xing-components/x-scroll-view"
+  }
+}

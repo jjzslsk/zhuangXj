@@ -1,0 +1,5 @@
+<!--pages/activityWeb/activityWeb.wxml-->
+<!-- <web-view src="{{activityUrl}}"></web-view> -->
+<view class="activity-body" hover-class="none" hover-stop-propagation="false">
+  <image class="" src="{{activityUrl}}" mode="widthFix" lazy-load="false" binderror="" bindload="" />  
+</view>

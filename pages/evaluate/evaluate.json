@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "评价",
+  "usingComponents": {
+    "i-rate": "/dist/rate/index",
+    "i-row": "/dist/row/index",
+    "i-col": "/dist/col/index"
+  }
+}

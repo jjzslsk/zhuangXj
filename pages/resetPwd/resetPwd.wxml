@@ -1,0 +1,36 @@
+<!--pages/resetPwd/resetPwd.wxml-->
+<view class='body-bg'>
+  <scroll-view scroll-y class='scroll-area'>
+    <view class='input-item'>
+      <view class='title'>当前手机号:</view>
+      <view class='input-area'>
+        <input bindinput="bindPhoneInput" value="{{phoneCur}}" type='number' maxlength='11' placeholder="请输入当前手机号" auto-focus/>
+      </view>
+    </view>
+    <view class='input-sms-code'>
+      <view class='title'>验证码:</view>
+      <view class='input-sms-code'>
+        <input bindinput="bindSmsCodeInput" value="{{smsCode}}" type='number' maxlength='6' placeholder="请输入验证码" />
+      </view>
+      <view class='get-sms-code' bindtap='getSmsCodeTap'>
+        <text class="{{disabledSmsCode ? 'disabled-sms-code':''}}">{{smsCodeHint}}</text>
+      </view>
+    </view>
+    <view class='input-item'>
+      <view class='title'>新密码:</view>
+      <view class='input-area'>
+        <input bindinput="bindNewPwdInput" value="{{newPwd}}" type='text' password='true' maxlength='100' placeholder="请输入新密码" confirm-type='done' />
+      </view>
+    </view>
+    <view class='input-item'>
+      <view class='title'>确认新密码:</view>
+      <view class='input-area'>
+        <input bindinput="bindAgainNewPwdInput" value="{{againNewPwd}}" type='text' password='true' maxlength='100' placeholder="请再次输入新密码" confirm-type='done' />
+      </view>
+    </view>
+
+    <view class='submit-area'>
+      <view class='submit-btn' bindtap='submitTap' hover-class="submit-btn-sel-bg">提交</view>
+    </view>
+  </scroll-view>
+</view>

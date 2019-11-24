@@ -1,0 +1,13 @@
+{
+  "navigationBarTitleText": "商品详情",
+  "usingComponents": {
+    "i-icon": "/dist/icon/index",
+    "i-rate": "/dist/rate/index",
+    "i-drawer": "/dist/drawer/index",
+    "i-button": "/dist/button/index",
+    "i-cell-group": "/dist/cell-group/index",
+    "i-cell": "/dist/cell/index",
+    "i-modal": "/dist/modal/index",
+    "i-spin": "/dist/spin/index"
+  }
+}

@@ -1,0 +1,38 @@
+<!--pages/pictureOrderList/pictureOrderList.wxml-->
+<view class="body-bg">
+  <x-scroll-view scroll-y class='scroll-area' refreshing="{{refreshing}}" nomore="{{nomore}}" bindpulldownrefresh="myOnPullRefresh" bindloadmore="myOnLoadmore" bindscroll="myOnScroll">
+    <!-- 列表 -->
+    <view class="polist-list">
+      <view class="polist-item" wx:for="{{dataList}}" wx:for-item="dataIem" wx:for-index="dataIndex" wx:key="{{po+dataIndex}}" bindtap="goToDetailTap" data-orderid="{{dataIem.photoOrderId}}" data-shopid="{{dataIem.shopId}}">
+        <view class="order-img">
+           <image wx:if="{{dataIem.imgUrl!=undefined && dataIem.imgUrl.length>0}}" lazy-load="true" mode="scaleToFill" src='{{dataIem.imgUrl[0]}}' />
+          <image wx:else lazy-load="true" mode="widthFix" src='/images/placeholder.png' />
+        </view>
+        <view class="order-content">
+          <view class="order-content-item">
+            <view class="content-title">店铺名称:</view>
+            <view class="content-info shop-name-item">
+              <view class="shop-name">{{dataIem.shopName}}</view>
+              <view class="order-state" wx:if="{{dataIem.status==0}}">待分配</view>
+              <view class="order-state" wx:elif="{{dataIem.status==1}}">待结算</view>
+              <view class="order-state" wx:elif="{{dataIem.status==2}}">已发货</view>
+              <view class="order-state" wx:elif="{{dataIem.status==4 || dataIem.status==5}}">订单取消</view>
+            </view>
+          </view>
+          <view class="order-content-item">
+            <view class="content-title">下单时间:</view>
+            <view class="content-info">{{dataIem.createDate}}</view>
+          </view>
+          <view class="order-content-item">
+            <view class="content-title">推送时间:</view>
+            <view class="content-info">{{dataIem.processDate}}</view>
+          </view>
+          <view class="order-content-item">
+            <view class="content-title"><text decode='true'>总&emsp;&emsp;价:</text></view>
+            <view class="content-info price">¥{{dataIem.totalAmount}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </x-scroll-view>
+</view>

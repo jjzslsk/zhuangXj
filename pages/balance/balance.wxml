@@ -1,0 +1,9 @@
+<!--pages/balance/balance.wxml-->
+<view class='body-bg'>
+  <view class='balance-area'>
+    <view class='balance-title'>账户余额</view>
+    <view class='balance'><text class='balance-unit'>¥</text><text class='balance-num'>{{balance}}</text></view>
+  </view>
+  <!-- <view class='top-up' hover-class='submit-btn-sel-bg' bindtap='topUpTap'>充值</view> -->
+  <view class='withdrawal' hover-class='submit-btn-sel-bg' bindtap='withdrawTap'>提现</view>
+</view>

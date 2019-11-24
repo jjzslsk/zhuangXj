@@ -1,0 +1,112 @@
+<!--pages/goodsEvaList/goodsEvaList.wxml-->
+<wxs module="common" src="../../utils/common.wxs"></wxs>
+<view class='body-bg'>
+  <x-scroll-view scroll-y class='scroll-area' refreshing="{{refreshing}}" nomore="{{nomore}}" bindpulldownrefresh="myOnPullRefresh" bindloadmore="myOnLoadmore">
+    
+        <view class='shop-intro'>
+      <view class='cmt-header'>
+          <view class='cmt-score'>
+          <image lazy-load="true" mode="scaleToFill" src="{{classNums}}"/></view>
+          <!-- <view class='cmt-score-tips'>商品评分</view> -->
+        <view class='cmt-header-detail'>
+        <view class='margin-t-5'>
+          <text>好评</text>
+          <i-rate disabled="true" size="20" value="{{n1StarLevel}}"></i-rate>
+          </view>
+          <view class='margin-t-5'>
+          <text>服务</text>
+          <i-rate disabled="true" size="20" value="{{n2StarLevel}}"></i-rate>
+          </view>
+          <view class='margin-t-5'>
+          <text>物流</text>
+          <i-rate disabled="true" size="20" value="{{n3StarLevel}}"></i-rate>
+          </view>
+        </view>
+        <view class='cmt-header-pst'>
+          <!-- <view class='cmt-pst'>{{n3StarLevel}}</view>
+          <view class='cmt-score-tips'>配送满意度</view> -->
+        </view>
+      </view>
+
+      <!-- <view class='cmt-tab'>
+        <view class='cmt-tab-item act'>全部</view>
+        <view class='cmt-tab-item'>有图</view>
+      </view> -->
+  
+      <view class='cmt-cate'>
+      <view class='cmt-score-cate' bindtap='evalistBtn' data-keyword='全部评价'>
+          <view class='item'>全部评价</view>
+        </view>
+        <view class='cmt-score-cate' bindtap='evalistBtn' data-keyword='好评'>
+          <view class='item'>好评</view>
+        </view>
+        <view class='cmt-score-cate' bindtap='evalistBtn' data-keyword='满意'>
+          <view class='item'>满意</view>
+        </view>
+        <view class='cmt-score-cate' bindtap='evalistBtn' data-keyword='差评'>
+          <view class='item'>差评</view>
+        </view>
+        <view class='cmt-score-cate' bindtap='evalistBtn' data-keyword='服务好'>
+          <view class='item'>服务好</view>
+        </view>
+        <view class='cmt-score-cate' bindtap='evalistBtn' data-keyword='质量好'>
+          <view class='item'>质量好</view>
+        </view>
+        <view class='cmt-score-cate' bindtap='evalistBtn' data-keyword='性价比高'>
+          <view class='item'>性价比高</view>
+        </view>
+        <view class='cmt-score-cate' bindtap='evalistBtn' data-keyword='使用方便'>
+          <view class='item'>使用方便</view>
+        </view>
+        <view class='cmt-score-cate' bindtap='evalistBtn' data-keyword='物流配送快'>
+          <view class='item'>物流配送快</view>
+        </view>
+        <view class='cmt-score-cate' bindtap='evalistBtn' data-keyword='无色差'>
+          <view class='item'>无色差</view>
+        </view>
+        <view class='cmt-score-cate' bindtap='evalistBtn' data-keyword='价格实惠'>
+          <view class='item'>价格实惠</view>
+        </view>
+        <view class='cmt-score-cate' bindtap='evalistBtn' data-keyword='包装好'>
+          <view class='item'>包装好</view>
+        </view>
+      </view>
+      <view class='comment-list'>
+
+      </view>
+    </view>
+    
+    <!-- 评论列表 -->
+    <view class='list-item list-item-box' wx:for="{{goodsEvaList}}" wx:for-item="goodsEvaItem" wx:for-index="evaIndex" wx:key="evaIndex">
+      <view class='head-info'>
+        <view class='user-ava'>
+        <image wx:if="{{goodsEvaItem.AVATAR1!='' && goodsEvaItem.AVATAR1!=undefined}}" lazy-load="true" mode="scaleToFill" src='{{goodsEvaItem.AVATAR1}}' />
+          <image wx:else lazy-load="true" mode="scaleToFill" src='/images/avatar_h.png' />
+        </view>
+
+        <view class='name-eva'>
+          <view class='name-time'>
+            <view class='s-item' wx:if="{{goodsEvaItem.CLIENT_ACCOUNT1!=null}}">{{common.nameToPrivacy(goodsEvaItem.CLIENT_ACCOUNT1)}}</view>
+            <view  class='time-rate'>
+              <i-rate disabled="true" size="20" value="{{goodsEvaItem.N1_STAR_LEVEL}}"></i-rate>
+            </view>
+            <view class='time'>{{goodsEvaItem.COMMENT_DATE1}}</view>
+          </view>
+          
+        </view>
+      </view>
+      <view class='eva-content' wx:if="{{goodsEvaItem.COMMENT_NOTES1 != null}}">{{goodsEvaItem.COMMENT_NOTES1}}</view>
+      <view class='eva-content-notes' wx:if="{{goodsEvaItem.COMMENT_NOTES2 != null || goodsEvaItem.COMMENT_NOTES2.length >0}}">掌柜回复:{{goodsEvaItem.COMMENT_NOTES2}}</view>
+      <view class='eva-att-img'>
+        <i-row>
+          <i-col span="6" i-class="col-class" wx:for="{{goodsEvaItem.attImgList}}" wx:for-item="attImgItem" wx:for-index="attImgIndex" wx:key="attImgIndex">
+            <view class='eva-img-item' bindtap='selAttImgTab' data-evaindex="{{evaIndex}}" data-attimgindex="{{attImgIndex}}">
+              <image lazy-load="true" mode="widthFix" src="{{attImgItem}}" style='height:{{attHeight}};max-height:{{attHeight}}' />
+            </view>
+          </i-col>
+        </i-row>
+      </view>
+    </view>
+
+  </x-scroll-view>
+</view>

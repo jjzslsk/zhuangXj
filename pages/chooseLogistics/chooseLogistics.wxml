@@ -1,0 +1,37 @@
+<!--pages/chooseLogistics/chooseLogistics.wxml-->
+<!--pages/chooseLocation/chooseLocation.wxml-->
+<view class='body-bg'>
+  <!-- 搜索区域 -->
+  <view class='page_row'>
+    <view class="search">
+      <icon class="searchcion" size='20' type='search'></icon>
+      <input placeholder="请输入物流关键字" focus="{{searchFocus}}" bindinput="searchKeyInput" bindfocus='searchInputFocus' bindblur='searchBlurFocus' value="{{searchKey}}" />
+    </view>
+  </view>
+  <scroll-view scroll-y class='scroll-area' scroll-into-view="{{toView}}">
+
+    <view class="i-index-demo">
+      <i-index height="100%" bind:change="onChange">
+        <view wx:if="{{searchKey.length==0}}">
+          <!-- 热门物流 -->
+          <view class='location-recently-title'>热门物流</view>
+          <view class='location-recently-list'>
+            <i-row>
+              <i-col span="8" i-class="col-class" wx:for="{{hotList}}" wx:for-item="hotItem" wx:key="code">
+                <view class='location-recently-list-item'>
+                  <view class='row-item' bindtap="itemAddressTap" hover-class="item-click-sel-bg" data-code="{{hotItem.code}}" data-name="{{hotItem.name}}" data-isopen="{{hotItem.isOpen}}">{{hotItem.name}}</view>
+                </view>
+              </i-col>
+            </i-row>
+          </view>
+        </view>
+        <i-index-item i-class="{{searchKey.length>0 ? '':'i-index-address-title'}}" wx:for="{{ cities }}" wx:for-index="index" wx:key="searkey" wx:for-item="item" name="{{item.key}}" searchkey="{{searchKey}}" id="{{item.key}}">
+          <view class="i-index-address-item" wx:for="{{item.list}}" wx:for-index="in" wx:key="addresskey" wx:for-item="it" bindtap="itemAddressTap" hover-class="item-click-sel-bg" data-code="{{it.code}}" data-name="{{it.name}}" data-isopen="{{it.isOpen}}">
+            {{it.name}}
+          </view>
+        </i-index-item>
+      </i-index>
+    </view>
+
+  </scroll-view>
+</view>

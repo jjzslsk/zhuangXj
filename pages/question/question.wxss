@@ -1,0 +1,4 @@
+.cardBox {
+    margin-top: 0.6rem;
+    font-size: 100px;
+}

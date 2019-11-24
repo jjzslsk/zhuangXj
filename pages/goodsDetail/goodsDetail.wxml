@@ -1,0 +1,273 @@
+<import src="../../utils/wxParse/wxParse.wxml" />
+<wxs module="common" src="../../utils/common.wxs"></wxs>
+<view class='body-bg'>
+  <!-- mask -->
+  <view class="drawer_screen" bindtap="powerDrawer" wx:if="{{showModalStatus}}"></view>
+  <view class="container-cell" wx:if="{{showModalStatus}}"></view>
+  <!-- 弹窗 -->
+  <view animation="{{animationData}}" class="drawer_box" wx:if="{{showModalStatus}}">
+    <view class="demo-container">
+      <i-cell-group>
+        <i-cell title="消息   " bindtap="toggleHag">
+          <i-icon size="22" type="message" slot="footer" checked />
+        </i-cell>
+        <i-cell title="首页   " bindtap="toggleHome">
+          <i-icon size="22" type="homepage" slot="footer" checked />
+        </i-cell>
+        <!-- <i-cell title="客服小匠 " bindtap="toggleHag" only-tap-footer>
+          <i-icon size="22" type="customerservice" slot="footer" checked />
+        </i-cell> -->
+        <button class='cellBut' open-type="contact">
+          客服小匠
+          <i-icon size="22" type="customerservice" slot="footer" checked />
+        </button>
+        <i-cell title="问题解答 " bindtap="toggleQuestion">
+          <i-icon size="22" type="editor" slot="footer" checked />
+        </i-cell>
+        <button class='cellBut' open-type="share">
+          分享
+          <i-icon size="22" type="share" slot="footer" checked />
+        </button>
+      </i-cell-group>
+    </view>
+  </view>
+  <!-- 购物车 -->
+  <view class='shop-car' wx:if="{{goShopCar}}" bindtap='goShopCar'>
+    <image lazy-load="true" mode="widthFix" src='/images/shop_car_white.png' />
+  </view>
+  <view bindtap='goShopCar' class='shop-car-num' wx:if="{{shop_num>0 && goShopCar}}">
+    <text wx:if="{{shop_num>0 && shop_num<100}}">{{shop_num}}</text>
+    <text wx:elif="{{shop_num>100}}">99+</text>
+  </view>
+  <scroll-view scroll-y class="scroll-area {{isIphoneX ?'fix-iphonex-height':''}}" scroll-top='{{topNum}}' bindscroll="_onScroll">
+    <!-- 轮播图，商品标题，价格 -->
+    <view class='goods-ad-area'>
+      <!-- 轮播图 -->
+      <view wx:if="{{menu}}" class="menu" bindtap='powerDrawer'>
+        <image lazy-load="true" mode="scaleToFill" src='/images/icon/menu.png' />
+      </view>
+      <swiper class="slide-swiper" indicator-dots="{{imgUrls.length>1 ? true:false}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+        <block wx:for="{{imgUrls}}" wx:for-index="index" wx:key="{{index}}">
+          <swiper-item>
+            <image src="{{item}}" mode='scaleToFill' class="slide-image" lazy-load="true" width="100vw" height="100%" bindtap='selAttImgTab' data-attimgindex="{{index}}" />
+          </swiper-item>
+        </block>
+      </swiper>
+      <!-- 价格 -->
+      <view class='price-area'>
+        <text class='new-price'>¥{{new_price}}</text>
+        <text wx:if="{{new_price == old_price ? false : true}}" class='old-price'>¥{{old_price}}</text>
+        <text class='inventory'>库存:{{inventory_num}}</text>
+      </view>
+      <view class='distribution' wx:if="{{distribution.length>0}}">
+        <view class="distribution-wrap" hover-class="none" hover-stop-propagation="false">
+          <view class="distribution-content">
+            <text class="way">配送方式:{{distribution}}</text>
+            <text class="postageType">({{detailInfo.postageType}}</text>
+            <text class="" wx:if="{{detailInfo.postageAmnt!=undefined && detailInfo.postageAmnt!=null && detailInfo.postageAmnt!='' && detailInfo.postageAmnt!='0.00'}}">:¥{{detailInfo.postageAmnt}}</text>
+            <text>)</text>
+          </view>
+          <view class="distribution-sales">
+            <text class="sales" wx:if="{{detailInfo.unrealNum!=undefined}}">月销量:{{detailInfo.unrealNum.length < 1 ? '0' : detailInfo.unrealNum}}</text>
+            <text class="sales" wx:else>月销量:{{detailInfo.monthlySalesVolume.length < 1 ? '0' : detailInfo.monthlySalesVolume}}</text>
+          </view>
+        </view>
+      </view>
+      <view class='delivery-explain' wx:if="{{deliveryExplain.length>0}}">
+        发货方式说明:{{deliveryExplain}}
+      </view>
+      <view class='goods-name'>{{goods_name}}</view>
+      <!-- 店铺名称 -->
+      <view class="shop-name-area-item">
+        <view class='shop-name-area' bindtap='goShopTap' hover-class="item-click-sel-bg" data-id="{{detailInfo.shopId}}">
+          <view class='shop-name-level'>
+            <i-icon type="homepage" size="40" color="#259b24" />
+            <view class="shop-name-level-item">
+              <view class="shop-name">
+                <text class='shop-name-text'>{{detailInfo.shopName}}</text>
+                <text class='shop-type'>({{detailInfo.shopTypeName}})</text>
+                <text class='shop-distance'>{{common.distanceUnitCvs(detailInfo.distance)}}</text>
+              </view>
+              <!-- 店铺评分 -->
+              <view class='shop-level' wx:if="{{detailInfo.startLevelName=='红心'}}">
+                <image src='/images/shop/xin1.png' wx:key="{{red+starLevel}}" wx:for="{{detailInfo.starLevel}}"></image>
+              </view>
+              <view class='shop-level' wx:elif="{{detailInfo.startLevelName=='蓝钻'}}">
+                <image src='/images/shop/zuan1.png' wx:key="{{blue+starLevel}}" wx:for="{{detailInfo.starLevel}}"></image>
+              </view>
+              <view class='shop-level' wx:elif="{{detailInfo.startLevelName=='皇冠'}}">
+                <image src='/images/shop/guan1.png' wx:key="{{yellow+starLevel}}" wx:for="{{detailInfo.starLevel}}"></image>
+              </view>
+            </view>
+          </view>
+          <view class="shop-details" hover-class="none" hover-stop-propagation="false">
+            <text class='details-tab'>店铺详情</text>
+            <i-icon type="enter" color="#aaa" />
+          </view>
+        </view>
+        <view class='shop-address'  bindtap='goShopAddressTap' data-shopname="{{detailInfo.shopName}}" data-address="{{detailInfo.shopAddress}}" data-lng="{{detailInfo.shopLongTx}}" data-lat="{{detailInfo.shopLatTx}}" hover-class="item-click-sel-bg">
+          <i-icon type="coordinates" size="20" color="#999999" />
+          <text>{{detailInfo.shopAddress}}</text>
+          <!-- <text>{{detailInfo.shopArea}}</text> -->
+        </view>
+      </view>
+    </view>
+    <!-- 选择规格 -->
+    <view class='ple-choose-spec-item' bindtap='showSpecDialog' hover-class="item-click-sel-bg">
+      <text class='ple-choose-spec-title' space="ensp">规格</text>
+      <view class='ple-choose-spec-content'>
+        <view class="goods-class" hover-class="none" hover-stop-propagation="false">
+          <view wx:for="{{classNums}}" wx:key="id" class="goods-class-img">
+            <image class="" src='{{item.imgUrl}}' mode='scaleToFill' lazy-load="false" binderror="" bindload="" />
+          </view>
+        </view>
+        <text>共{{specifications_list.length}}种分类可选</text>
+        <i-icon type="enter" color="#aaa" />
+      </view>
+    </view>
+    <!-- 商品评价 -->
+    <view class='evaluation-area'>
+      <!-- 查看全部 -->
+      <view class='total-num-item' bindtap='selEvaAllTap' hover-class="item-click-sel-bg">
+        <text class='total-num' space="ensp">评价({{detailInfo.commentTotal}})</text>
+        <view class='sel-all'>
+          <text>查看全部评价</text>
+          <i-icon type="enter" color="#aaa" />
+        </view>
+      </view>
+      <!-- 评价信息 -->
+      <view class='evaluation-info-item' wx:for="{{evaluation_info.list}}" wx:for-item="evaItem" wx:for-index="evaIndex" wx:key="shopItemCommentId">
+        <view class='evaluation-info-head'>
+          <view class='user-ava'>
+            <image wx:if="{{evaItem.avatar!='' && evaItem.avatar!=undefined}}" lazy-load="true" mode="scaleToFill" src='{{evaItem.avatar}}' />
+            <image wx:else lazy-load="true" mode="scaleToFill" src='/images/avatar_h.png' />
+          </view>
+          <view class='name-eva'>
+            <view class='name-time'>
+              <view class='eva-name s-item'>{{common.nameToPrivacy(evaItem.clientAccount)}}</view>
+              <view class='time'>{{evaItem.commentDate}}</view>
+            </view>
+            <view>
+              <i-rate disabled="true" size="20" value="{{evaItem.n1StarLevel}}"></i-rate>
+            </view>
+          </view>
+        </view>
+        <view class='eva-content'>{{evaItem.commentNotes}}</view>
+      </view>
+    </view>
+    <!-- 商品详情 -->
+    <view class='detail-area'>
+      <view class='detail-head'>
+        <text class='detail-title' space="ensp">商品详情</text>
+      </view>
+      <view class='detail-item'>
+        <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+      </view>
+    </view>
+  </scroll-view>
+  <view class="footer-area {{isIphoneX ?'fix-iphonex-button':''}}">
+    <view class='footer-area-item footer-shop' bindtap='goShopTap' hover-class="item-click-sel-bg" data-id="{{detailInfo.shopId}}">
+      <view class="" hover-class="none" hover-stop-propagation="false">
+        <view class='footer-area-item-img'>
+          <image lazy-load="true" mode="widthFix" src='/images/orderTypeIcon/shop.png' />
+        </view>
+        <view class='footer-area-item-txt'>店铺</view>
+      </view>
+    </view>
+    <view class='footer-area-item footer-service' bindtap='chatTap' hover-class="item-click-sel-bg">
+      <view class="" hover-class="none" hover-stop-propagation="false">
+        <view class='footer-area-item-img'>
+          <image lazy-load="true" mode="widthFix" src='/images/orderTypeIcon/kefu.png' />
+        </view>
+        <view class='footer-area-item-txt'>客服</view>
+      </view>
+    </view>
+    <view class='footer-area-item collect' bindtap="collectTap" hover-class="item-click-sel-bg">
+      <view class="" hover-class="none" hover-stop-propagation="false">
+        <view class='footer-area-item-img'>
+          <i-icon wx:if="{{isCollect}}" type="collection_fill" size='20' color='#259b24' />
+          <i-icon wx:else type="collection_fill" size='20' color='#CECECE' />
+        </view>
+        <view wx:if="{{isCollect}}" class="icon-title title-col02 footer-area-item-txt">已收藏</view>
+        <view wx:else class="icon-title title-col01 footer-area-item-txt">收藏</view>
+      </view>
+    </view>
+    <!-- <view class='buy-num'>
+      <view class='num-btn' bindtap="delNumTap">-</view>
+      <view class="section">
+        <input type="number" style='width:2rem;text-align: center;' value='{{buy_num}}' bindinput="bindKeyInput" />
+      </view>
+      <view class='num-btn' bindtap="appNumTap">+</view>
+    </view> -->
+    <view class='submit-area'>
+      <view class='join-car' bindtap='showSpecDialog'>添加购物车</view>
+      <view class='buy-now' bindtap='showSpecDialog'>立即购买</view>
+    </view>
+  </view>
+</view>
+<image src='/images/icon/goTop.png' class='goTop' hidden='{{!floorstatus}}' bindtap="goTop"></image>
+<!-- 规格popup -->
+<view class="spec-choose-popup-bg" wx:if="{{showSpecMethodPopup}}">
+  <view class='shadow-bg-area' bindtap="colseSpecMethod"></view>
+  <view class="spec-choose-popup-area" animation="{{animationSpecData}}">
+    <view class='shadow-head'></view>
+    <view class='spec-info-area'>
+      <view class='spec-head-area'>
+        <view class='spec-img' bindtap='lookSpecTap'>
+          <image wx:if="{{spec_imgurl!='' && spec_imgurl!=undefined}}" lazy-load="true" mode="widthFix" src='{{spec_imgurl}}' />
+          <image wx:else lazy-load="true" mode="widthFix" src='/images/placeholder.png' />
+        </view>
+        <view class='spec-info'>
+          <view class='price'>
+            <text class='new-price'>¥{{new_price}}</text>
+            <text class='old-price'>¥{{old_price}}</text>
+          </view>
+          <view class='sepc-name'>规格:{{spec_name}}</view>
+        </view>
+        <view class='spec-colse-popup' bindtap="colseSpecMethod">
+          <i-icon type="close" size="20" color="#80848f" />
+        </view>
+      </view>
+      <!-- 选择规格 -->
+      <view class='spec-list-area'>
+        <scroll-view scroll-y class='spec-scroll-area'>
+          <view class='specifications-area'>
+            <view wx:for="{{specifications_list}}" wx:for-item="specificationsItem" wx:for-index="index" wx:key="id" class="specifications-item {{specificationsItem.selected ? 'specifications-item-sel':'specifications-item-nor'}}" bindtap="specificationsTap" data-position="{{index}}"
+              data-id="{{specificationsItem.id}}">
+              {{specificationsItem.spec}}
+            </view>
+          </view>
+          <!-- <view class='spec-buy-num-item'>
+            <view class='bug-num-title'>合计¥{{totalPrice}}</view>
+            <view class='spec-buy-num'>
+              购买数量:
+              <view class='num-btn' bindtap="delNumTap">-</view>
+              <view class="section">
+                <input type="number" style='width:2rem;text-align: center;' value='{{buy_num}}' bindinput="bindKeyInput" />
+              </view>
+              <view class='num-btn' bindtap="appNumTap">+</view>
+            </view>
+          </view> -->
+        </scroll-view>
+      </view>
+      <!-- 底部按钮 -->
+      <view class='spec-popup-btn-area'>
+        <view class='spec-buy-num-item'>
+          <view class='bug-num-title'>合计¥{{totalPrice}}</view>
+          <view class='spec-buy-num'>
+            购买数量:
+            <view class='num-btn' bindtap="delNumTap">-</view>
+            <view class="section">
+              <input type="number" style='width:2rem;text-align: center;' value='{{buy_num}}' bindinput="bindKeyInput" />
+            </view>
+            <view class='num-btn' bindtap="appNumTap">+</view>
+          </view>
+        </view>
+        <view class="footer-popup-btn">
+          <view class='spec-join-car' bindtap='joinCarTap'>添加购物车</view>
+          <view class='spec-buy-now' bindtap='buyNowTap'>立即购买</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

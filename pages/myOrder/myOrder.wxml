@@ -1,0 +1,170 @@
+<!--pages/myOrder/myOrder.wxml-->
+
+<modal show="{{showModal}}" height='65%' bindcancel="modalCancel" bindconfirm='modalConfirm'>
+  <view class="page">
+    <view class="page__hd">
+      <text class="page__desc">请选择取消订单的理由</text>
+    </view>
+    <view class="page__bd">
+      <view class="section section_gap">
+        <radio-group class="radio-group" bindchange="radioChange">
+          <radio class="radio" wx:for-items="{{items}}" wx:key="name" value="{{item.value}}" checked="{{item.checked}}">
+            <text>{{item.value}}</text>
+          </radio>
+          <view class="other-cancel-reason" wx:if="{{showOthCanReaInput}}">
+            <textarea bindinput="bindCancelReasonInput" value='{{cancelOrderReason}}' placeholder="请输理由(最多500字)" maxlength='500' />
+          </view>
+        </radio-group>
+      </view>
+    </view>
+  </view>
+</modal>
+
+<view class="swiper-tab">
+  <view class="swiper-tab-item {{currentTab==0?'active':''}}" data-current="0" bindtap="clickTab">全部</view>
+  <view class="swiper-tab-item {{currentTab==1?'active':''}}" data-current="1" bindtap="clickTab">待付款</view>
+  <view class="swiper-tab-item {{currentTab==2?'active':''}}" data-current="2" bindtap="clickTab">待发货</view>
+  <view class="swiper-tab-item {{currentTab==3?'active':''}}" data-current="3" bindtap="clickTab">待收货</view>
+  <view class="swiper-tab-item {{currentTab==4?'active':''}}" data-current="4" bindtap="clickTab">待评价</view>
+</view>
+
+<swiper current="{{currentTab}}" duration="300" bindchange="swiperTab">
+  <!-- 全部列表 -->
+  <swiper-item>
+    <x-scroll-view scroll-y class='scroll-area' refreshing="{{refreshing0}}" nomore="{{nomore0}}" bindpulldownrefresh="myOnPullRefresh" bindloadmore="myOnLoadmore">
+      <block wx:for="{{shopGoodsListAll}}" wx:for-item="shopGoodsItem" wx:for-index="index" wx:key="orderNoAll">
+        <view bindtap='cardItemTap' data-orderinfo="{{shopGoodsItem}}">
+          <template is="shopGoodsItem" data="{{...shopGoodsItem}}"></template>
+        </view>
+      </block>
+      <view wx:if="{{nullImg1}}" style="margin:3rem auto 0 auto;text-align: center;">
+        <image lazy-load="true" style="height:10rem;width:10rem;" mode="widthFix" src='/images/orderTypeIcon/nullImg.png' />
+      </view>
+    </x-scroll-view>
+  </swiper-item>
+  <!-- 待付款列表 -->
+  <swiper-item>
+    <x-scroll-view scroll-y class='scroll-area' refreshing="{{refreshing1}}" nomore="{{nomore1}}" bindpulldownrefresh="myOnPullRefresh" bindloadmore="myOnLoadmore">
+      <block wx:for="{{shopGoodsListWaitPay}}" wx:for-item="shopGoodsItem" wx:for-index="index" wx:key="orderNoWaitPay">
+        <view bindtap='cardItemTap' data-orderinfo="{{shopGoodsItem}}">
+          <template is="shopGoodsItem" data="{{...shopGoodsItem}}"></template>
+        </view>
+      </block>
+      <view wx:if="{{nullImg2}}" style="margin:3rem auto 0 auto;text-align: center;">
+        <image lazy-load="true" style="height:10rem;width:10rem;" mode="widthFix" src='/images/orderTypeIcon/nullImg.png' />
+      </view>
+    </x-scroll-view>
+  </swiper-item>
+  <!-- 待发货列表 -->
+  <swiper-item>
+    <x-scroll-view scroll-y class='scroll-area' refreshing="{{refreshing2}}" nomore="{{nomore2}}" bindpulldownrefresh="myOnPullRefresh" bindloadmore="myOnLoadmore">
+      <block wx:for="{{shopGoodsListWaitSend}}" wx:for-item="shopGoodsItem" wx:for-index="index" wx:key="orderNoWaitSend">
+        <view bindtap='cardItemTap' data-orderinfo="{{shopGoodsItem}}">
+          <template is="shopGoodsItem" data="{{...shopGoodsItem}}"></template>
+        </view>
+      </block>
+      <view wx:if="{{nullImg3}}" style="margin:3rem auto 0 auto;text-align: center;">
+        <image lazy-load="true" style="height:10rem;width:10rem;" mode="widthFix" src='/images/orderTypeIcon/nullImg.png' />
+      </view>
+    </x-scroll-view>
+  </swiper-item>
+  <!-- 待收货列表 -->
+  <swiper-item>
+    <view class='notice-hint'>注意:若15天后用户未确认收货,系统将自动确认。</view>
+    <x-scroll-view scroll-y class='scroll-area-noce' refreshing="{{refreshing3}}" nomore="{{nomore3}}" bindpulldownrefresh="myOnPullRefresh" bindloadmore="myOnLoadmore">
+      <block wx:for="{{shopGoodsListWaitReceive}}" wx:for-item="shopGoodsItem" wx:for-index="index" wx:key="orderNoWaitReceive">
+        <view bindtap='cardItemTap' data-orderinfo="{{shopGoodsItem}}">
+          <template is="shopGoodsItem" data="{{...shopGoodsItem}}"></template>
+        </view>
+      </block>
+      <view wx:if="{{nullImg4}}" style="margin:3rem auto 0 auto;text-align: center;">
+        <image lazy-load="true" style="height:10rem;width:10rem;" mode="widthFix" src='/images/orderTypeIcon/nullImg.png' />
+      </view>
+    </x-scroll-view>
+  </swiper-item>
+  <!-- 待评价列表 -->
+  <swiper-item>
+    <x-scroll-view scroll-y class='scroll-area' refreshing="{{refreshing4}}" nomore="{{nomore4}}" bindpulldownrefresh="myOnPullRefresh" bindloadmore="myOnLoadmore">
+      <block wx:for="{{shopGoodsListWaitEva}}" wx:for-item="shopGoodsItem" wx:for-index="index" wx:key="orderNoWaitEva">
+        <view bindtap='cardItemTap' data-orderinfo="{{shopGoodsItem}}">
+          <template is="shopGoodsItem" data="{{...shopGoodsItem}}"></template>
+        </view>
+      </block>
+      <view wx:if="{{nullImg5}}" style="margin:3rem auto 0 auto;text-align: center;">
+        <image lazy-load="true" style="height:10rem;width:10rem;" mode="widthFix" src='/images/orderTypeIcon/nullImg.png' />
+      </view>
+    </x-scroll-view>
+  </swiper-item>
+</swiper>
+
+
+<!--列表item模板 -->
+<template name="shopGoodsItem">
+  <view class='shop-list'>
+    <view class='order-code-state'>
+      <!-- <view>订单编号:{{orderNo}}</view> -->
+      <view><i-icon type="shop_fill" size="22" color='green'/>{{shopName}}</view>
+      <view class='order-state-0' wx:if="{{orderStatus==0 || orderStatus=='0'}}">待付款</view>
+      <view class='order-state-1' wx:elif="{{orderStatus==1 || orderStatus=='1'}}">待发货</view>
+      <view class='order-state-2' wx:elif="{{orderStatus==3 || orderStatus=='3'}}">待收货</view>
+      <view class='order-state-3' wx:elif="{{orderStatus==4 || orderStatus=='4'}}">待评价</view>
+      <view class='order-state-3' wx:elif="{{orderStatus==5 || orderStatus=='5'}}">已评价</view>
+      <view class='order-state-3' wx:elif="{{orderStatus==6 || orderStatus=='6'}}">订单已取消</view>
+      <view class='order-state-3' wx:elif="{{orderStatus==7 || orderStatus=='7'}}">退货完成</view>
+      <view class='order-state-3' wx:elif="{{orderStatus==8 || orderStatus=='8'}}">申请退货</view>
+      <view class='order-state-3' wx:elif="{{orderStatus==9 || orderStatus=='9'}}">退货后发货</view>
+      <view class='order-state-3' wx:elif="{{orderStatus==10 || orderStatus=='10'}}">同意退货</view>
+      <view class='order-state-3' wx:elif="{{orderStatus==11 || orderStatus=='11'}}">拒绝退货</view>
+    </view>
+    <!-- 商品列表 -->
+    <view class='goods-list'>
+      <!-- <view class='goods-item' wx:for="{{orderItem}}" wx:for-item="goodsItem" wx:for-index="index" wx:key="orderNo+index" hover-class="item-click-sel-bg" bindtap='goodsItemTap' data-id="{{goodsItem.shopItemId}}"> -->
+      <view class='goods-item' wx:for="{{orderItem}}" wx:for-item="goodsItem" wx:for-index="index" wx:key="orderNoAll">
+        <view class='goods-img'>
+          <image wx:if="{{goodsItem.imgUrl!=''}}" lazy-load="true" mode="widthFix" src='{{goodsItem.imgUrl}}' />
+          <image wx:else lazy-load="true" mode="widthFix" src='/images/placeholder.png' />
+        </view>
+        <view class='goods-content'>
+          <view class='goods-name'>
+            <text>{{goodsItem.itemName}}</text>
+            <text class='spec-name' wx:if="{{goodsItem.shopItemSpecAttr.length>0}}">({{goodsItem.shopItemSpecAttr}})</text>
+            <view class='distribution' wx-if="{{goodsItem.deliveryMode.length>0}}">配送方式:{{goodsItem.deliveryMode}}</view>
+          </view>
+          <view class='price-num'>
+            <view class='price'>¥{{goodsItem.itemPrice}}</view>
+            <view class="goods-num">X{{goodsItem.itemNumber}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 物流单号 -->
+    <view class='logistics' wx:if="{{orderStatus!=0 && orderStatus=='0' && orderStatus!=1 && orderStatus!='1' && orderStatus!=6 && orderStatus!='6'}}">物流单号:{{goodsNo}}</view>
+    <view class="remark" wx:if="{{memo!=undefined}}">备注:{{memo}}</view>
+    <!-- 合计 -->
+    <view class='cal-num'>
+      <text decode="emsp">共{{itemNumber}}件商品&emsp;合计:{{salesAmount}}(含邮费:{{postageAmnt}})</text>
+    </view>
+    <!-- 工单操作按键 -->
+    <!-- <view wx:if="{{orderStatus==0 || orderStatus=='0' || orderStatus==1 || orderStatus=='1' || orderStatus==3 || orderStatus=='3' || orderStatus==4 || orderStatus=='4'}}" class='order-footer'> -->
+     <view class='order-footer'>
+      <view wx:if="{{orderStatus==0 || orderStatus=='0'}}" class='btn-item cancel-order' catchtap='cancelOrder' hover-class="item-click-sel-bg" data-id="{{orderNo}}">取消订单</view>
+      <view wx:if="{{orderStatus==0 || orderStatus=='0'}}" class='btn-item pay-now' catchtap='payNow' hover-class="item-click-sel-bg" data-id="{{orderId}}" data-no="{{orderNo}}" data-name="{{itemName}}" data-amount="{{salesAmount}}">立即付款</view>
+      <view wx:if="{{orderStatus==1 || orderStatus=='1'}}" class='btn-item remind-delivery' catchtap='remindDelivery' hover-class="item-click-sel-bg" data-id="{{orderNo}}">提醒发货<text wx:if="{{remindNumber!=undefined && remindNumber!=null && remindNumber>0}}">({{remindNumber}})</text></view>
+      <view wx:if="{{orderStatus!=0 && orderStatus!='0' && orderStatus!=1 && orderStatus!='1' && orderStatus!=6 && orderStatus!='6'}}" class='btn-item cancel-order' catchtap='checkLogistics' hover-class="item-click-sel-bg" data-logstid="{{goodsNo}}" data-unitcode="{{goodsCode}}" data-unitname="{{goodsChannel}}">查看物流</view>
+      <view wx:if="{{orderStatus==3 || orderStatus=='3'}}" class='btn-item confirm-goods' catchtap='confirmGoods' hover-class="item-click-sel-bg" data-id="{{orderNo}}">确认收货</view>
+      <view wx:if="{{orderStatus==4 || orderStatus=='4'}}" class='btn-item eva' catchtap='orderEva' hover-class="item-click-sel-bg" data-orderid="{{orderNo}}" data-goodslist="{{orderItem}}">评价</view>
+    <view wx:if="{{orderStatus==1 || orderStatus=='1' || orderStatus==3 || orderStatus=='3' || orderStatus==4 || orderStatus=='4' || orderStatus==5 || orderStatus=='5'}}" class='btn-item remind-delivery' catchtap='afterSalesTap' hover-class="item-click-sel-bg" data-id="{{orderId}}" data-no="{{orderNo}}" data-shopname="{{shopName}}"  data-shopCartFlag="{{shopCartFlag}}" data-goodslist="{{orderItem}}">申请售后</view>
+    <view wx:if="{{orderStatus==7 || orderStatus=='7' || orderStatus==8 || orderStatus=='8' || orderStatus==9 || orderStatus=='9' || orderStatus==10 || orderStatus=='10' || orderStatus==11 || orderStatus=='11'}}" class='btn-item remind-delivery' catchtap='afterSalesTap' hover-class="item-click-sel-bg" data-id="{{orderId}}" data-no="{{orderNo}}" data-shopname="{{shopName}}" data-shopCartFlag="{{shopCartFlag}}" data-goodslist="{{orderItem}}">查看售后</view>
+    </view>
+    
+  </view>
+</template>
+
+<!-- <i-spin size="large" fix wx:if="{{ spinShow }}"></i-spin> -->
+<view class="iSpin" wx:if="{{ spinShow }}" hover-class="none" hover-stop-propagation="false">
+  <image lazy-load="true" style="height:6rem;width:6rem;" mode="widthFix" src='/images/loading.gif' />
+</view>
+<!-- 选择支付方式payDialog-->
+<payDialog id='payDialog'></payDialog>
+<!-- 短信验证弹框 -->
+<smsCheckDialog id='smsCheckDialog'></smsCheckDialog>

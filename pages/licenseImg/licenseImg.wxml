@@ -1,0 +1,6 @@
+<!--pages/licenseImg/licenseImg.wxml-->
+<view class='img-list'>
+  <scroll-view scroll-y class='scroll-area'>
+    <image class="img-item" lazy-load="true" mode="widthFix" wx:for="{{imgList}}" wx:for-item="imgItem" src="{{imgItem}}" data-i="{{index}}" bindtap="previewImage"></image>
+  </scroll-view>
+</view>
