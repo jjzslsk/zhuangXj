@@ -491,7 +491,8 @@ App({
             //获取数据失败
             wx.showModal({
               title: '提示',
-              content: resultData.msg + '(' + resultData.code + ')',
+              //content: resultData.msg + '(' + resultData.code + ')',
+              content: resultData.msg,
               showCancel: false,
             })
             typeof call_fail == "function" && call_fail(0, resultData)
@@ -499,7 +500,8 @@ App({
         } else {
           wx.showModal({
             title: '提示',
-            content: '请求失败(' + res.statusCode + ')',
+            //content: '请求失败(' + res.statusCode + ')',
+            content: '请求失败',
             showCancel: false,
           })
         }
@@ -565,7 +567,8 @@ App({
             //获取数据失败
             wx.showModal({
               title: '提示',
-              content: resultData.msg + '(' + resultData.code + ')',
+              //content: resultData.msg + '(' + resultData.code + ')',
+              content: resultData.msg,
               showCancel: false,
             })
             typeof call_fail == "function" && call_fail(0, resultData)
@@ -573,7 +576,8 @@ App({
         } else {
           wx.showModal({
             title: '提示',
-            content: '请求失败(' + res.statusCode + ')',
+            //content: '请求失败(' + res.statusCode + ')',
+            content: '请求失败',
             showCancel: false,
           })
         }
@@ -623,7 +627,7 @@ App({
               resultData = JSON.parse(resultData);
             } catch (e) {
               wx.showToast({
-                title: '服务端出错(01)',
+                title: '服务端出错',
                 icon: 'none',
                 duration: 2000
               })
@@ -642,7 +646,8 @@ App({
               })
             } else {
               wx.showModal({
-                title: '提示(' + resultData.code + ')',
+                //title: '提示(' + resultData.code + ')',
+                title: '提示',
                 content: resultData.msg,
                 showCancel: false,
               })
@@ -652,7 +657,8 @@ App({
         } else {
           wx.showModal({
             title: '提示',
-            content: '请求失败(' + res.statusCode + ')',
+            //content: '请求失败(' + res.statusCode + ')',
+            content: '请求失败',
             showCancel: false,
           })
         }
@@ -703,7 +709,7 @@ App({
               resultData = JSON.parse(resultData);
             } catch (e) {
               wx.showToast({
-                title: '服务端出错(01)',
+                title: '服务端出错',
                 icon: 'none',
                 duration: 2000
               })
@@ -716,7 +722,8 @@ App({
           } else {
             wx.showModal({
               title: '提示',
-              content: resultData.msg + '(' + resultData.code + ')',
+              //content: resultData.msg + '(' + resultData.code + ')',
+              content: resultData.msg,
               showCancel: false,
             })
             typeof call_fail == "function" && call_fail(0, resultData)
@@ -774,7 +781,7 @@ App({
               resultData = JSON.parse(resultData);
             } catch (e) {
               wx.showToast({
-                title: '服务端出错(01)',
+                title: '服务端出错',
                 icon: 'none',
                 duration: 2000
               })
@@ -788,7 +795,8 @@ App({
           } else {
             wx.showModal({
               title: '提示',
-              content: resultData.msg + '(' + resultData.code + ')',
+              //content: resultData.msg + '(' + resultData.code + ')',
+              content: resultData.msg,
               showCancel: false,
             })
             typeof call_fail == "function" && call_fail(0, resultData)
@@ -796,7 +804,8 @@ App({
         } else {
           wx.showModal({
             title: '提示',
-            content: '请求失败(' + res.statusCode + ')',
+            //content: '请求失败(' + res.statusCode + ')',
+            content: '请求失败',
             showCancel: false,
           })
         }
@@ -845,7 +854,7 @@ App({
               resultData = JSON.parse(resultData);
             } catch (e) {
               wx.showToast({
-                title: '服务端出错(01)',
+                title: '服务端出错',
                 icon: 'none',
                 duration: 2000
               })
@@ -859,7 +868,8 @@ App({
           } else {
             wx.showModal({
               title: '提示',
-              content: resultData.msg + '(' + resultData.code + ')',
+              //content: resultData.msg + '(' + resultData.code + ')',
+              content: resultData.msg ,
               showCancel: false,
             })
             typeof call_fail == "function" && call_fail(0, resultData)
@@ -867,7 +877,8 @@ App({
         } else {
           wx.showModal({
             title: '提示',
-            content: '请求失败(' + res.statusCode + ')',
+            //content: '请求失败(' + res.statusCode + ')',
+            content: '请求失败',
             showCancel: false,
           })
         }
@@ -913,7 +924,7 @@ App({
               resultData = JSON.parse(resultData);
             } catch (e) {
               wx.showToast({
-                title: '服务端出错(01)',
+                title: '服务端出错',
                 icon: 'none',
                 duration: 2000
               })
@@ -939,7 +950,8 @@ App({
         } else {
           typeof calFun == "function" && calFun(false, null)
           wx.showToast({
-            title: '请求失败(' + res.statusCode + ')',
+            //title: '请求失败(' + res.statusCode + ')',
+            title: '请求失败',
             icon: 'none',
             duration: 2000
           })

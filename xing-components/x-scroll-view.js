@@ -28,6 +28,10 @@ Component({
       type: String,
       value: '加载完毕',
     },
+    nomoreText2: {
+      type: String,
+      value: '',
+    },
     pullDownHeight: {
       type: Number,
       value: 60,
@@ -44,7 +48,11 @@ Component({
     scrollTop: {
       type: Number,
       value: 0,
-    },
+    }, 
+    pageType: {
+      type: String,
+      value: '',
+    }
   },
 
   /**

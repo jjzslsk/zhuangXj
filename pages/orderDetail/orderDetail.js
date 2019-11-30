@@ -191,8 +191,8 @@ Page({
       success: res => {
         if (res.confirm) {
 
-          that.smsCheckDialog.showSmsCheckDialog('确认收货',6, function (isSuccess,phone,smsCode) {
-            if (isSuccess) {
+          //that.smsCheckDialog.showSmsCheckDialog('确认收货',6, function (isSuccess,phone,smsCode) {
+           // if (isSuccess) {
               var param = 'orderNo=' + orderNo + '&clientId=' + +userId + '&phone=' + phone + '&verifyCode=' + smsCode;
               wx.showLoading();
               app.httpsDataGet('/order/confirmOrder', param,
@@ -214,10 +214,10 @@ Page({
                   wx.hideLoading();
                 }
               );
-            }else{
+           // }else{
               
-            }
-          });
+           // }
+          //});
         } else if (res.cancel) {
 
         }
@@ -247,11 +247,14 @@ Page({
     var shopCartFlag = e.currentTarget.dataset.shopcartflag;
     var goodslist = e.currentTarget.dataset.goodslist;
     var shopName = e.currentTarget.dataset.shopname;
+    var shopPhone = e.currentTarget.dataset.shopphone;
+
 
     var orderInfo = {};
     orderInfo.orderId = orderId;
     orderInfo.orderNo = orderNo;
     orderInfo.shopName = shopName;
+    orderInfo.shopPhone = shopPhone;
     orderInfo.shopCartFlag = shopCartFlag;
     orderInfo.orderItem = goodslist;
     wx.setStorage({
@@ -261,10 +264,6 @@ Page({
     wx.navigateTo({
       url: '/pages/returnGoodsList/returnGoodsList?action=orderDetailAction'
     })
-
-    // wx.navigateTo({
-    //   url: '/pages/returnGoods/returnGoods?orderId=' + orderId + '&orderNo=' + orderNo
-    // })
   },
 
   /**

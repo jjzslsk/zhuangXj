@@ -25,8 +25,8 @@
         </view>
       </view>
       <view class='order-footer' wx:if="{{goodsItem.cartStatus!=0}}">
-        <view wx:if="{{goodsItem.cartStatus==1}}" class='btn-item remind-delivery' catchtap='afterSalesTap' hover-class="item-click-sel-bg" data-id="{{orderInfo.orderId}}" data-no="{{orderInfo.orderNo}}" data-goodsinfo="{{goodsItem}}" data-shopcartflag="{{orderInfo.shopCartFlag}}">申请售后</view>
-        <view wx:else class='btn-item remind-delivery' catchtap='afterSalesTap' hover-class="item-click-sel-bg" data-id="{{orderInfo.orderId}}" data-no="{{orderInfo.orderNo}}" data-goodsinfo="{{goodsItem}}" data-shopcartflag="{{orderInfo.shopCartFlag}}">查看售后</view>
+        <view wx:if="{{goodsItem.cartStatus==1}}" class='btn-item remind-delivery' catchtap='afterSalesTap' hover-class="item-click-sel-bg" data-id="{{orderInfo.orderId}}" data-no="{{orderInfo.orderNo}}" data-shopphone="{{orderInfo.shopPhone}}" data-goodsinfo="{{goodsItem}}" data-shopcartflag="{{orderInfo.shopCartFlag}}">申请售后</view>
+        <view wx:else class='btn-item remind-delivery' catchtap='afterSalesTap' hover-class="item-click-sel-bg" data-id="{{orderInfo.orderId}}" data-no="{{orderInfo.orderNo}}" data-shopphone="{{orderInfo.shopPhone}}" data-goodsinfo="{{goodsItem}}" data-shopcartflag="{{orderInfo.shopCartFlag}}">查看售后</view>
       </view>
     </view>
   </scroll-view>

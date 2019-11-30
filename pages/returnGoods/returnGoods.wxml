@@ -92,6 +92,7 @@
         <view class="content">{{goodsInfo.backReasonRefuseDate}}</view>
       </view>
     </view>
+    <view wx:if="shopPhone!=undefined && shopPhone.length>0" class="shop-phone" bindtap="callShopTap" data-shopphone="{{shopPhone}}"><i-icon type="mobilephone" size="20"/>联系商家</view>
     <view class="phd-item"></view>
   </scroll-view>
   <view class="footer-btns" bindtap="submitApply" wx:if="{{cartStatus==1}}">提交申请</view>

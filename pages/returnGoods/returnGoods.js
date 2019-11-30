@@ -5,6 +5,7 @@ var userId = '';
 var modeAction = 0; //0申请退货;1发货
 var action = '';
 var countTimeVal;
+var upImtCountTemp=0;
 Page({
 
   /**
@@ -170,6 +171,14 @@ Page({
     })
   },
 
+  /**拨打商家电话 */
+  callShopTap:function(e){
+    var shopPhone = e.currentTarget.dataset.shopphone;
+    wx.makePhoneCall({
+      phoneNumber: shopPhone
+    })
+  },
+
   /**返回上上页 */
   backClose: function(msgStr) {
     wx.showModal({
@@ -189,33 +198,62 @@ Page({
     })
   },
 
-  uploadImgHttps: function(attFkId, imgList) {
-    var that = this;
-    if (imgList.length > 0) {
-      var countTemp = 0;
-      for (var index in imgList) {
-        var imgPath = imgList[index];
-        var attFkName = '6_shop_after_sale';
-        var attName = '6_shop_after_sale' + index + '.jpg';
-        app.uploadFileHttps(userId, attFkId, attFkName, attName, imgPath, function(isSuccess) {
-          if (isSuccess) {
-            countTemp++;
-          }
-          if (imgList.length - 1 == index) {
-            if (countTemp < imgList.length - 1) {
-              wx.hideLoading();
-              that.backClose('提交成功,但部分图片上传失败');
-            } else {
-              wx.hideLoading();
-              that.backClose('提交成功');
-            }
-          }
-
-        });
+  /**递归上传图片*/
+  recursiveUpImg: function (attFkId,imgList,position){
+    var than=this;
+    var imgPath = imgList[position];
+    var attFkName = '6_shop_after_sale';
+    var attName = '6_shop_after_sale' + position + '.jpg';
+    app.uploadFileHttps(userId, attFkId, attFkName, attName, imgPath, function(isSuccess) {
+      if (isSuccess) { 
+        upImtCountTemp++;
       }
+      position++;
+      if (position < imgList.length){
+        than.recursiveUpImg(attFkId, imgList, position);
+      }else{
+        if (upImtCountTemp < imgList.length - 1) {
+          wx.hideLoading();
+          than.backClose('提交成功,但部分图片上传失败');
+        } else {
+          wx.hideLoading();
+          than.backClose('提交成功');
+        }
+      }
+
+    });
+  },
+
+  uploadImgHttps: function(attFkId, imgList) {
+    var than = this;
+    if (imgList.length > 0) {
+      upImtCountTemp=0;
+      than.recursiveUpImg(attFkId, imgList, 0);
+      // var countTemp = 0;
+      // for (var index in imgList) {
+      //   var imgPath = imgList[index];
+      //   var attFkName = '6_shop_after_sale';
+      //   var attName = '6_shop_after_sale' + index + '.jpg';
+      //   app.uploadFileHttps(userId, attFkId, attFkName, attName, imgPath, function(isSuccess) {
+      //     if (isSuccess) { 
+      //       countTemp++;
+      //     }
+      //     if (imgList.length - 1 == index) {
+      //       if (countTemp < imgList.length - 1) {
+      //         wx.hideLoading();
+      //         than.backClose('提交成功,但部分图片上传失败');
+      //       } else {
+      //         wx.hideLoading();
+      //         than.backClose('提交成功');
+      //       }
+      //     }
+
+      //   });
+      // }
+
     } else {
       wx.hideLoading();
-      that.backClose('提交成功');
+      than.backClose('提交成功');
     }
 
   },
@@ -420,6 +458,7 @@ Page({
     wx.getStorage({
       key: 'rtn_goods_info',
       success(res) {
+        
         var orderInfo = JSON.parse(res.data);
         var goodsinfo = orderInfo.goodsinfo;
         var itemNumber = goodsinfo.itemNumber;
@@ -428,20 +467,36 @@ Page({
 
         var isReadReturnReason = goodsinfo.cartStatus == 1 ? false : true;
         var isReadLogistics = goodsinfo.cartStatus == 3 ? false : true;
+
+        var backLogisticsInfo = goodsinfo.backLogisticsInfo;
+        var logisticsNum = '', logisticsCode = '', logisticsName='';
+        if (backLogisticsInfo!=undefined){
+          var blInfoArr = backLogisticsInfo.split(",");
+          if (blInfoArr.length > 0) {
+            logisticsNum = blInfoArr[0] == undefined ? '' : blInfoArr[0];
+            logisticsCode = blInfoArr[1] == undefined ? '' : blInfoArr[1];
+            logisticsName = blInfoArr[2] == undefined ? '' : blInfoArr[2];
+          }
+        }
+
         that.setData({
           orderId: orderInfo.orderId,
           orderNo: orderInfo.orderNo,
+          shopPhone: orderInfo.shopPhone,
           shopCartFlag: orderInfo.shopCartFlag,
           goodsInfo: goodsinfo,
           shopCartId: goodsinfo.shopCartId == undefined ? '' : goodsinfo.shopCartId,
           cartStatus: goodsinfo.cartStatus,
           cartStatusName: goodsinfo.cartStatusName == undefined ? '' : goodsinfo.cartStatusName,
           returnReason: goodsinfo.backReason == undefined ? '' : goodsinfo.backReason,
-          logisticsNum: goodsinfo.backLogisticsInfo == undefined ? '' : goodsinfo.backLogisticsInfo,
+          logisticsNum: logisticsNum,
+          logisticsCode: logisticsCode,
+          logisticsName: logisticsName, 
           returnAmount: returnAmount,
           isReadReturnReason: isReadReturnReason,
           isReadLogistics: isReadLogistics
         });
+
         //清除缓存
         wx.removeStorage({
           key: 'rtn_goods_info',

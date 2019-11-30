@@ -236,7 +236,7 @@
         
         
       </view>
-      <x-scroll-view scroll-y class='goods-scroll-area' refreshing="{{refreshing}}" nomore="{{nomore}}"  bindpulldownrefresh="myOnPullRefresh" bindloadmore="myOnLoadmore" bindscroll="myOnScroll"  scroll-top="{{scrollTop}}">  
+      <x-scroll-view scroll-y class='goods-scroll-area' refreshing="{{refreshing}}" nomore="{{nomore}}"  bindpulldownrefresh="myOnPullRefresh" bindloadmore="myOnLoadmore" bindscroll="myOnScroll"  scroll-top="{{scrollTop}}" pageType="shopDetail">  
         <!-- 列表 -->
         <view class='list-item' wx:for="{{remList}}" wx:for-item="renItem" wx:for-index="index" wx:key="index">
           <view class='horizontal' bindtap='itemtap' hover-class="item-click-sel-bg" data-id="{{renItem.shopItemId}}">

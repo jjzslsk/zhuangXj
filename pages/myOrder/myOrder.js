@@ -746,11 +746,13 @@ Page({
     var shopCartFlag = e.currentTarget.dataset.shopcartflag;
     var goodslist = e.currentTarget.dataset.goodslist;
     var shopName = e.currentTarget.dataset.shopname;
+    var shopPhone = e.currentTarget.dataset.shopphone;
     
     var orderInfo={};
     orderInfo.orderId = orderId;
     orderInfo.orderNo = orderNo;
     orderInfo.shopName = shopName;
+    orderInfo.shopPhone = shopPhone;
     orderInfo.shopCartFlag = shopCartFlag;
     orderInfo.orderItem = goodslist;
     wx.setStorage({

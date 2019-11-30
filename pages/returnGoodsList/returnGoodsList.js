@@ -12,13 +12,15 @@ Page({
   //申请售后
   afterSalesTap: function (e) {
     var orderId = e.currentTarget.dataset.id;
-    var orderNo = e.currentTarget.dataset.no; 
+    var orderNo = e.currentTarget.dataset.no;
+    var shopPhone = e.currentTarget.dataset.shopphone; 
     var shopCartFlag = e.currentTarget.dataset.shopcartflag;
-    var goodsinfo = e.currentTarget.dataset.goodsinfo;
+    var goodsinfo = e.currentTarget.dataset.goodsinfo; 
 
     var orderInfo = {};
     orderInfo.orderId = orderId;
     orderInfo.orderNo = orderNo;
+    orderInfo.shopPhone = shopPhone;
     orderInfo.shopCartFlag = shopCartFlag;
     orderInfo.goodsinfo = goodsinfo;
     wx.setStorage({

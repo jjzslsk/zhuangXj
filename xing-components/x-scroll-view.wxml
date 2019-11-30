@@ -19,7 +19,8 @@
   <slot></slot>
   <view class="loadmore">
     <block wx:if="{{nomore}}">
-      <text>{{nomoreText}}</text>
+      <text wx:if="{{pageType=='shopDetail'}}">{{nomoreText2}}</text>
+      <text wx:else>{{nomoreText}}</text>
     </block>
     <block wx:else>
       <text class="iconfont icon-loading loading" space="nbsp"></text><text> {{loadmoreText}}</text>

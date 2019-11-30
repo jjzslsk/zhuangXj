@@ -38,8 +38,8 @@
     </view>
     <view wx:else>
       <view class='success'>提交成功！</view>
-      <view class='tips1'>客服会尽快给您推广或核实订单</view>
-      <view class='tips1'>请您留意订单状态并保持注意接听电话</view>
+      <view class='tips1'>客服会尽快给您推送或核实订单</view>
+      <view class='tips1'>请您留意订单状态并注意接听电话</view>
     </view>
   </scroll-view>  
 </view>
