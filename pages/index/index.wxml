@@ -18,7 +18,7 @@
   <x-scroll-view scroll-y class='scroll-area' refreshing="{{refreshing}}" nomore="{{nomore}}" bindpulldownrefresh="myOnPullRefresh" bindloadmore="myOnLoadmore" scrollTop="{{scrollTop}}">
     <!-- 轮播区域 -->
     <view class='class-swiper-area'>
-      <swiper indicator-dots="true" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+      <swiper class="carousel-img" indicator-dots="true" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
         <block wx:for="{{imgUrls}}" wx:for-index="index" wx:key="apIndex">
           <swiper-item>
             <image src="{{item.pic}}" class="slide-image" lazy-load="true" width="100vw" height="150" bindtap='carouselTab' data-id="{{item.id}}" data-type="{{item.type}}" data-weburl="{{item.url}}" />
@@ -76,20 +76,19 @@
     </view>
     <!-- 活动 -->
     <view class='activity-area01' id='activity_area' style='height:{{activityHeigth}};max-height:{{activityHeigth}}'>
-      <image class='activity-item01' src="{{activityList[0].pic}}" lazy-load="true" mode="aspectFit" bindtap="activityTab" data-id="{{activityList[0].id}}" data-type="{{activityList[0].type}}" data-weburl="{{activityList[0].url}}" />
+      <image class='activity-item01' src="{{activityList[0].pic}}" lazy-load="true" mode="scaleToFill" bindtap="activityTab" data-id="{{activityList[0].id}}" data-type="{{activityList[0].type}}" data-weburl="{{activityList[0].url}}" />
       <view class='activity-item-right'>
-        <image class='activity-item02' src="{{activityList[1].pic}}" lazy-load="true" mode="aspectFit" bindtap="activityTab" data-id="{{activityList[1].id}}" data-type="{{activityList[1].type}}" data-weburl="{{activityList[1].url}}" />
+        <image class='activity-item02' src="{{activityList[1].pic}}" lazy-load="true" mode="scaleToFill" bindtap="activityTab" data-id="{{activityList[1].id}}" data-type="{{activityList[1].type}}" data-weburl="{{activityList[1].url}}" />
         <view class='activity-item-right-bottom'>
-          <image class='activity-item03' src="{{activityList[2].pic}}" lazy-load="true" mode="aspectFit" bindtap="activityTab" data-id="{{activityList[2].id}}" data-type="{{activityList[2].type}}" data-weburl="{{activityList[2].url}}" />
-          <image class='activity-item04' src="{{activityList[3].pic}}" lazy-load="true" mode="aspectFit" bindtap="activityTab" data-id="{{activityList[3].id}}" data-type="{{activityList[3].type}}" data-weburl="{{activityList[3].url}}" />
+          <image class='activity-item03' src="{{activityList[2].pic}}" lazy-load="true" mode="scaleToFill" bindtap="activityTab" data-id="{{activityList[2].id}}" data-type="{{activityList[2].type}}" data-weburl="{{activityList[2].url}}" />
+          <image class='activity-item04' src="{{activityList[3].pic}}" lazy-load="true" mode="scaleToFill" bindtap="activityTab" data-id="{{activityList[3].id}}" data-type="{{activityList[3].type}}" data-weburl="{{activityList[3].url}}" />
         </view>
       </view>
     </view>
     <!-- 广告 -->
-    <view class='advert-area' id='advert_area'>
-      <!-- <image src="{{advertImg}}" lazy-load="true" width="100vw" style='height:{{advertHeigth}};max-height:{{advertHeigth}}' /> -->
+    <!-- <view class='advert-area' id='advert_area'>
       <image src="{{advertImg}}" lazy-load="true" width="100vw" style='height:50px;max-height:50px' bindtap="advertTap" />
-    </view>
+    </view> -->
     <!-- 推荐商品 -->
     <view class='recommended-area'>
       <view class='title'>
@@ -135,4 +134,9 @@
       </view>
     </view>
   </x-scroll-view>
+  <!-- <view class="float-activity" style="top:{{topFloat}}px;" wx-if="{{isShowFloat}}" bindtouchmove="setTouchMove"> -->
+   <view class="float-activity" wx-if="{{isShowFloat}}">
+      <view class='but-x'><i-icon type="close" size="18" bindtap="closeFloatActivityTab"/></view>
+      <image class='float-icon' src="{{floatActivity.pic}}" lazy-load="true" mode="aspectFit" bindtap="floatActivityTab" data-id="{{floatActivity.id}}" data-type="{{floatActivity.type}}" data-weburl="{{floatActivity.url}}"/>
+  </view>
 </view>

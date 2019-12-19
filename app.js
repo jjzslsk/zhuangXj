@@ -312,11 +312,12 @@ App({
       fail: res => {
         //请求接口失败
         that.clearUserInfo();
-        wx.hideLoading()
-        wx.showModal({
-          title: '获取OpenId失败',
-          content: res.errMsg,
-          showCancel: false,
+        wx.hideLoading();
+        wx.showToast({
+          //title: '获取OpenId失败',
+          title: '网络异常,请重试',
+          icon: 'none',
+          duration: 2000
         })
         funCal(false, null);
       },
@@ -365,10 +366,10 @@ App({
                 },
                 fail: res => {
                   wx.hideLoading();
-                  wx.showModal({
+                  wx.showToast({
                     title: '获取用户信息失败',
-                    content: JSON.stringify(res),
-                    showCancel: false,
+                    icon: 'none',
+                    duration: 2000
                   })
                   var calRes = {};
                   calRes.code = false;
@@ -489,30 +490,29 @@ App({
             typeof call_success == "function" && call_success(resultData)
           } else {
             //获取数据失败
-            wx.showModal({
-              title: '提示',
-              //content: resultData.msg + '(' + resultData.code + ')',
-              content: resultData.msg,
-              showCancel: false,
+            wx.showToast({
+              title: resultData.msg,
+              icon: 'none',
+              duration: 2000
             })
             typeof call_fail == "function" && call_fail(0, resultData)
           }
         } else {
-          wx.showModal({
-            title: '提示',
-            //content: '请求失败(' + res.statusCode + ')',
-            content: '请求失败',
-            showCancel: false,
+          wx.showToast({
+            title: '请求失败',
+            icon: 'none',
+            duration: 2000
           })
         }
       },
       fail: res => {
         wx.hideLoading();
         //请求接口失败
-        wx.showModal({
-          title: '提示',
-          content: '网络异常(' + res.errMsg + ')',
-          showCancel: false,
+        wx.showToast({
+          //title: '网络异常(' + res.errMsg + ')',
+          title: '网络异常,请重试',
+          icon: 'none',
+          duration: 2000
         })
         typeof call_fail == "function" && call_fail(1, res)
       },
@@ -565,30 +565,30 @@ App({
             typeof call_success == "function" && call_success(resultData)
           } else {
             //获取数据失败
-            wx.showModal({
-              title: '提示',
-              //content: resultData.msg + '(' + resultData.code + ')',
-              content: resultData.msg,
-              showCancel: false,
+            wx.showToast({
+              title: resultData.msg,
+              icon: 'none',
+              duration: 2000
             })
             typeof call_fail == "function" && call_fail(0, resultData)
           }
         } else {
-          wx.showModal({
-            title: '提示',
-            //content: '请求失败(' + res.statusCode + ')',
-            content: '请求失败',
-            showCancel: false,
+          wx.showToast({
+            title: '请求失败',
+            icon: 'none',
+            duration: 2000
           })
+
         }
       },
       fail: res => {
         wx.hideLoading();
         //请求接口失败
-        wx.showModal({
-          title: '提示',
-          content: '网络异常(' + res.errMsg + ')',
-          showCancel: false,
+        wx.showToast({
+          //title: '网络异常(' + res.errMsg + ')',
+          title: '网络异常,请重试',
+          icon: 'none',
+          duration: 2000
         })
         typeof call_fail == "function" && call_fail(1, res)
       },
@@ -655,11 +655,10 @@ App({
             typeof call_fail == "function" && call_fail(0, resultData)
           }
         } else {
-          wx.showModal({
-            title: '提示',
-            //content: '请求失败(' + res.statusCode + ')',
-            content: '请求失败',
-            showCancel: false,
+          wx.showToast({
+            title: '请求失败',
+            icon: 'none',
+            duration: 2000
           })
         }
 
@@ -667,10 +666,11 @@ App({
       fail: res => {
         //请求接口失败
         wx.hideLoading()
-        wx.showModal({
-          title: '提示',
-          content: '网络异常(' + res.errMsg + ')',
-          showCancel: false,
+        wx.showToast({
+          //title: '网络异常(' + res.errMsg + ')',
+          title: '网络异常,请重试',
+          icon: 'none',
+          duration: 2000
         })
         typeof call_fail == "function" && call_fail(1, res)
       },
@@ -729,10 +729,10 @@ App({
             typeof call_fail == "function" && call_fail(0, resultData)
           }
         } else {
-          wx.showModal({
-            title: '提示',
-            content: '请求失败(' + res.statusCode + ')',
-            showCancel: false,
+          wx.showToast({
+            title: '请求失败(' + res.statusCode + ')',
+            icon: 'none',
+            duration: 2000
           })
         }
 
@@ -740,10 +740,11 @@ App({
       fail: res => {
         //请求接口失败
         wx.hideLoading()
-        wx.showModal({
-          title: '提示',
-          content: '网络异常(' + res.errMsg + ')',
-          showCancel: false,
+        wx.showToast({
+          //title: '网络异常(' + res.errMsg + ')',
+          title: '网络异常,请重试',
+          icon: 'none',
+          duration: 2000
         })
         typeof call_fail == "function" && call_fail(1, res)
       },
@@ -802,11 +803,10 @@ App({
             typeof call_fail == "function" && call_fail(0, resultData)
           }
         } else {
-          wx.showModal({
-            title: '提示',
-            //content: '请求失败(' + res.statusCode + ')',
-            content: '请求失败',
-            showCancel: false,
+          wx.showToast({
+            title: '请求失败',
+            icon: 'none',
+            duration: 2000
           })
         }
 
@@ -814,10 +814,11 @@ App({
       fail: res => {
         //请求接口失败
         wx.hideLoading()
-        wx.showModal({
-          title: '提示',
-          content: '网络异常(' + res.errMsg + ')',
-          showCancel: false,
+        wx.showToast({
+          //title: '网络异常(' + res.errMsg + ')',
+          title: '网络异常,请重试',
+          icon: 'none',
+          duration: 2000
         })
         typeof call_fail == "function" && call_fail(1, res)
       },
@@ -875,11 +876,10 @@ App({
             typeof call_fail == "function" && call_fail(0, resultData)
           }
         } else {
-          wx.showModal({
-            title: '提示',
-            //content: '请求失败(' + res.statusCode + ')',
-            content: '请求失败',
-            showCancel: false,
+          wx.showToast({
+            title: '请求失败',
+            icon: 'none',
+            duration: 2000
           })
         }
 
@@ -887,10 +887,11 @@ App({
       fail: res => {
         //请求接口失败
         wx.hideLoading()
-        wx.showModal({
-          title: '提示',
-          content: '网络异常(' + res.errMsg + ')',
-          showCancel: false,
+        wx.showToast({
+          //title: '网络异常(' + res.errMsg + ')',
+          title: '网络异常,请重试',
+          icon: 'none',
+          duration: 2000
         })
         typeof call_fail == "function" && call_fail(1, res)
       },

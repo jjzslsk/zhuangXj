@@ -110,6 +110,9 @@
           <text>{{detailInfo.shopAddress}}</text>
           <!-- <text>{{detailInfo.shopArea}}</text> -->
         </view>
+        <view class='shop-phone' bindtap="callPhoneTap" data-number="{{detailInfo.shopPhone}}">
+           <image  class='shop-phone-img' src='/images/shop/phone_icon.png'></image>{{detailInfo.shopPhone}}
+        </view>
       </view>
     </view>
     <!-- 选择规格 -->

@@ -51,6 +51,16 @@ Page({
   onPullDownRefresh() {
     wx.stopPullDownRefresh()
   },
+  
+  /**
+   * 拨打电话
+   */
+  callPhoneTap: function (e) {
+    var phoneNum = e.currentTarget.dataset.number;
+    wx.makePhoneCall({
+      phoneNumber: phoneNum //仅为示例，并非真实的电话号码
+    })
+  },
 
   /**
    * 跳转搜索

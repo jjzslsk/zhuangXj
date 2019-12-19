@@ -61,6 +61,16 @@ Page({
       good: !this.data.good
     });
   },
+  
+  /**
+   * 拨打电话
+   */
+  callPhoneTap: function (e) {
+    var phoneNum = e.currentTarget.dataset.number;
+    wx.makePhoneCall({
+      phoneNumber: phoneNum //仅为示例，并非真实的电话号码
+    })
+  },
 
   // 弹框
   powerDrawer: function(e) {

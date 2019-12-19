@@ -25,10 +25,32 @@ Page({
     activityList: [],
     advertImg: app.globalData.url +'/photo/zxj_shop_icon/advertisingImg/adImg01.jpg',
     remList:[],//推荐商品
+    floatActivity:{},//浮动图标活动
     refreshing: true,
     nomore: false,//true已加载完全部，flase正在加载更多数据
-    todayTrafficNum:0//进入访问量
+    todayTrafficNum:0,//进入访问量
+    isShowFloat:true,//是否显示浮动活动按钮
+
+    // pageHeight:500,
+    // topFloat:'',
   },
+
+  // //拖动不超过规定范围
+  // setTouchMove: function (e) {
+  //   var pageHeight = this.data.pageHeight;
+  //   console.log("---------------- pageHeight----------------8==" + pageHeight);
+  //   console.log("---------------- e.touches[0].clientX----------------8==" + e.touches[0].clientX);
+  //   console.log("---------------- e.touches[0].clientX----------------8=======" + e.touches[0].clientY);
+  //   if (e.touches[0].clientY < pageHeight && e.touches[0].clientY > 0){
+  //     this.setData({
+  //       topFloat:e.touches[0].clientY-30
+  //     })
+  //   }else{
+  //     this.setData({
+  //       topFloat: ''
+  //     })
+  //   }
+  // },
 
   /**搜索 */
   searchTab: function() {
@@ -171,6 +193,27 @@ Page({
     )
   },
 
+
+  /**
+  * 获取浮动图标活动
+  */
+  httpsFloatActivity:function () {
+    var that = this;
+    var param = 'type=Article_Float&baiduMapNo=' + app.globalData.curCityCode;
+    app.httpsDataGet('/shop/getPhoto', param,
+      function (res) {
+        //成功
+        var objData = res.pic[0] == undefined ? {} : res.pic[0];
+        that.setData({
+          floatActivity: objData
+        });
+      },
+      function (res) {
+        //失败
+      }
+    )
+  },
+
   /**
    * 获取商品推荐
    * classAllNo   分类编码。
@@ -282,6 +325,22 @@ Page({
     this.goActivityPage(id, type, weburl);
   },
 
+  /**点击关闭浮动活动按钮 */
+  closeFloatActivityTab:function(e){
+    this.setData({
+      isShowFloat:false
+    });
+  },
+
+  /**点击浮动活动入口*/
+  floatActivityTab: function (e) {
+    var id = e.currentTarget.dataset.id;
+    var type = e.currentTarget.dataset.type;
+    var weburl = e.currentTarget.dataset.weburl;
+    this.goActivityPage(id, type, weburl);
+  },
+  
+
   /**点击推荐列表item入口*/
   renListItemTab: function(e) {
     var id = e.currentTarget.dataset.id;
@@ -343,11 +402,11 @@ Page({
   },
 
   /**点击广告图*/
-  advertTap:function(e){
-    wx.navigateTo({
-      url: '/pages/myShop/myShop'
-    })
-  },
+  // advertTap:function(e){
+  //   wx.navigateTo({
+  //     url: '/pages/myShop/myShop'
+  //   })
+  // },
 
   /**刷新定位结果显示宽度 */
   locationRefreshWidth: function() {
@@ -374,6 +433,8 @@ Page({
     this.getTodayTrafficHttps();
     //请求获取活动图
     this.httpsActivityImg();
+    //请求获取浮动活动图标
+    this.httpsFloatActivity();
     //获取商品推荐
     this.httpsRecGoods(true);
   },
@@ -431,12 +492,21 @@ Page({
       })
     }).exec();
 
-    query.select('#advert_area').boundingClientRect(function (rect) {
-      var advertHeigth = rect.width * 0.21;
-      that.setData({
-        advertHeigth: advertHeigth + 'px'
-      })
-    }).exec();
+    // query.select('#advert_area').boundingClientRect(function (rect) {
+    //   var advertHeigth = rect.width * 0.21;
+    //   that.setData({
+    //     advertHeigth: advertHeigth + 'px'
+    //   })
+    // }).exec();
+    // query.select('.body-bg').boundingClientRect(function (rect) {
+    //   var height = rect.height;
+    //   that.setData({
+    //     pageHeight: height
+    //   })
+    // }).exec();
+
+
+   
   },
 
   /**

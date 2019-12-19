@@ -106,6 +106,12 @@
       </view>
       <view class='shop-info-item'>
         <view class='icon'>
+          <image mode="widthFix" src='/images/shop/phone_icon.png'></image>
+        </view>
+        <view class='title' bindtap="callPhoneTap" data-number="{{shopInfo.shopPhone}}">{{shopInfo.shopPhone}}</view>
+      </view>
+      <view class='shop-info-item'>
+        <view class='icon'>
           <image mode="widthFix" src='/images/shop/serve_icon.png'></image>
         </view>
         <view class='title'>配送服务：由装小匠跑腿 提供配送服务</view>
@@ -247,7 +253,7 @@
             <view class='content'>
               <view class='list-itemName'>{{renItem.itemName}}</view>
               <view class='content-item-mt'>
-                <text class='new-price'>¥{{renItem.itemPrice}}</text>
+                <text class='new-price'>¥{{renItem.itemSalePrice}}</text>
                 <text class='old-price'> ¥{{renItem.itemPrice}} </text>
               </view>
               <view class='evaluate-area content-item-mt'>

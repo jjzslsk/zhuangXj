@@ -14,7 +14,7 @@
             <view class="content-info shop-name-item">
               <view class="shop-name">{{dataIem.shopName}}</view>
               <view class="order-state" wx:if="{{dataIem.status==0}}">待分配</view>
-              <view class="order-state" wx:elif="{{dataIem.status==1}}">待结算</view>
+              <view class="order-state" wx:elif="{{dataIem.status==1}}">待付款</view>
               <view class="order-state" wx:elif="{{dataIem.status==2}}">已发货</view>
               <view class="order-state" wx:elif="{{dataIem.status==4 || dataIem.status==5}}">订单取消</view>
             </view>

@@ -40,7 +40,7 @@
   <view class='my-order-area'>
     <view class="title-item" bindtap="selOrderAllTap" hover-class="item-click-sel-bg">
       <view class="title">我的订单</view>
-      <view class="sel-all">查看全部
+      <view class="sel-all">全部订单
         <i-icon type="enter" />
       </view>
     </view>

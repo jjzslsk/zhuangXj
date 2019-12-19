@@ -14,6 +14,10 @@
   background-color: #fff;
 }
 
+.class-swiper-area .carousel-img{
+   height: 26.6vw;
+}
+
 .page_row {
   background-color: #fff;
   height: 37px;
@@ -73,7 +77,8 @@
 
 .slide-image {
   width: 100vw;
-  height: 150px;
+  /* height: 150px; */
+  height: 26.6vw;
 }
 
 .grid-item {
@@ -98,7 +103,9 @@
 }
 
 .type-swiper-item{
-  min-height: 160px;
+   /* min-height: 100px; */
+   min-height: 40vw;
+   height: 40vw;
 }
 
 .notice-area {
@@ -107,7 +114,7 @@
 
 .view_notice_contain {
   margin-top: 5px;
-  padding:0 10px;
+  padding:0 5px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -133,7 +140,7 @@
 }
 
 .today-traffic{
-  padding: 8px 10px;
+  padding: 5px 10px;
   background-color:#FFFFFF;
   font-size: 0.8rem;
 }
@@ -153,17 +160,19 @@
   padding: 5px 10px;
   background-color: #fff;
   display: flex;
-  height: 180px;
-  max-height: 180px;
+  /* height: 180px;
+  max-height: 180px; */
+  height: 37.3vw;
+  max-height: 37.3vw;
 }
 
 .activity-area01 .activity-item01 {
-  width: 40%;
+  width: 50%;
   height: 100%;
 }
 
 .activity-area01 .activity-item-right {
-  width: 60%;
+  width: 50%;
   margin-left: 8px;
   height: 100%;
 }
@@ -314,4 +323,25 @@
   font-size:18px;
   font-weight:normal;
   border: rgb(91, 255, 167) solid 1px !important;
+}
+
+.float-activity{
+  position: fixed;
+  /* right: 8px; */
+  left: 280px;
+  bottom: 200px;
+  z-index: 99;
+  width: 3rem;
+  height: 3rem;
+  text-align: right;
+}
+
+.float-activity .float-icon{
+  width: 200%;
+  height: 200%;
+}
+.but-x{
+  position:absolute;
+  right:-2rem;
+  top:-0.4rem;
 }

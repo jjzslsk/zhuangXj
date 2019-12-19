@@ -193,7 +193,8 @@ Page({
 
           //that.smsCheckDialog.showSmsCheckDialog('确认收货',6, function (isSuccess,phone,smsCode) {
            // if (isSuccess) {
-              var param = 'orderNo=' + orderNo + '&clientId=' + +userId + '&phone=' + phone + '&verifyCode=' + smsCode;
+              //var param = 'orderNo=' + orderNo + '&clientId=' + +userId + '&phone=' + phone + '&verifyCode=' + smsCode;
+              var param = 'orderNo=' + orderNo + '&clientId=' + +userId ;
               wx.showLoading();
               app.httpsDataGet('/order/confirmOrder', param,
                 function (res) {
